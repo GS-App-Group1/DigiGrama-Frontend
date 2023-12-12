@@ -10,7 +10,7 @@ import {
   useMediaQuery,
   Button,
 } from "@chakra-ui/react";
-import AuthenticationForm from "../components/AuthenticationForm";
+// import AuthenticationForm from "../components/AuthenticationForm";
 
 type AuthPageProps = {
   signIn: () => void;

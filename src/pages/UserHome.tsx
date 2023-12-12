@@ -21,7 +21,7 @@ import { FaUser } from "react-icons/fa";
 import FormComponent from "../components/UserApply";
 import UserStatus from "../components/UserStatus";
 import { useEffect, useState } from "react";
-import { useAuthContext } from "@asgardeo/auth-react";
+// import { useAuthContext } from "@asgardeo/auth-react";
 import axios from "axios";
 
 type UserHomePageProps = {
@@ -35,7 +35,7 @@ interface ApiResponse {
 }
 
 const UserHomePage = ({ signOut, username, nic }: UserHomePageProps) => {
-  const { getAccessToken } = useAuthContext();
+  // const { getAccessToken } = useAuthContext();
 
   // useEffect(() => {
   //   getAccessToken()
