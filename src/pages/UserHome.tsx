@@ -49,6 +49,10 @@ const UserHomePage = ({ signOut, username, nic }: UserHomePageProps) => {
   const [isStatus, setIsStatus] = useState(false);
   const [isHelp, setIsHelp] = useState(false);
   const [gs, setGs] = useState("");
+  const [address, setAddress] = useState("");
+  const [occupation, setOccupation] = useState("");
+  const [civilStatus, setCivilStatus] = useState("");
+  const [reason, setReason] = useState("");
 
   useEffect(() => {
     const fetchGS = async () => {
@@ -240,8 +244,16 @@ const UserHomePage = ({ signOut, username, nic }: UserHomePageProps) => {
           {isApply ? (
             <FormComponent
               isMobile={!isLargerThan768}
-              NIC={nic}
+              nic={nic}
               gsDivision={gs}
+              address={address}
+              setAddress={setAddress}
+              occupation={occupation}
+              setOccupation={setOccupation}
+              civilStatus={civilStatus}
+              setCivilStatus={setCivilStatus}
+              reason={reason}
+              setReason={setReason}
             />
           ) : (
             <UserStatus isMobile={!isLargerThan768} />

@@ -11,43 +11,53 @@ import {
 } from "@chakra-ui/react";
 import { postRequest } from "../data/api";
 import axios from "axios";
-import { useEffect } from "react";
-import { getAddress } from "../data/api";
+// import { useEffect } from "react";
+// import { getAddress } from "../data/api";
 
 interface FormComponentProps {
   isMobile: boolean;
-  NIC: string;
+  nic: string;
   gsDivision: string;
+  address: string;
+  occupation: string;
+  civilStatus: string;
+  reason: string;
+  setAddress: (arg: string) => void;
+  setOccupation: (arg: string) => void;
+  setCivilStatus: (arg: string) => void;
+  setReason: (arg: string) => void;
 }
 
-interface AddressResponseItem {
-  address: string;
-  id: string;
-  nic: string;
-}
+// interface AddressResponseItem {
+//   address: string;
+//   id: string;
+//   nic: string;
+// }
 
 const FormComponent: React.FC<FormComponentProps> = ({
   isMobile,
-  NIC,
   gsDivision,
+  address,
+  setAddress,
+  nic,
+  occupation,
+  setOccupation,
+  civilStatus,
+  setCivilStatus,
+  reason,
+  setReason,
 }) => {
   const fontSize = isMobile ? "2xl" : "md";
 
-  // State variables for each input field with types
-  const [nic, setNic] = useState<string>(NIC);
-  const [address, setAddress] = useState<string>("");
-  const [civilStatus, setCivilStatus] = useState<string>("");
-  const [occupation, setOccupation] = useState<string>("");
-  const [reason, setReason] = useState<string>("");
-  const [nicPhoto, setNicPhoto] = useState<File | null>(null);
+  // const [nicPhoto, setNicPhoto] = useState<File | null>(null);
   // const [res, setRes] = useState<boolean>(true);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const toast = useToast();
 
   // Event handlers with type annotations
-  const handleNicChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setNic(e.target.value);
+  // const handleNicChange = (e: ChangeEvent<HTMLInputElement>) =>
+  //   setNic(e.target.value);
   const handleAddressChange = (e: ChangeEvent<HTMLInputElement>) =>
     setAddress(e.target.value);
   const handleCivilStatusChange = (e: ChangeEvent<HTMLInputElement>) =>
@@ -56,35 +66,36 @@ const FormComponent: React.FC<FormComponentProps> = ({
     setOccupation(e.target.value);
   const handleReasonChange = (e: ChangeEvent<HTMLInputElement>) =>
     setReason(e.target.value);
-  const handleNicPhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setNicPhoto(e.target.files[0]);
-    }
-  };
+  // const handleNicPhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   if (e.target.files) {
+  //     setNicPhoto(e.target.files[0]);
+  //   }
+  // };
 
-  useEffect(() => {
-    const fetchAddress = async () => {
-      const API_KEY: string = getAddress.key;
-      const url: string = getAddress.url;
+  // useEffect(() => {
+  //   const fetchAddress = async () => {
+  //     const API_KEY: string = getAddress.key;
+  //     const url: string = getAddress.url;
 
-      try {
-        const response = await axios.get<AddressResponseItem[]>(url, {
-          headers: {
-            accept: "application/json",
-            "API-Key": API_KEY,
-          },
-          params: {
-            nic: nic,
-          },
-        });
-        if (address === "") setAddress(response.data[0].address || "Not Found");
-      } catch (error) {
-        console.error("Error fetching data: ", error);
-      }
-    };
+  //     try {
+  //       const response = await axios.get<AddressResponseItem[]>(url, {
+  //         headers: {
+  //           accept: "application/json",
+  //           "API-Key": API_KEY,
+  //         },
+  //         params: {
+  //           nic: nic,
+  //         },
+  //       });
+  //       if (address === "") setAddress(response.data[0].address || "Not Found");
 
-    fetchAddress();
-  }, [address]);
+  //     } catch (error) {
+  //       console.error("Error fetching data: ", error);
+  //     }
+  //   };
+
+  //   fetchAddress();
+  // }, [address]);
 
   // const handleApply = async () => {
   //   try {
@@ -195,7 +206,6 @@ const FormComponent: React.FC<FormComponentProps> = ({
             placeholder="Enter your NIC"
             fontSize={fontSize}
             value={nic}
-            onChange={handleNicChange}
           />
         </FormControl>
         <FormControl id="address">
@@ -250,11 +260,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
           <FormLabel fontSize={fontSize}>
             <b>Upload NIC Photo</b>
           </FormLabel>
-          <Input
-            type="file"
-            fontSize={fontSize}
-            onChange={handleNicPhotoChange}
-          />
+          <Input type="file" fontSize={fontSize} />
         </FormControl>
         <Button
           colorScheme="green"
