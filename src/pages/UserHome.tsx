@@ -23,12 +23,61 @@ import UserStatus from "../components/UserStatus";
 import { useEffect, useState } from "react";
 // import { useAuthContext } from "@asgardeo/auth-react";
 import axios from "axios";
-import { gsDivisionData } from "../data/api";
+import { identityAPI, mainAPI } from "../data/api";
 
 type UserHomePageProps = {
   signOut: () => void;
   username: string;
   nic: string;
+};
+
+interface UserRequest {
+  _id: string;
+  nic: string;
+  address: string;
+  civilStatus: string;
+  presentOccupation: string;
+  reason: string;
+  gsNote: string;
+  gsDivision: string;
+  requestTime: string;
+  status: string;
+}
+
+// If your response is an array of these objects:
+type UserRequestResponse = UserRequest[];
+
+const fetchUserRequestForNIC = async (
+  nic: string
+): Promise<UserRequestResponse> => {
+  const API_URL = mainAPI.urls.getRequestForNIC;
+  const API_KEY = mainAPI.key;
+
+  try {
+    const response = await axios.get<UserRequestResponse>(
+      `${API_URL}?nic=${nic}`,
+      {
+        headers: {
+          accept: "application/json",
+          "API-Key": API_KEY,
+        },
+      }
+    );
+
+    return response.data; // This will be an array of UserRequest objects
+  } catch (error) {
+    console.error("Error fetching user request data:", error);
+    throw error; // Rethrow the error for handling in calling code
+  }
+};
+
+type formData = {
+  address: string;
+  occupation: string;
+  civilStatus: string;
+  reason: string;
+  gsNote: string;
+  status: string;
 };
 
 const UserHomePage = ({ signOut, username, nic }: UserHomePageProps) => {
@@ -49,15 +98,56 @@ const UserHomePage = ({ signOut, username, nic }: UserHomePageProps) => {
   const [isStatus, setIsStatus] = useState(false);
   const [isHelp, setIsHelp] = useState(false);
   const [gs, setGs] = useState("");
-  const [address, setAddress] = useState("");
-  const [occupation, setOccupation] = useState("");
-  const [civilStatus, setCivilStatus] = useState("");
-  const [reason, setReason] = useState("");
+  const [formdata, setFormData] = useState<formData>({
+    address: "",
+    occupation: "",
+    civilStatus: "",
+    reason: "",
+    gsNote: "",
+    status: "",
+  });
+
+  const [statusdata, setstatusData] = useState<formData>({
+    address: "",
+    occupation: "",
+    civilStatus: "",
+    reason: "",
+    gsNote: "",
+    status: "",
+  });
+
+  const [userRequests, setUserRequests] = useState<UserRequestResponse>([]);
+
+  useEffect(() => {
+    fetchUserRequestForNIC(nic)
+      .then((data) => {
+        setUserRequests(data);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch user requests:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (userRequests.length > 0) {
+      console.log(userRequests);
+      if (userRequests[0].status === "pending") {
+        setFormData({
+          address: userRequests[0].address,
+          occupation: userRequests[0].presentOccupation,
+          civilStatus: userRequests[0].civilStatus,
+          reason: userRequests[0].reason,
+          gsNote: userRequests[0].gsNote,
+          status: userRequests[0].status,
+        });
+      }
+    }
+  }, [userRequests]); // Dependency array to ensure this runs only when userRequests changes
 
   useEffect(() => {
     const fetchGS = async () => {
-      const API_KEY: string = gsDivisionData.key;
-      const url: string = gsDivisionData.url;
+      const API_KEY: string = identityAPI.key;
+      const url: string = identityAPI.urls.getGS;
 
       try {
         const response = await axios.get<string>(url, {
@@ -244,19 +334,45 @@ const UserHomePage = ({ signOut, username, nic }: UserHomePageProps) => {
           {isApply ? (
             <FormComponent
               isMobile={!isLargerThan768}
+              status={formdata.status}
               nic={nic}
               gsDivision={gs}
-              address={address}
-              setAddress={setAddress}
-              occupation={occupation}
-              setOccupation={setOccupation}
-              civilStatus={civilStatus}
-              setCivilStatus={setCivilStatus}
-              reason={reason}
-              setReason={setReason}
+              address={formdata.address}
+              setAddress={(address) => {
+                setFormData({
+                  ...formdata,
+                  address: address,
+                });
+              }}
+              occupation={formdata.occupation}
+              setOccupation={(occupation) => {
+                setFormData({
+                  ...formdata,
+                  occupation: occupation,
+                });
+              }}
+              civilStatus={formdata.civilStatus}
+              setCivilStatus={(civilStatus) => {
+                setFormData({
+                  ...formdata,
+                  civilStatus: civilStatus,
+                });
+              }}
+              reason={formdata.reason}
+              setReason={(reason) => {
+                setFormData({
+                  ...formdata,
+                  reason: reason,
+                });
+              }}
             />
           ) : (
-            <UserStatus isMobile={!isLargerThan768} />
+            <UserStatus
+              isMobile={!isLargerThan768}
+              nic={nic}
+              statusdata={statusdata}
+              setstatusData={setstatusData}
+            />
           )}
         </Box>
       </Flex>

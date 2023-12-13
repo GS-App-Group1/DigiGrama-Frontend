@@ -9,7 +9,7 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
-import { postRequest } from "../data/api";
+import { mainAPI } from "../data/api";
 import axios from "axios";
 // import { useEffect } from "react";
 // import { getAddress } from "../data/api";
@@ -22,6 +22,7 @@ interface FormComponentProps {
   occupation: string;
   civilStatus: string;
   reason: string;
+  status: string;
   setAddress: (arg: string) => void;
   setOccupation: (arg: string) => void;
   setCivilStatus: (arg: string) => void;
@@ -46,6 +47,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
   setCivilStatus,
   reason,
   setReason,
+  status,
 }) => {
   const fontSize = isMobile ? "2xl" : "md";
 
@@ -146,10 +148,10 @@ const FormComponent: React.FC<FormComponentProps> = ({
       //     isClosable: true,
       //   });
       // }, 2000);
-      const response = await axios.post(
-        postRequest.url,
+      await axios.post(
+        mainAPI.urls.postRequest,
         {
-          _id: "987123", // Replace with actual data if needed
+          _id: new Date().toISOString(), // Replace with actual data if needed
           address: address,
           civilStatus: civilStatus,
           gsDivision: gsDivision, // Replace with actual data if needed
@@ -164,20 +166,22 @@ const FormComponent: React.FC<FormComponentProps> = ({
           headers: {
             accept: "*/*",
             "Content-Type": "application/json",
-            "API-Key": postRequest.key, // Replace with your actual API key
+            "API-Key": mainAPI.key, // Replace with your actual API key
           },
         }
       );
-
-      console.log(response.data);
       setIsLoading(false);
       toast({
         title: "Application Successful",
-        description: "Your application has been submitted successfully.",
+        description: `Your application has been ${
+          status === "pending" ? "updated" : "submitted"
+        } successfully.`,
         status: "success",
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
       });
+      // reload the page
+      // window.location.reload();
     } catch (error) {
       setIsLoading(false);
       console.error("Error making the request:", error);
@@ -185,7 +189,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
         title: "Application Failed",
         description: "There was an error submitting your application.",
         status: "error",
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
       });
     }
@@ -263,16 +267,17 @@ const FormComponent: React.FC<FormComponentProps> = ({
           <Input type="file" fontSize={fontSize} />
         </FormControl>
         <Button
-          colorScheme="green"
+          colorScheme={status === "pending" ? "blue" : "green"}
           px={16}
           py={6}
+          paddingBottom={8}
           fontSize="3xl"
           _focus={{ outline: "none" }}
           onClick={handleApplyTest}
           isLoading={isLoading}
           loadingText="Submitting"
         >
-          Apply
+          {status === "pending" ? "Update" : "Apply"}
         </Button>
       </VStack>
     </Box>

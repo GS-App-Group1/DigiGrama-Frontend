@@ -9,7 +9,7 @@ const config = {
   signOutRedirectURL: "http://localhost:5173",
   clientID: "b0TkHLKo_A3MtQxxLWT2spMw6m8a",
   baseUrl: "https://api.asgardeo.io/t/interntest",
-  scope: ["openid", "profile", "app_roles", "groups", "phone"],
+  scope: ["openid", "profile", "app_roles", "groups", "phone", "email"],
 };
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
