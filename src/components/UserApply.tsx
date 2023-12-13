@@ -276,6 +276,12 @@ const FormComponent: React.FC<FormComponentProps> = ({
           onClick={handleApplyTest}
           isLoading={isLoading}
           loadingText="Submitting"
+          isDisabled={
+            address === "" ||
+            occupation === "" ||
+            reason === "" ||
+            civilStatus === ""
+          }
         >
           {status === "pending" ? "Update" : "Apply"}
         </Button>

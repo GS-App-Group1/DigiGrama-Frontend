@@ -148,7 +148,9 @@ const UserStatus: React.FC<UserStatusProps> = ({
           <b>Current Status</b>
         </h1>
         <FormControl id="nic">
-          <FormLabel fontSize={fontSize}>NIC</FormLabel>
+          <FormLabel fontSize={fontSize}>
+            <b>NIC</b>
+          </FormLabel>
           <Input
             type="text"
             placeholder="Enter your NIC"
@@ -158,7 +160,9 @@ const UserStatus: React.FC<UserStatusProps> = ({
           />
         </FormControl>
         <FormControl id="address">
-          <FormLabel fontSize={fontSize}>Address</FormLabel>
+          <FormLabel fontSize={fontSize}>
+            <b>Address</b>
+          </FormLabel>
           <Input
             type="text"
             placeholder="Enter your address"
@@ -168,7 +172,9 @@ const UserStatus: React.FC<UserStatusProps> = ({
           />
         </FormControl>
         <FormControl id="civilStatus">
-          <FormLabel fontSize={fontSize}>Civil Status</FormLabel>
+          <FormLabel fontSize={fontSize}>
+            <b>Civil Status</b>
+          </FormLabel>
           <Input
             type="text"
             placeholder="Enter your civil status"
@@ -178,7 +184,9 @@ const UserStatus: React.FC<UserStatusProps> = ({
           />
         </FormControl>
         <FormControl id="occupation">
-          <FormLabel fontSize={fontSize}>Present Occupation</FormLabel>
+          <FormLabel fontSize={fontSize}>
+            <b>Present Occupation</b>
+          </FormLabel>
           <Input
             type="text"
             placeholder="Enter your occupation"
@@ -188,7 +196,9 @@ const UserStatus: React.FC<UserStatusProps> = ({
           />
         </FormControl>
         <FormControl id="reason">
-          <FormLabel fontSize={fontSize}>Reason</FormLabel>
+          <FormLabel fontSize={fontSize}>
+            <b>Reason</b>
+          </FormLabel>
           <Input
             type="text"
             placeholder="Enter the reason"
@@ -199,7 +209,9 @@ const UserStatus: React.FC<UserStatusProps> = ({
         </FormControl>
         {statusdata.gsNote.length > 0 && (
           <FormControl id="nicPhoto">
-            <FormLabel fontSize={fontSize}>Note from Grama Sevaka</FormLabel>
+            <FormLabel fontSize={fontSize}>
+              <b>Note from Grama Sevaka</b>
+            </FormLabel>
             <Input
               type="text"
               placeholder="Notes"
