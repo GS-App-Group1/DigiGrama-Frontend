@@ -80,6 +80,7 @@ const Home: React.FC = () => {
     })();
   }, [state.isAuthenticated, getBasicUserInfo, getIDToken, getDecodedIDToken]);
 
+  console.log(derivedAuthenticationState);
   const payload = derivedAuthenticationState.authenticateResponse;
   let role = "";
   let username = "";

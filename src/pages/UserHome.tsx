@@ -23,16 +23,13 @@ import UserStatus from "../components/UserStatus";
 import { useEffect, useState } from "react";
 // import { useAuthContext } from "@asgardeo/auth-react";
 import axios from "axios";
+import { gsDivisionData } from "../data/api";
 
 type UserHomePageProps = {
   signOut: () => void;
   username: string;
   nic: string;
 };
-
-interface ApiResponse {
-  gsDivision: string;
-}
 
 const UserHomePage = ({ signOut, username, nic }: UserHomePageProps) => {
   // const { getAccessToken } = useAuthContext();
@@ -55,13 +52,12 @@ const UserHomePage = ({ signOut, username, nic }: UserHomePageProps) => {
 
   useEffect(() => {
     const fetchGS = async () => {
-      const API_KEY: string =
-        "eyJraWQiOiJnYXRld2F5X2NlcnRpZmljYXRlX2FsaWFzIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJiNGI1ZGFmMC1jZThjLTRiODktODFjZC1jMmMyNjNiYzMyODBAY2FyYm9uLnN1cGVyIiwiYXVkIjoiY2hvcmVvOmRlcGxveW1lbnQ6c2FuZGJveCIsImlzcyI6Imh0dHBzOlwvXC9zdHMuY2hvcmVvLmRldjo0NDNcL2FwaVwvYW1cL3B1Ymxpc2hlclwvdjJcL2FwaXNcL2ludGVybmFsLWtleSIsImtleXR5cGUiOiJTQU5EQk9YIiwic3Vic2NyaWJlZEFQSXMiOlt7InN1YnNjcmliZXJUZW5hbnREb21haW4iOm51bGwsIm5hbWUiOiJJZGVudGl0eUFQSSAtIElkZW50aXR5QVBJIiwiY29udGV4dCI6IlwvYmZjNDNlMmItZDJjZi00NTE0LWIwZjQtZmI0OWQ5MzkxNjQzXC9jcWhnXC9pZGVudGl0eWFwaVwvaWRlbnRpdHlhcGktYjNjXC92MS4wIiwicHVibGlzaGVyIjoiY2hvcmVvX3Byb2RfYXBpbV9hZG1pbiIsInZlcnNpb24iOiJ2MS4wIiwic3Vic2NyaXB0aW9uVGllciI6bnVsbH1dLCJleHAiOjE3MDIzNTgwMDYsInRva2VuX3R5cGUiOiJJbnRlcm5hbEtleSIsImlhdCI6MTcwMjM1NzQwNiwianRpIjoiNDcyMjhjMjctMmEyMi00N2RlLTgzMWQtMjg0MGI1YTg4OGU4In0.eijyc6D68TlDe2D8kGwOFQmWbPcAeVUPnvWe8TpWYB2lNlfjYjqKCIBatemvS5d4zalLxWvjXjFD-Fnz9baHKd2h64x3wtZjhKfLKTxuH-XwuAWArgXVBFxLZPkfassRfeBA4QJs5Gw6Uuaz2EcuX873MF8Rzdk0xY03t2ij1IM-hcC7v27FkrA-ohfeN_wtpd6G4kE7LfGyJjTa-qhOSH8mCEdcnxfsAH1fR9u3glq6jP4I3hgorDAQmKptHKvXQl3cXffboteJ9kNU-JyD3Rtp4X09dh1F-MKKZCddVcOBz7WSdOy2A_kD_RbolcaN1ujxbBHjXkmegpb9jecFXvI5zHXZdlYHs8oaqzJU7jOotLiGdZ08FN0tI3dOMDSoFS3Q9r37xflqdK8GmOm0A0rybDhksSSIqxfWMvKEYvgZkS4419xgu7Z8aqmn3JpOsY9YldNR7iOZ3dw9Vs5Au2buBo_q8jEepdXfu2LBrwi1D27akXjDVHNAozaPfNJYSZN_Iq_1qsHkWPj3QcN55So7WuLe_7QwYD6AfYyS9AqQaZ8ySf5bbj59NP7d3lpJLAiwyO_Ww3VJJj9F4SVD4zmD7n6uZijHi5j1oINCFp6LaHnyQfhiip4QuyWLvyggjxwBPJSFkbB1z8V2TSgfyDvIvh7sEe6GzR9vuPAHYys";
-      const url: string =
-        "https://bfc43e2b-d2cf-4514-b0f4-fb49d9391643-dev.e1-us-east-azure.choreoapis.dev/cqhg/identityapi/identityapi-b3c/v1.0/getIdentityFromNIC/";
+      const API_KEY: string = gsDivisionData.key;
+      const url: string = gsDivisionData.url;
 
       try {
-        const response = await axios.get<ApiResponse[]>(url, {
+        console.log("fetching");
+        const response = await axios.get<string>(url, {
           headers: {
             accept: "application/json",
             "API-Key": API_KEY,
@@ -70,7 +66,7 @@ const UserHomePage = ({ signOut, username, nic }: UserHomePageProps) => {
             nic: nic,
           },
         });
-        setGs(response.data[0]?.gsDivision || "Not Found");
+        setGs(response.data || "Not Found");
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
@@ -243,7 +239,11 @@ const UserHomePage = ({ signOut, username, nic }: UserHomePageProps) => {
           _hover={{ transform: "scale(0.95)" }}
         >
           {isApply ? (
-            <FormComponent isMobile={!isLargerThan768} />
+            <FormComponent
+              isMobile={!isLargerThan768}
+              NIC={nic}
+              gsDivision={gs}
+            />
           ) : (
             <UserStatus isMobile={!isLargerThan768} />
           )}
