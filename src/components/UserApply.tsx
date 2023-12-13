@@ -77,7 +77,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
             nic: nic,
           },
         });
-        setAddress(response.data[0].address || "Not Found");
+        if (address === "") setAddress(response.data[0].address || "Not Found");
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
