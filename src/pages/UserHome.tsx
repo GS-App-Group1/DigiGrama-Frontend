@@ -56,7 +56,6 @@ const UserHomePage = ({ signOut, username, nic }: UserHomePageProps) => {
       const url: string = gsDivisionData.url;
 
       try {
-        console.log("fetching");
         const response = await axios.get<string>(url, {
           headers: {
             accept: "application/json",

@@ -11,11 +11,19 @@ import {
 } from "@chakra-ui/react";
 import { postRequest } from "../data/api";
 import axios from "axios";
+import { useEffect } from "react";
+import { getAddress } from "../data/api";
 
 interface FormComponentProps {
   isMobile: boolean;
   NIC: string;
   gsDivision: string;
+}
+
+interface AddressResponseItem {
+  address: string;
+  id: string;
+  nic: string;
 }
 
 const FormComponent: React.FC<FormComponentProps> = ({
@@ -32,7 +40,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
   const [occupation, setOccupation] = useState<string>("");
   const [reason, setReason] = useState<string>("");
   const [nicPhoto, setNicPhoto] = useState<File | null>(null);
-  const [res, setRes] = useState<boolean>(true);
+  // const [res, setRes] = useState<boolean>(true);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const toast = useToast();
@@ -53,6 +61,30 @@ const FormComponent: React.FC<FormComponentProps> = ({
       setNicPhoto(e.target.files[0]);
     }
   };
+
+  useEffect(() => {
+    const fetchAddress = async () => {
+      const API_KEY: string = getAddress.key;
+      const url: string = getAddress.url;
+
+      try {
+        const response = await axios.get<AddressResponseItem[]>(url, {
+          headers: {
+            accept: "application/json",
+            "API-Key": API_KEY,
+          },
+          params: {
+            nic: nic,
+          },
+        });
+        setAddress(response.data[0].address || "Not Found");
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+
+    fetchAddress();
+  }, [address]);
 
   // const handleApply = async () => {
   //   try {
@@ -128,7 +160,6 @@ const FormComponent: React.FC<FormComponentProps> = ({
 
       console.log(response.data);
       setIsLoading(false);
-      setRes(true);
       toast({
         title: "Application Successful",
         description: "Your application has been submitted successfully.",
