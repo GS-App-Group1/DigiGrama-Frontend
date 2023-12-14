@@ -29,6 +29,7 @@ type UserHomePageProps = {
   signOut: () => void;
   username: string;
   nic: string;
+  email: string;
 };
 
 interface UserRequest {
@@ -48,14 +49,15 @@ interface UserRequest {
 type UserRequestResponse = UserRequest[];
 
 const fetchUserRequestForNIC = async (
-  nic: string
+  nic: string,
+  email: string
 ): Promise<UserRequestResponse> => {
   const API_URL = mainAPI.urls.getRequestForNIC;
   const API_KEY = mainAPI.key;
 
   try {
     const response = await axios.get<UserRequestResponse>(
-      `${API_URL}?nic=${nic}`,
+      `${API_URL}?nic=${nic}&email=${email}`, // Added email as a query parameter
       {
         headers: {
           accept: "application/json",
@@ -80,7 +82,7 @@ type formData = {
   status: string;
 };
 
-const UserHomePage = ({ signOut, username, nic }: UserHomePageProps) => {
+const UserHomePage = ({ signOut, username, nic, email }: UserHomePageProps) => {
   // const { getAccessToken } = useAuthContext();
 
   // useEffect(() => {
@@ -119,7 +121,7 @@ const UserHomePage = ({ signOut, username, nic }: UserHomePageProps) => {
   const [userRequests, setUserRequests] = useState<UserRequestResponse>([]);
 
   useEffect(() => {
-    fetchUserRequestForNIC(nic)
+    fetchUserRequestForNIC(nic, email)
       .then((data) => {
         setUserRequests(data);
       })
@@ -131,14 +133,19 @@ const UserHomePage = ({ signOut, username, nic }: UserHomePageProps) => {
   useEffect(() => {
     if (userRequests.length > 0) {
       console.log(userRequests);
-      if (userRequests[0].status === "pending") {
+      // Find the first request with a status of "pending"
+      const pendingRequest = userRequests.find(
+        (request) => request.status === "pending"
+      );
+
+      if (pendingRequest) {
         setFormData({
-          address: userRequests[0].address,
-          occupation: userRequests[0].presentOccupation,
-          civilStatus: userRequests[0].civilStatus,
-          reason: userRequests[0].reason,
-          gsNote: userRequests[0].gsNote,
-          status: userRequests[0].status,
+          address: pendingRequest.address,
+          occupation: pendingRequest.presentOccupation,
+          civilStatus: pendingRequest.civilStatus,
+          reason: pendingRequest.reason,
+          gsNote: pendingRequest.gsNote,
+          status: pendingRequest.status,
         });
       }
     }
@@ -336,6 +343,7 @@ const UserHomePage = ({ signOut, username, nic }: UserHomePageProps) => {
               isMobile={!isLargerThan768}
               status={formdata.status}
               nic={nic}
+              email={email}
               gsDivision={gs}
               address={formdata.address}
               setAddress={(address) => {
@@ -370,6 +378,7 @@ const UserHomePage = ({ signOut, username, nic }: UserHomePageProps) => {
             <UserStatus
               isMobile={!isLargerThan768}
               nic={nic}
+              email={email}
               statusdata={statusdata}
               setstatusData={setstatusData}
             />

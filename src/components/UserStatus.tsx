@@ -27,14 +27,15 @@ interface UserRequest {
 type UserRequestResponse = UserRequest[];
 
 const fetchUserRequestForNIC = async (
-  nic: string
+  nic: string,
+  email: string
 ): Promise<UserRequestResponse> => {
   const API_URL = mainAPI.urls.getRequestForNIC;
   const API_KEY = mainAPI.key;
 
   try {
     const response = await axios.get<UserRequestResponse>(
-      `${API_URL}?nic=${nic}`,
+      `${API_URL}?nic=${nic}&email=${email}`, // Added email as a query parameter
       {
         headers: {
           accept: "application/json",
@@ -62,6 +63,7 @@ type formData = {
 interface UserStatusProps {
   isMobile: boolean;
   nic: string;
+  email: string;
   statusdata: formData;
   setstatusData: (data: formData) => void;
 }
@@ -69,6 +71,7 @@ interface UserStatusProps {
 const UserStatus: React.FC<UserStatusProps> = ({
   isMobile,
   nic,
+  email,
   statusdata,
   setstatusData,
 }) => {
@@ -85,7 +88,7 @@ const UserStatus: React.FC<UserStatusProps> = ({
   // });
 
   useEffect(() => {
-    fetchUserRequestForNIC(nic)
+    fetchUserRequestForNIC(nic, email)
       .then((data) => {
         setUserRequests(data);
       })
@@ -96,14 +99,21 @@ const UserStatus: React.FC<UserStatusProps> = ({
 
   useEffect(() => {
     if (userRequests.length > 0) {
-      console.log(userRequests);
+      // Find the request with the latest timestamp
+      const latestRequest = userRequests.reduce((latest, current) => {
+        return new Date(latest.requestTime) > new Date(current.requestTime)
+          ? latest
+          : current;
+      });
+
+      console.log(latestRequest);
       setstatusData({
-        address: userRequests[0].address,
-        occupation: userRequests[0].presentOccupation,
-        civilStatus: userRequests[0].civilStatus,
-        reason: userRequests[0].reason,
-        gsNote: userRequests[0].gsNote,
-        status: userRequests[0].status,
+        address: latestRequest.address,
+        occupation: latestRequest.presentOccupation,
+        civilStatus: latestRequest.civilStatus,
+        reason: latestRequest.reason,
+        gsNote: latestRequest.gsNote,
+        status: latestRequest.status,
       });
     }
   }, [userRequests]); // Dependency array to ensure this runs only when userRequests changes

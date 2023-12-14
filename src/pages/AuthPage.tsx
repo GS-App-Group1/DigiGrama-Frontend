@@ -9,8 +9,11 @@ import {
   Stack,
   useMediaQuery,
   Button,
+  HStack,
+  Icon,
 } from "@chakra-ui/react";
 // import AuthenticationForm from "../components/AuthenticationForm";
+import { FaCheckCircle } from "react-icons/fa";
 
 type AuthPageProps = {
   signIn: () => void;
@@ -90,6 +93,20 @@ const AuthPage = ({ signIn }: AuthPageProps) => {
           transform={scale}
           _hover={{ transform: scale }}
         >
+          <VStack spacing={3} alignItems="flex-start">
+            <HStack>
+              <Icon as={FaCheckCircle} color="green.500" />
+              <Text>Convenient Access</Text>
+            </HStack>
+            <HStack>
+              <Icon as={FaCheckCircle} color="green.500" />
+              <Text>Faster Service</Text>
+            </HStack>
+            <HStack>
+              <Icon as={FaCheckCircle} color="green.500" />
+              <Text>Get Help Anytime</Text>
+            </HStack>
+          </VStack>
           <Button
             colorScheme="green"
             onClick={() => signIn()}

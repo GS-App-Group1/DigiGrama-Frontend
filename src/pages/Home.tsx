@@ -85,6 +85,7 @@ const Home: React.FC = () => {
   let role = "";
   let username = "";
   let nic = "";
+  let email = "";
   if (payload) {
     if (payload.groups) {
       role = payload.groups.toString();
@@ -96,6 +97,9 @@ const Home: React.FC = () => {
     }
     if (payload.NIC) {
       nic = payload.NIC;
+    }
+    if (payload.email) {
+      email = payload.email;
     }
   }
 
@@ -123,7 +127,12 @@ const Home: React.FC = () => {
             path="/user-home"
             element={
               role === "Users" ? (
-                <UserHomePage signOut={signOut} username={username} nic={nic} />
+                <UserHomePage
+                  signOut={signOut}
+                  username={username}
+                  nic={nic}
+                  email={email}
+                />
               ) : null
             }
           />

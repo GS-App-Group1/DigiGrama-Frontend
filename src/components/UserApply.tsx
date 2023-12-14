@@ -23,6 +23,7 @@ interface FormComponentProps {
   civilStatus: string;
   reason: string;
   status: string;
+  email: string;
   setAddress: (arg: string) => void;
   setOccupation: (arg: string) => void;
   setCivilStatus: (arg: string) => void;
@@ -41,6 +42,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
   address,
   setAddress,
   nic,
+  email,
   occupation,
   setOccupation,
   civilStatus,
@@ -130,57 +132,134 @@ const FormComponent: React.FC<FormComponentProps> = ({
   //   }
   // };
 
+  // const handleApplyTest = async () => {
+  //   setIsLoading(true);
+  //   try {
+  //     // Your API call logic here
+  //     // After the API call
+  //     // add a timer of 2 seconds to simulate the loading state
+  //     // Remove this timer when you add the actual API call
+  //     // setTimeout(() => {
+  //     //   setIsLoading(false);
+  //     //   setRes(true);
+  //     //   toast({
+  //     //     title: "Application Successful",
+  //     //     description: "Your application has been submitted successfully.",
+  //     //     status: "success",
+  //     //     duration: 5000,
+  //     //     isClosable: true,
+  //     //   });
+  //     // }, 2000);
+  //     await axios.post(
+  //       mainAPI.urls.postRequest,
+  //       {
+  //         _id: new Date().toISOString(), // Replace with actual data if needed
+  //         address: address,
+  //         civilStatus: civilStatus,
+  //         gsDivision: gsDivision, // Replace with actual data if needed
+  //         gsNote: "", // Replace with actual data if needed
+  //         nic: nic,
+  //         presentOccupation: occupation,
+  //         reason: reason,
+  //         requestTime: new Date().toISOString(), // Replace with actual data if needed
+  //         status: "pending", // Replace with actual data if needed
+  //         email: email,
+  //       },
+  //       {
+  //         headers: {
+  //           accept: "*/*",
+  //           "Content-Type": "application/json",
+  //           "API-Key": mainAPI.key, // Replace with your actual API key
+  //         },
+  //       }
+  //     );
+  //     setIsLoading(false);
+  //     toast({
+  //       title: "Application Successful",
+  //       description: `Your application has been ${
+  //         status === "pending" ? "updated" : "submitted"
+  //       } successfully.`,
+  //       status: "success",
+  //       duration: 3000,
+  //       isClosable: true,
+  //     });
+  //     // reload the page
+  //     // window.location.reload();
+  //   } catch (error) {
+  //     setIsLoading(false);
+  //     console.error("Error making the request:", error);
+  //     toast({
+  //       title: "Application Failed",
+  //       description: "There was an error submitting your application.",
+  //       status: "error",
+  //       duration: 2000,
+  //       isClosable: true,
+  //     });
+  //   }
+  // };
+
   const handleApplyTest = async () => {
     setIsLoading(true);
+
     try {
-      // Your API call logic here
-      // After the API call
-      // add a timer of 2 seconds to simulate the loading state
-      // Remove this timer when you add the actual API call
-      // setTimeout(() => {
-      //   setIsLoading(false);
-      //   setRes(true);
-      //   toast({
-      //     title: "Application Successful",
-      //     description: "Your application has been submitted successfully.",
-      //     status: "success",
-      //     duration: 5000,
-      //     isClosable: true,
-      //   });
-      // }, 2000);
-      await axios.post(
-        mainAPI.urls.postRequest,
-        {
-          _id: new Date().toISOString(), // Replace with actual data if needed
-          address: address,
-          civilStatus: civilStatus,
-          gsDivision: gsDivision, // Replace with actual data if needed
-          gsNote: "", // Replace with actual data if needed
-          nic: nic,
-          presentOccupation: occupation,
-          reason: reason,
-          requestTime: new Date().toISOString(), // Replace with actual data if needed
-          status: "pending", // Replace with actual data if needed
-        },
-        {
+      const requestBody = {
+        _id: new Date().toISOString(), // Replace with actual data if needed
+        address: address,
+        civilStatus: civilStatus,
+        gsDivision: gsDivision, // Replace with actual data if needed
+        gsNote: "", // Replace with actual data if needed
+        nic: nic,
+        presentOccupation: occupation,
+        reason: reason,
+        requestTime: new Date().toISOString(), // Replace with actual data if needed
+        status: "pending", // Replace with actual data if needed
+        email: email,
+      };
+
+      if (status === "pending") {
+        // PUT request for updating user request
+        await axios.put(
+          `${mainAPI.urls.updateRequest}?nic=${nic}&email=${encodeURIComponent(
+            email
+          )}&address=${encodeURIComponent(
+            address
+          )}&civil_status=${encodeURIComponent(
+            civilStatus
+          )}&presentOccupation=${encodeURIComponent(
+            occupation
+          )}&reason=${encodeURIComponent(reason)}`,
+          requestBody,
+          {
+            headers: {
+              accept: "*/*",
+              "Content-Type": "application/json",
+              "API-Key": mainAPI.key, // Replace with your actual API key
+            },
+          }
+        );
+      } else {
+        // POST request for creating a new user request
+        await axios.post(mainAPI.urls.postRequest, requestBody, {
           headers: {
             accept: "*/*",
             "Content-Type": "application/json",
             "API-Key": mainAPI.key, // Replace with your actual API key
           },
-        }
-      );
+        });
+      }
+
       setIsLoading(false);
       toast({
-        title: "Application Successful",
+        title: `${status === "pending" ? "Update" : "Application"} Successful`,
         description: `Your application has been ${
           status === "pending" ? "updated" : "submitted"
         } successfully.`,
-        status: "success",
+        status: status === "pending" ? "info" : "success",
         duration: 3000,
         isClosable: true,
       });
-      // reload the page
+
+      // Consider using a more React-friendly way to update the page state instead of reloading the page
       // window.location.reload();
     } catch (error) {
       setIsLoading(false);
