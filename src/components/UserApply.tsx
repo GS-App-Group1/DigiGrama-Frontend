@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { mainAPI } from "../data/api";
 import axios from "axios";
+import { FaCheckCircle } from "react-icons/fa";
 // import { useEffect } from "react";
 // import { getAddress } from "../data/api";
 
@@ -275,7 +276,13 @@ const FormComponent: React.FC<FormComponentProps> = ({
   };
 
   return (
-    <Box p={10} shadow="xl" borderRadius="20" marginX={5}>
+    <Box
+      p={10}
+      shadow="xl"
+      borderRadius="20"
+      marginX={5}
+      bgGradient="linear(to-br, #ffffff, #78fff6)"
+    >
       <VStack spacing={5}>
         <Text as="h1" fontWeight="bold">
           Application
@@ -346,7 +353,15 @@ const FormComponent: React.FC<FormComponentProps> = ({
           <Input type="file" fontSize={fontSize} />
         </FormControl>
         <Button
-          colorScheme={status === "pending" ? "blue" : "green"}
+          bgGradient="linear(to-r, green.400, teal.500)" // Applying the gradient
+          color="white" // Text color for better contrast
+          _hover={{
+            bgGradient: "linear(to-r, green.500, teal.600)", // Gradient on hover for a slight effect
+          }}
+          _active={{
+            bgGradient: "linear(to-r, green.600, teal.700)", // Gradient when the button is clicked
+          }}
+          boxShadow="0px 10px 15px -3px rgba(0, 0, 0, 0.2), 0px 4px 6px -4px rgba(0, 0, 0, 0.1)"
           px={16}
           py={6}
           paddingBottom={8}

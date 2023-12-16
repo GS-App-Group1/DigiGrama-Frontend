@@ -17,7 +17,13 @@ import {
   PopoverBody,
   useMediaQuery,
 } from "@chakra-ui/react";
-import { FaUser } from "react-icons/fa";
+import {
+  FaUser,
+  FaHandsHelping,
+  FaSearch,
+  FaCertificate,
+  FaCheckCircle,
+} from "react-icons/fa";
 import FormComponent from "../components/UserApply";
 import UserStatus from "../components/UserStatus";
 import { useEffect, useState } from "react";
@@ -194,198 +200,250 @@ const UserHomePage = ({ signOut, username, nic, email }: UserHomePageProps) => {
   };
 
   return (
-    <Flex direction="column" minH="100vh">
-      {/* Header */}
-      <Flex
-        as="header"
-        width="full"
-        align="center"
-        justifyContent="space-between"
-        p={4}
-        bg={useColorModeValue("white", "gray.800")}
-        borderColor={useColorModeValue("gray.200", "gray.900")}
-      >
-        <Stack direction={"row"} spacing={1} justify="center">
-          <Image
-            src="src/assets/crop-1567050825830.png"
-            alt="DigiGrama Logo"
-            htmlWidth="50px"
-          />
-          <Heading as="h1" size="lg" marginTop={1.5}>
-            DigiGrama
-          </Heading>
-        </Stack>
-        <Popover>
-          <PopoverTrigger>
-            <Box
-              marginRight={5}
-              borderRadius="full"
-              border="2px"
-              borderColor="black"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              padding={2}
-              cursor="pointer"
-            >
-              <FaUser size="1.5em" />
-            </Box>
-          </PopoverTrigger>
-          <Portal>
-            <PopoverContent>
-              <PopoverArrow />
-              <PopoverHeader>
-                <b>{username}</b>
-              </PopoverHeader>
-              <PopoverBody>
-                {/* Add your user details here */}
-                <Text>
-                  <b>NIC: </b>
-                  {nic}
-                </Text>
-                <Text marginBottom={2}>
-                  <b>GS Division: </b>
-                  {gs}
-                </Text>
-                <Button
-                  colorScheme="red"
-                  _focus={{
-                    outline: "none",
-                  }}
-                  onClick={signOut}
-                >
-                  Logout
-                </Button>
-              </PopoverBody>
-            </PopoverContent>
-          </Portal>
-        </Popover>
-      </Flex>
+    <Box bgGradient="linear(to-tl, #189972, #ffffff)">
+      <Flex direction="column" minH="100vh">
+        {/* Header */}
+        <Flex
+          as="header"
+          width="full"
+          align="center"
+          justifyContent="space-between"
+          p={4}
+          borderColor={useColorModeValue("gray.200", "gray.900")}
+        >
+          <Stack direction={"row"} spacing={1} justify="center">
+            <Image
+              src="src/assets/crop-1567050825830.png"
+              alt="DigiGrama Logo"
+              htmlWidth="50px"
+            />
+            <Heading as="h1" size="lg" marginTop={1.5}>
+              DigiGrama
+            </Heading>
+          </Stack>
+          <Popover>
+            <PopoverTrigger>
+              <Box
+                marginRight={5}
+                borderRadius="full"
+                border="2px"
+                borderColor="black"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                padding={2}
+                cursor="pointer"
+              >
+                <FaUser size="1.5em" />
+              </Box>
+            </PopoverTrigger>
+            <Portal>
+              <PopoverContent
+                bgGradient="linear(to-br, #ffffff, #a7efea)"
+                shadow="xl"
+              >
+                <PopoverArrow />
+                <PopoverHeader>
+                  <b>{username}</b>
+                </PopoverHeader>
+                <PopoverBody>
+                  {/* Add your user details here */}
+                  <Text>
+                    <b>NIC: </b>
+                    {nic}
+                  </Text>
+                  <Text marginBottom={2}>
+                    <b>GS Division: </b>
+                    {gs}
+                  </Text>
+                  <Button
+                    colorScheme="red" // This will be overridden by bgGradient
+                    bgGradient="linear(to-l, red.500, orange.400)" // Custom gradient for the button
+                    _hover={{
+                      bgGradient: "linear(to-l, red.600, orange.500)", // Slightly darker gradient on hover
+                    }}
+                    _active={{
+                      bgGradient: "linear(to-l, red.700, orange.600)", // Even darker gradient when active
+                    }}
+                    _focus={{
+                      outline: "none",
+                    }}
+                    onClick={signOut}
+                    // Other styles such as padding or font size can be added here
+                  >
+                    Logout
+                  </Button>
+                </PopoverBody>
+              </PopoverContent>
+            </Portal>
+          </Popover>
+        </Flex>
 
-      {/* Content Area */}
-      <Flex
-        direction={isLargerThan768 ? "row" : "column"} // Change Flex direction based on screen width
-      >
-        {/* Requests */}
-        <Box display="flex" flex={1} justifyContent="center">
-          <Box borderRadius={30}>
-            <Box
-              display="flex"
-              flex={1}
-              borderRadius={20}
-              padding={10}
-              shadow="xl"
-              transform="scale(0.9)"
-              _hover={{ transform: "scale(0.9)" }}
-            >
-              <VStack spacing={16} align="stretch">
-                <Box position="relative" paddingLeft="25%">
-                  <h1>
-                    <b>Welcome</b>
-                  </h1>
-                </Box>
-                <Button
-                  size="lg"
-                  colorScheme="green"
-                  fontSize="xx-large"
-                  padding={9}
-                  borderRadius={15}
-                  onClick={handleApply}
-                  boxShadow={isApply ? "0 0 20px #29C53F" : "none"}
-                  _focus={{
-                    outline: "none",
-                  }}
-                >
-                  Apply for grama certificate
-                </Button>
-                <Button
-                  size="lg"
-                  colorScheme="green"
-                  fontSize="xx-large"
-                  padding={9}
-                  borderRadius={15}
-                  onClick={handleStatus}
-                  boxShadow={isStatus ? "0 0 20px #29C53F" : "none"}
-                  _focus={{
-                    outline: "none",
-                  }}
-                >
-                  Check status
-                </Button>
-                <Button
-                  size="lg"
-                  colorScheme="green"
-                  fontSize="xx-large"
-                  padding={9}
-                  borderRadius={15}
-                  onClick={handleHelp}
-                  boxShadow={isHelp ? "0 0 20px #29C53F" : "none"}
-                  _focus={{
-                    outline: "none",
-                  }}
-                >
-                  Get Help
-                </Button>
-              </VStack>
+        {/* Content Area */}
+        <Flex
+          direction={isLargerThan768 ? "row" : "column"} // Change Flex direction based on screen width
+        >
+          {/* Requests */}
+          <Box display="flex" flex={1} justifyContent="center">
+            <Box borderRadius={30}>
+              <Box
+                display="flex"
+                flex={1}
+                borderRadius={20}
+                padding={10}
+                bgGradient="linear(to-br, #ffffff, #a7efea)"
+                shadow="xl"
+                transform="scale(0.9)"
+                _hover={{ transform: "scale(0.9)" }}
+              >
+                <VStack spacing={16} align="stretch">
+                  <Box position="relative" paddingLeft="29%">
+                    <h1>
+                      <b>Welcome</b>
+                    </h1>
+                  </Box>
+                  <Button
+                    size="lg"
+                    colorScheme="green"
+                    fontSize="xx-large"
+                    padding={9}
+                    borderRadius={15}
+                    onClick={handleApply}
+                    leftIcon={
+                      <Box marginRight={5}>
+                        <FaCertificate />
+                      </Box>
+                    }
+                    bgGradient="linear(to-r, green.400, teal.500)" // Applying the gradient
+                    color="white" // Text color for better contrast
+                    _hover={{
+                      bgGradient: "linear(to-r, green.500, teal.600)", // Gradient on hover for a slight effect
+                    }}
+                    _active={{
+                      bgGradient: "linear(to-r, green.600, teal.700)", // Gradient when the button is clicked
+                    }}
+                    boxShadow="0px 10px 15px -3px rgba(0, 0, 0, 0.2), 0px 4px 6px -4px rgba(0, 0, 0, 0.1)"
+                    _focus={{
+                      outline: "none",
+                    }}
+                  >
+                    Apply for grama certificate
+                  </Button>
+                  <Button
+                    size="lg"
+                    colorScheme="green"
+                    fontSize="xx-large"
+                    padding={9}
+                    leftIcon={
+                      <Box marginRight={5}>
+                        <FaSearch />
+                      </Box>
+                    }
+                    borderRadius={15}
+                    onClick={handleStatus}
+                    bgGradient="linear(to-r, green.400, teal.500)" // Applying the gradient
+                    color="white" // Text color for better contrast
+                    _hover={{
+                      bgGradient: "linear(to-r, green.500, teal.600)", // Gradient on hover for a slight effect
+                    }}
+                    _active={{
+                      bgGradient: "linear(to-r, green.600, teal.700)", // Gradient when the button is clicked
+                    }}
+                    boxShadow="0px 10px 15px -3px rgba(0, 0, 0, 0.2), 0px 4px 6px -4px rgba(0, 0, 0, 0.1)"
+                    _focus={{
+                      outline: "none",
+                    }}
+                  >
+                    Check status
+                  </Button>
+                  <Button
+                    size="lg"
+                    colorScheme="green"
+                    fontSize="xx-large"
+                    padding={9}
+                    leftIcon={
+                      <Box marginRight={5}>
+                        <FaHandsHelping />
+                      </Box>
+                    }
+                    borderRadius={15}
+                    onClick={handleHelp}
+                    bgGradient="linear(to-r, green.400, teal.500)" // Applying the gradient
+                    color="white" // Text color for better contrast
+                    _hover={{
+                      bgGradient: "linear(to-r, green.500, teal.600)", // Gradient on hover for a slight effect
+                    }}
+                    _active={{
+                      bgGradient: "linear(to-r, green.600, teal.700)", // Gradient when the button is clicked
+                    }}
+                    boxShadow="0px 10px 15px -3px rgba(0, 0, 0, 0.2), 0px 4px 6px -4px rgba(0, 0, 0, 0.1)"
+                    _focus={{
+                      outline: "none",
+                    }}
+                  >
+                    Get Help
+                  </Button>
+                </VStack>
+              </Box>
             </Box>
           </Box>
-        </Box>
 
-        {/* Conditionally render FormComponent based on screen width */}
-        <Box
-          flex={2}
-          paddingRight={4}
-          transform="scale(0.95)"
-          _hover={{ transform: "scale(0.95)" }}
-        >
-          {isApply ? (
-            <FormComponent
-              isMobile={!isLargerThan768}
-              status={formdata.status}
-              nic={nic}
-              email={email}
-              gsDivision={gs}
-              address={formdata.address}
-              setAddress={(address) => {
-                setFormData({
-                  ...formdata,
-                  address: address,
-                });
-              }}
-              occupation={formdata.occupation}
-              setOccupation={(occupation) => {
-                setFormData({
-                  ...formdata,
-                  occupation: occupation,
-                });
-              }}
-              civilStatus={formdata.civilStatus}
-              setCivilStatus={(civilStatus) => {
-                setFormData({
-                  ...formdata,
-                  civilStatus: civilStatus,
-                });
-              }}
-              reason={formdata.reason}
-              setReason={(reason) => {
-                setFormData({
-                  ...formdata,
-                  reason: reason,
-                });
-              }}
-            />
-          ) : (
-            <UserStatus
-              isMobile={!isLargerThan768}
-              nic={nic}
-              email={email}
-              statusdata={statusdata}
-              setstatusData={setstatusData}
-            />
-          )}
-        </Box>
+          {/* Conditionally render FormComponent based on screen width */}
+          <Box
+            flex={2}
+            paddingRight={2}
+            transform="scale(0.95)"
+            _hover={{ transform: "scale(0.95)" }}
+          >
+            {isApply ? (
+              <FormComponent
+                isMobile={!isLargerThan768}
+                status={formdata.status}
+                nic={nic}
+                email={email}
+                gsDivision={gs}
+                address={formdata.address}
+                setAddress={(address) => {
+                  setFormData({
+                    ...formdata,
+                    address: address,
+                  });
+                }}
+                occupation={formdata.occupation}
+                setOccupation={(occupation) => {
+                  setFormData({
+                    ...formdata,
+                    occupation: occupation,
+                  });
+                }}
+                civilStatus={formdata.civilStatus}
+                setCivilStatus={(civilStatus) => {
+                  setFormData({
+                    ...formdata,
+                    civilStatus: civilStatus,
+                  });
+                }}
+                reason={formdata.reason}
+                setReason={(reason) => {
+                  setFormData({
+                    ...formdata,
+                    reason: reason,
+                  });
+                }}
+              />
+            ) : (
+              <UserStatus
+                isMobile={!isLargerThan768}
+                nic={nic}
+                email={email}
+                statusdata={statusdata}
+                setstatusData={setstatusData}
+              />
+            )}
+          </Box>
+        </Flex>
       </Flex>
-    </Flex>
+    </Box>
   );
 };
 

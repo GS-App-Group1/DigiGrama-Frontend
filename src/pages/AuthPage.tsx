@@ -24,7 +24,7 @@ const AuthPage = ({ signIn }: AuthPageProps) => {
   const rightMargin = isLargerThan768 ? "7%" : "0%";
 
   return (
-    <Box bgGradient="linear(to-tl, #78ffd6, #ffffff)">
+    <Box bgGradient="linear(to-tl, #189972, #ffffff)">
       <Flex
         as="header"
         align="center"
@@ -57,7 +57,7 @@ const AuthPage = ({ signIn }: AuthPageProps) => {
         >
           <VStack spacing={2}>
             <Text fontSize="6xl">
-              <b>W E L C O M E</b>
+              <b> - W E L C O M E - </b>
             </Text>
             <Box
               border="2px" // Thickness of the border

@@ -120,7 +120,13 @@ const UserStatus: React.FC<UserStatusProps> = ({
 
   if (statusdata.status === "") {
     return (
-      <Box p={10} shadow="xl" borderRadius="20" marginX={5}>
+      <Box
+        p={10}
+        shadow="xl"
+        borderRadius="20"
+        marginX={5}
+        bgGradient="linear(to-br, #ffffff, #78fff6)"
+      >
         <VStack spacing={5}>
           <h1>
             <b>Current Status</b>
@@ -136,10 +142,17 @@ const UserStatus: React.FC<UserStatusProps> = ({
             />
           </FormControl>
           <Button
-            colorScheme="yellow"
             px={16}
             py={6}
             fontSize="3xl"
+            bgGradient="linear(to-r, yellow.400, yellow.500, yellow.600)" // Custom gradient for the button
+            color="white" // Ensuring the text stands out against the background
+            _hover={{
+              bgGradient: "linear(to-r, yellow.500, yellow.600, yellow.700)", // Gradient for hover state
+            }}
+            _active={{
+              bgGradient: "linear(to-r, yellow.600, yellow.700, yellow.800)", // Gradient for active state
+            }}
             _focus={{
               outline: "none",
             }}
@@ -234,16 +247,33 @@ const UserStatus: React.FC<UserStatusProps> = ({
           </FormControl>
         )}
         <Button
-          colorScheme={
-            statusdata.status === "pending"
-              ? "yellow"
-              : statusdata.status === "accepted"
-              ? "green"
-              : "red"
-          }
           px={16}
           py={6}
           fontSize="3xl"
+          bg={
+            statusdata.status === "pending"
+              ? "linear-gradient(90deg, rgba(255,224,102,1) 0%, rgba(255,229,128,1) 100%)" // Yellow gradient
+              : statusdata.status === "accepted"
+              ? "linear-gradient(90deg, rgba(102,187,106,1) 0%, rgba(129,199,132,1) 100%)" // Green gradient
+              : "linear-gradient(90deg, rgba(229,115,115,1) 0%, rgba(239,154,154,1) 100%)" // Red gradient
+          }
+          color="white" // Text color for better contrast
+          _hover={{
+            bg:
+              statusdata.status === "pending"
+                ? "linear-gradient(90deg, rgba(255,224,102,0.8) 0%, rgba(255,229,128,0.8) 100%)" // Lighter yellow gradient
+                : statusdata.status === "accepted"
+                ? "linear-gradient(90deg, rgba(102,187,106,0.8) 0%, rgba(129,199,132,0.8) 100%)" // Lighter green gradient
+                : "linear-gradient(90deg, rgba(229,115,115,0.8) 0%, rgba(239,154,154,0.8) 100%)", // Lighter red gradient
+          }}
+          _active={{
+            bg:
+              statusdata.status === "pending"
+                ? "linear-gradient(90deg, rgba(255,224,102,0.6) 0%, rgba(255,229,128,0.6) 100%)" // Even lighter yellow gradient
+                : statusdata.status === "accepted"
+                ? "linear-gradient(90deg, rgba(102,187,106,0.6) 0%, rgba(129,199,132,0.6) 100%)" // Even lighter green gradient
+                : "linear-gradient(90deg, rgba(229,115,115,0.6) 0%, rgba(239,154,154,0.6) 100%)", // Even lighter red gradient
+          }}
           _focus={{
             outline: "none",
           }}
