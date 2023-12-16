@@ -119,7 +119,11 @@ const Home: React.FC = () => {
             path="/grama-home"
             element={
               role === "Admin" ? (
-                <GramaHomePage signOut={signOut} username={username} />
+                <GramaHomePage
+                  signOut={signOut}
+                  username={username}
+                  nic={nic}
+                />
               ) : null
             }
           />

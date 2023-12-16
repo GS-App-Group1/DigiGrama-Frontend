@@ -5,10 +5,17 @@ import MyRequest from "../data/data";
 interface RequestProps {
   handleClick: () => void; // assuming handleClick is a function with no arguments
   data: MyRequest;
+  obj_id: number;
   isSelected: boolean;
 }
 
-const Request: React.FC<RequestProps> = ({ handleClick, data, isSelected }) => {
+const Request: React.FC<RequestProps> = ({
+  handleClick,
+  data,
+  isSelected,
+  obj_id,
+}) => {
+  console.log(data);
   return (
     <Box
       borderRadius="40"
@@ -29,20 +36,20 @@ const Request: React.FC<RequestProps> = ({ handleClick, data, isSelected }) => {
         <Box borderRadius="40" p={1} bg="green.200">
           <VStack spacing={0.1}>
             <Text fontSize="small" marginX={2}>
-              <b>{data.date}</b>
+              <b>{data.requestTime.slice(0, 10)}</b>
             </Text>
             <Text fontSize="small" marginX={2}>
-              {data.requestNumber}
+              {data.requestTime.slice(11, 16)}
             </Text>
           </VStack>
         </Box>
         <Box borderRadius="40" p={1} bg="green.200">
           <VStack spacing={0.1}>
             <Text fontSize="small" marginX={2}>
-              <b>{data.name}</b>
+              <b>{data.email}</b>
             </Text>
             <Text fontSize="small" marginX={2}>
-              {data.id}
+              {data.nic}
             </Text>
           </VStack>
         </Box>

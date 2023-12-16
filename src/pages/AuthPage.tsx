@@ -25,7 +25,7 @@ const AuthPage = ({ signIn }: AuthPageProps) => {
   const rightMargin = isLargerThan768 ? "7%" : "0%";
 
   return (
-    <Box minH="100vh">
+    <Box minH={isLargerThan768 ? "100vh" : "100vh"}>
       <Flex
         as="header"
         width="full"
@@ -55,7 +55,7 @@ const AuthPage = ({ signIn }: AuthPageProps) => {
         align="center"
         justifyContent="center"
       >
-        <VStack flex="1" justifyContent="center" p={4}>
+        <VStack flex={1} justifyContent="center" p={4}>
           <Text
             fontSize="3xl"
             fontWeight="bold"
@@ -84,34 +84,84 @@ const AuthPage = ({ signIn }: AuthPageProps) => {
         <Box
           px={1}
           width="full"
-          maxWidth="500px"
+          flex={1}
+          maxWidth="700px"
           borderRadius={20}
           textAlign="center"
           marginRight={rightMargin}
           marginBottom="3%"
-          marginTop={isLargerThan768 ? "0%" : "15%"}
+          marginTop={isLargerThan768 ? "5%" : "15%"}
           transform={scale}
           _hover={{ transform: scale }}
         >
-          <VStack spacing={3} alignItems="flex-start">
-            <HStack>
-              <Icon as={FaCheckCircle} color="green.500" />
-              <Text>Convenient Access</Text>
-            </HStack>
-            <HStack>
-              <Icon as={FaCheckCircle} color="green.500" />
-              <Text>Faster Service</Text>
-            </HStack>
-            <HStack>
-              <Icon as={FaCheckCircle} color="green.500" />
-              <Text>Get Help Anytime</Text>
-            </HStack>
-          </VStack>
+          <Box paddingLeft="7%" transform={"scale(1.3)"}>
+            <Text
+              fontSize="2xl"
+              fontWeight="bold"
+              lineHeight="shorter"
+              color={useColorModeValue("gray.500", "white")}
+              textAlign="center"
+            >
+              Recieve your Grama Sevaka Certificate
+            </Text>
+            <Text
+              fontSize="3xl"
+              fontWeight="bold"
+              lineHeight="shorter"
+              color={useColorModeValue("gray.700", "white")}
+              textAlign="center"
+            >
+              At the comfort of your Home
+            </Text>
+            <VStack
+              margin={10}
+              paddingLeft="14%"
+              spacing={5}
+              alignItems="flex-start"
+            >
+              <HStack>
+                <Icon
+                  as={FaCheckCircle}
+                  color="green.500"
+                  boxSize={8}
+                  margin={2}
+                />
+                <Text fontSize={30}>
+                  <b>Convenient Access</b>
+                </Text>
+              </HStack>
+              <HStack>
+                <Icon
+                  as={FaCheckCircle}
+                  color="green.500"
+                  boxSize={8}
+                  margin={2}
+                />
+                <Text fontSize={30}>
+                  <b>Faster Service</b>
+                </Text>
+              </HStack>
+              <HStack>
+                <Icon
+                  as={FaCheckCircle}
+                  color="green.500"
+                  boxSize={8}
+                  margin={2}
+                />
+                <Text fontSize={30}>
+                  <b>Get Help Anytime</b>
+                </Text>
+              </HStack>
+            </VStack>
+          </Box>
           <Button
             colorScheme="green"
             onClick={() => signIn()}
             fontSize="5xl"
             padding={10}
+            margin={10}
+            marginLeft="13%"
+            marginTop="8%"
             borderRadius={20}
           >
             Sign In

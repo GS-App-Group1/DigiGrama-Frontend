@@ -12,16 +12,25 @@ import MyRequest from "../data/data";
 
 interface SmallRequestProps {
   obj: MyRequest;
+  object_id: number;
   onClick: () => void;
   isSelected: boolean;
 }
 
 const SmallRequest: React.FC<SmallRequestProps> = ({
   obj,
+  object_id,
   onClick,
   isSelected,
 }) => {
-  return <Request handleClick={onClick} data={obj} isSelected={isSelected} />;
+  return (
+    <Request
+      handleClick={onClick}
+      data={obj}
+      isSelected={isSelected}
+      obj_id={object_id}
+    />
+  );
 };
 
 interface PaginationProps {
@@ -170,9 +179,8 @@ const UserHomePage: React.FC<UserHomePageProps> = ({
               <SmallRequest
                 onClick={() => handleClick(item)}
                 obj={item}
-                isSelected={
-                  selectedRequest?.requestNumber === item.requestNumber
-                }
+                object_id={index}
+                isSelected={selectedRequest?._id === item._id}
               />
             </Box>
           ))}
