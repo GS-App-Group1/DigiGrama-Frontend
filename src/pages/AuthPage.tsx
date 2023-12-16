@@ -4,13 +4,12 @@ import {
   Heading,
   Text,
   Image,
-  useColorModeValue,
   VStack,
   Stack,
   useMediaQuery,
+  Center,
   Button,
-  HStack,
-  Icon,
+  useColorModeValue,
 } from "@chakra-ui/react";
 // import AuthenticationForm from "../components/AuthenticationForm";
 import { FaCheckCircle } from "react-icons/fa";
@@ -25,20 +24,19 @@ const AuthPage = ({ signIn }: AuthPageProps) => {
   const rightMargin = isLargerThan768 ? "7%" : "0%";
 
   return (
-    <Box minH={isLargerThan768 ? "100vh" : "100vh"}>
+    <Box bgGradient="linear(to-tl, #78ffd6, #ffffff)">
       <Flex
         as="header"
-        width="full"
         align="center"
         justifyContent="space-between"
         p={4}
-        bg={useColorModeValue("white", "gray.800")}
-        borderColor={useColorModeValue("gray.200", "gray.900")}
+        bg="transparent"
+        borderColor="transparent"
         position="relative"
       >
         <Stack direction={"row"} spacing={1} justify="center">
           <Image
-            src="src\assets\crop-1567050825830.png" // Replace with the path to your logo image
+            src="src/assets/crop-1567050825830.png" // Replace with the path to your logo image
             alt="DigiGrama Logo"
             htmlWidth="50px" // Adjust size as needed
           />
@@ -47,128 +45,81 @@ const AuthPage = ({ signIn }: AuthPageProps) => {
           </Heading>
         </Stack>
       </Flex>
-
-      <Flex
-        direction={isLargerThan768 ? "row" : "column"}
-        minHeight="70vh"
-        width="full"
-        align="center"
-        justifyContent="center"
-      >
-        <VStack flex={1} justifyContent="center" p={4}>
-          <Text
-            fontSize="3xl"
-            fontWeight="bold"
-            lineHeight="shorter"
-            color={useColorModeValue("gray.500", "white")}
-            textAlign="center"
-          >
-            Get your Grama Sevaka Certificate
-          </Text>
-          <Text
-            fontSize="5xl"
-            fontWeight="bold"
-            lineHeight="shorter"
-            color={useColorModeValue("gray.700", "white")}
-            textAlign="center"
-          >
-            Without Any Hassle
-          </Text>
-          <Image
-            src="src\assets\interview.png" // Make sure this path is correct
-            alt="DigiGrama Branding"
-            boxSize="410px"
-            objectFit="contain"
-          />
-        </VStack>
-        <Box
-          px={1}
-          width="full"
-          flex={1}
-          maxWidth="700px"
-          borderRadius={20}
-          textAlign="center"
-          marginRight={rightMargin}
-          marginBottom="3%"
-          marginTop={isLargerThan768 ? "5%" : "15%"}
-          transform={scale}
-          _hover={{ transform: scale }}
+      <Center height="calc(100vh - 82px)">
+        {" "}
+        {/* Subtract the header height */}
+        <Center
+          paddingX="10%"
+          paddingY="2%"
+          bgGradient="linear(to-br, #ffffff, #78fff6)"
+          borderRadius={30}
+          boxShadow="20px 20px 80px rgba(0, 210, 200, 0.4)" // This creates a glow effect
         >
-          <Box paddingLeft="7%" transform={"scale(1.3)"}>
-            <Text
+          <VStack spacing={2}>
+            <Text fontSize="6xl">
+              <b>W E L C O M E</b>
+            </Text>
+            <Box
+              border="2px" // Thickness of the border
+              borderColor="rgba(0, 200, 200, 0)" // Color of the border
+              borderRadius={29} // Border radius to make the corners rounded
+              padding={5}
+            >
+              <VStack spacing={0.1}>
+                <Text fontSize="4xl">
+                  <b>Get your Grama Certificate</b>
+                </Text>
+                <Text
+                  fontSize="3xl"
+                  color={useColorModeValue("green.600", "white")}
+                >
+                  <b>Without any Hassle</b>
+                </Text>
+              </VStack>
+            </Box>
+            <Box
+              width="200px"
+              height="150px"
+              overflow="hidden"
+              position="relative"
+              transform="scale(1.8)"
+              margin={20}
+            >
+              <Image
+                src="src/assets/interview.png"
+                alt="Authentication"
+                objectFit="cover"
+                width="100%"
+                height="100%"
+                position="absolute"
+                top="50%" // Adjust the positioning as needed
+                left="50%" // Adjust the positioning as needed
+                transform="translate(-50%, -50%)" // Centers the image within the Box
+              />
+            </Box>
+            <Button
+              size="lg"
+              onClick={() => signIn()}
+              rightIcon={<FaCheckCircle />}
+              margin={5}
+              paddingX="32px"
+              paddingY="8px"
               fontSize="2xl"
-              fontWeight="bold"
-              lineHeight="shorter"
-              color={useColorModeValue("gray.500", "white")}
-              textAlign="center"
+              bgGradient="linear(to-r, green.400, teal.500)" // Applying the gradient
+              color="white" // Text color for better contrast
+              _hover={{
+                bgGradient: "linear(to-r, green.500, teal.600)", // Gradient on hover for a slight effect
+              }}
+              _active={{
+                bgGradient: "linear(to-r, green.600, teal.700)", // Gradient when the button is clicked
+              }}
+              boxShadow="0px 10px 15px -3px rgba(0, 0, 0, 0.2), 0px 4px 6px -4px rgba(0, 0, 0, 0.1)" // Optional: adding shadow for depth
             >
-              Recieve your Grama Sevaka Certificate
-            </Text>
-            <Text
-              fontSize="3xl"
-              fontWeight="bold"
-              lineHeight="shorter"
-              color={useColorModeValue("gray.700", "white")}
-              textAlign="center"
-            >
-              At the comfort of your Home
-            </Text>
-            <VStack
-              margin={10}
-              paddingLeft="14%"
-              spacing={5}
-              alignItems="flex-start"
-            >
-              <HStack>
-                <Icon
-                  as={FaCheckCircle}
-                  color="green.500"
-                  boxSize={8}
-                  margin={2}
-                />
-                <Text fontSize={30}>
-                  <b>Convenient Access</b>
-                </Text>
-              </HStack>
-              <HStack>
-                <Icon
-                  as={FaCheckCircle}
-                  color="green.500"
-                  boxSize={8}
-                  margin={2}
-                />
-                <Text fontSize={30}>
-                  <b>Faster Service</b>
-                </Text>
-              </HStack>
-              <HStack>
-                <Icon
-                  as={FaCheckCircle}
-                  color="green.500"
-                  boxSize={8}
-                  margin={2}
-                />
-                <Text fontSize={30}>
-                  <b>Get Help Anytime</b>
-                </Text>
-              </HStack>
-            </VStack>
-          </Box>
-          <Button
-            colorScheme="green"
-            onClick={() => signIn()}
-            fontSize="5xl"
-            padding={10}
-            margin={10}
-            marginLeft="13%"
-            marginTop="8%"
-            borderRadius={20}
-          >
-            Sign In
-          </Button>
-          {/* <AuthenticationForm signIn={signIn} /> */}
-        </Box>
-      </Flex>
+              Sign In
+            </Button>
+          </VStack>
+        </Center>
+      </Center>
     </Box>
   );
 };
