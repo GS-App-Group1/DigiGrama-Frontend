@@ -44,14 +44,9 @@ const Request: React.FC<RequestProps> = ({
           </VStack>
         </Box>
         <Box borderRadius="40" p={1} bg="green.200">
-          <VStack spacing={0.1}>
-            <Text fontSize="small" marginX={2}>
-              <b>{data.email}</b>
-            </Text>
-            <Text fontSize="small" marginX={2}>
-              {data.nic}
-            </Text>
-          </VStack>
+          <Text fontSize="small" marginX={2} marginY={2}>
+            <b>{data.nic}</b>
+          </Text>
         </Box>
       </Stack>
     </Box>
