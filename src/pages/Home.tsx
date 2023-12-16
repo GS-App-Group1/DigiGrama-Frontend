@@ -34,7 +34,7 @@ const Redirect = ({ role }: RedirectProps) => {
   }, [role, navigate]);
 
   return (
-    <Center h="100vh">
+    <Center h="100vh" bgGradient="linear(to-tl, #189972, #ffffff)">
       <Spinner
         thickness="4px"
         speed="0.65s"
