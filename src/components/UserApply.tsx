@@ -54,7 +54,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
 }) => {
   const fontSize = isMobile ? "2xl" : "md";
 
-  // const [nicPhoto, setNicPhoto] = useState<File | null>(null);
+  const [nicPhoto, setNicPhoto] = useState<string>("");
   // const [res, setRes] = useState<boolean>(true);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -71,11 +71,11 @@ const FormComponent: React.FC<FormComponentProps> = ({
     setOccupation(e.target.value);
   const handleReasonChange = (e: ChangeEvent<HTMLInputElement>) =>
     setReason(e.target.value);
-  // const handleNicPhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   if (e.target.files) {
-  //     setNicPhoto(e.target.files[0]);
-  //   }
-  // };
+  const handleNicPhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setNicPhoto(URL.createObjectURL(e.target.files[0]));
+    }
+  };
 
   // useEffect(() => {
   //   const fetchAddress = async () => {
@@ -350,7 +350,8 @@ const FormComponent: React.FC<FormComponentProps> = ({
           <FormLabel fontSize={fontSize}>
             <b>Upload NIC Photo</b>
           </FormLabel>
-          <Input type="file" fontSize={fontSize} />
+          <Input type="file" fontSize={fontSize} onChange={handleNicPhotoChange} />
+          <img src={nicPhoto} />
         </FormControl>
         <Button
           bgGradient="linear(to-r, green.400, teal.500)" // Applying the gradient
