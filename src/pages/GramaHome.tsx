@@ -269,107 +269,112 @@ const GramaHomePage = ({ signOut, username, nic }: GramaHomePageProps) => {
   // `${mainAPI.urls.getUserRequests}?gsDivision=${gs}`
 
   return (
-    <Flex direction="column" minH="100vh">
-      {/* Header */}
-      <Flex
-        as="header"
-        width="full"
-        align="center"
-        justifyContent="space-between"
-        p={4}
-        bg={useColorModeValue("white", "gray.800")}
-        borderColor={useColorModeValue("gray.200", "gray.900")}
-      >
-        <Stack direction={"row"} spacing={1} justify="center">
-          <Image
-            src="src/assets/crop-1567050825830.png"
-            alt="DigiGrama Logo"
-            htmlWidth="50px"
-          />
-          <Heading as="h1" size="lg" marginTop={1.5}>
-            DigiGrama
-          </Heading>
-        </Stack>
-        <Popover>
-          <PopoverTrigger>
-            <Box
-              marginRight={5}
-              borderRadius="full"
-              border="2px"
-              borderColor="black"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              padding={2}
-              cursor="pointer"
-            >
-              <FaUser size="1.5em" />
-            </Box>
-          </PopoverTrigger>
-          <Portal>
-            <PopoverContent>
-              <PopoverArrow />
-              <PopoverHeader>{username}</PopoverHeader>
-              <PopoverBody>
-                {/* Add your user details here */}
-                <Text>
-                  <b>NIC: </b>
-                  {nic}
-                </Text>
-                <Text marginBottom={2}>
-                  <b>GS Division: </b>
-                  {gs}
-                </Text>
-                {/* Add your user details here */}
-                <Button
-                  colorScheme="red"
-                  _focus={{
-                    outline: "none",
-                  }}
-                  onClick={signOut}
-                >
-                  Logout
-                </Button>
-              </PopoverBody>
-            </PopoverContent>
-          </Portal>
-        </Popover>
-      </Flex>
+    <Box bgGradient="linear(to-tl, #189972, #ffffff)">
+      <Flex direction="column" minH="100vh">
+        {/* Header */}
+        <Flex
+          as="header"
+          width="full"
+          align="center"
+          justifyContent="space-between"
+          p={4}
+          borderColor={useColorModeValue("gray.200", "gray.900")}
+        >
+          <Stack direction={"row"} spacing={1} justify="center">
+            <Image
+              src="src/assets/crop-1567050825830.png"
+              alt="DigiGrama Logo"
+              htmlWidth="50px"
+            />
+            <Heading as="h1" size="lg" marginTop={1.5}>
+              DigiGrama
+            </Heading>
+          </Stack>
+          <Popover>
+            <PopoverTrigger>
+              <Box
+                marginRight={5}
+                borderRadius="full"
+                border="2px"
+                borderColor="black"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                padding={2}
+                cursor="pointer"
+              >
+                <FaUser size="1.5em" />
+              </Box>
+            </PopoverTrigger>
+            <Portal>
+              <PopoverContent
+                bgGradient="linear(to-br, #ffffff, #78fff6)"
+                boxShadow="xl"
+              >
+                <PopoverArrow />
+                <PopoverHeader>{username}</PopoverHeader>
+                <PopoverBody>
+                  {/* Add your user details here */}
+                  <Text>
+                    <b>NIC: </b>
+                    {nic}
+                  </Text>
+                  <Text marginBottom={2}>
+                    <b>GS Division: </b>
+                    {gs}
+                  </Text>
+                  {/* Add your user details here */}
+                  <Button
+                    bgGradient="linear(to-l, red.500, orange.400)"
+                    color="white"
+                    _focus={{
+                      outline: "none",
+                    }}
+                    onClick={signOut}
+                  >
+                    Logout
+                  </Button>
+                </PopoverBody>
+              </PopoverContent>
+            </Portal>
+          </Popover>
+        </Flex>
 
-      {/* Content Area */}
-      <Flex
-        direction={isLargerThan768 ? "row" : "column"} // Change Flex direction based on screen width
-        justify="space-between"
-        flexGrow={1}
-      >
-        {/* Requests */}
-        <Box display="flex" flex={1} justifyContent="center">
-          <Box padding={7} borderRadius={30}>
-            <Requests
-              isMobile={!isLargerThan768}
-              selectedRequest={currentRequest}
-              dataPending={pendingList}
-              dataCompleted={completedList}
-              clickHandler={handleClick}
+        {/* Content Area */}
+        <Flex
+          direction={isLargerThan768 ? "row" : "column"} // Change Flex direction based on screen width
+          justify="space-between"
+          flexGrow={1}
+        >
+          {/* Requests */}
+          <Box display="flex" flex={1} justifyContent="center">
+            <Box padding={7} borderRadius={30}>
+              <Requests
+                isMobile={!isLargerThan768}
+                selectedRequest={currentRequest}
+                dataPending={pendingList}
+                dataCompleted={completedList}
+                clickHandler={handleClick}
+              />
+            </Box>
+          </Box>
+
+          <Box
+            flex={isLargerThan768 ? 2 : 15}
+            alignItems="center"
+            paddingRight={4}
+          >
+            {/* <FormComponent /> */}
+            <RequestDetails
+              data={currentRequest}
+              gsNote={gsNote}
+              handleGsNoteChange={handleGsNoteChange}
+              handleClick={(arg: string) => handleSwap(currentRequest, arg)}
             />
           </Box>
-        </Box>
-
-        <Box
-          flex={isLargerThan768 ? 2 : 15}
-          alignItems="center"
-          paddingRight={4}
-        >
-          {/* <FormComponent /> */}
-          <RequestDetails
-            data={currentRequest}
-            gsNote={gsNote}
-            handleGsNoteChange={handleGsNoteChange}
-            handleClick={(arg: string) => handleSwap(currentRequest, arg)}
-          />
-        </Box>
+        </Flex>
       </Flex>
-    </Flex>
+    </Box>
   );
 };
 
