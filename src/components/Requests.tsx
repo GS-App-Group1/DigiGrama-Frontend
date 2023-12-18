@@ -136,7 +136,8 @@ const UserHomePage: React.FC<UserHomePageProps> = ({
       marginTop={marginT}
       padding={7}
       borderRadius={30}
-      boxShadow="xl"
+      bgGradient="linear(to-br, #ffffff, #78fff6)"
+      boxShadow="20px 20px 80px rgba(0, 210, 200, 0.4)"
       transform={scaleValue}
       _hover={{ transform: scaleValue }}
     >

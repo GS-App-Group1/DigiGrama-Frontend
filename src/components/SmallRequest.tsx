@@ -20,7 +20,7 @@ const Request: React.FC<RequestProps> = ({
     <Box
       borderRadius="40"
       p={0}
-      bg="green.300"
+      bgGradient="linear(to-r, green.400, teal.500)"
       cursor="pointer"
       onClick={handleClick}
       _hover={{

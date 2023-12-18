@@ -8,6 +8,7 @@ import {
   useToast,
   Spinner,
   Center,
+  HStack,
 } from "@chakra-ui/react";
 import MyRequest from "../data/data";
 import axios from "axios";
@@ -137,7 +138,13 @@ function RequestDetails({
           <Spinner size="xl" />
         </Center>
       ) : data ? (
-        <Box padding={7} margin={7} borderRadius={40} boxShadow="xl">
+        <Box
+          padding={7}
+          margin={3}
+          borderRadius={40}
+          boxShadow="20px 20px 80px rgba(0, 210, 200, 0.4)"
+          bgGradient="linear(to-br, #ffffff, #78fff6)"
+        >
           {/* ... Form controls and other fields ... */}
           <FormControl id="status" marginTop={3}>
             <FormLabel>Status</FormLabel>
@@ -190,12 +197,14 @@ function RequestDetails({
               placeholder="Add Note"
               value={gsNote}
               onChange={handleGsNoteChange}
+              borderColor="blue"
+              border="2px"
               backgroundColor="teal.100" // Example background color
             />
           </FormControl>
 
           {data.status === "pending" ? (
-            <>
+            <HStack>
               <Button
                 bgColor="blue.500"
                 margin={5}
@@ -255,7 +264,7 @@ function RequestDetails({
                   <b>Reject Application</b>
                 </Text>
               </Button>
-            </>
+            </HStack>
           ) : null}
         </Box>
       ) : (

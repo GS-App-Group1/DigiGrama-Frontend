@@ -58,7 +58,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
   const [nicPhoto, setNicPhoto] = useState<string>("");
   // const [res, setRes] = useState<boolean>(true);
 
-  const [nicPhotoUrl,setNicPhotoUrl]=useState('')
+  const [nicPhotoUrl, setNicPhotoUrl] = useState("");
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const toast = useToast();
@@ -202,55 +202,48 @@ const FormComponent: React.FC<FormComponentProps> = ({
   //   }
   // };
 
-  const handleNicUpload =async () => {
+  const handleNicUpload = async () => {
     try {
       const config = {
-        method: 'post',
+        method: "post",
         maxBodyLength: Infinity,
-        url:nicImageAPI.urls.upload,
-        headers: { 
-          'accept': '*/*', 
-          'Content-Type': 'image/jpeg', 
-          'API-Key': nicImageAPI.key
+        url: nicImageAPI.urls.upload,
+        headers: {
+          accept: "*/*",
+          "Content-Type": "image/jpeg",
+          "API-Key": nicImageAPI.key,
         },
-        data : nicPhoto
+        data: nicPhoto,
       };
       const response = await axios.request(config);
       console.log(response);
-      
-    }catch (error) {
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const handleNicDownload = async () => {
     try {
       const config = {
-        method: 'get',
+        method: "get",
         maxBodyLength: Infinity,
         url: nicImageAPI.urls.download,
         headers: {
-          'accept': '*/*',
-          'Content-Type': 'image/jpeg',
-          'API-Key': nicImageAPI.key
+          accept: "*/*",
+          "Content-Type": "image/jpeg",
+          "API-Key": nicImageAPI.key,
         },
-        
       };
       const response = await axios.request(config);
       console.log(response);
-      
-  
+
       // Assuming the image URL is present in the response.data or you need to adjust accordingly
-      setNicPhotoUrl(response.data)
-  
+      setNicPhotoUrl(response.data);
     } catch (error) {
       console.log(error);
       // Handle errors here, e.g., display an error message or log the error.
     }
   };
-  
-  
-  
 
   const handleApplyTest = async () => {
     setIsLoading(true);
@@ -403,9 +396,12 @@ const FormComponent: React.FC<FormComponentProps> = ({
           <FormLabel fontSize={fontSize}>
             <b>Upload NIC Photo</b>
           </FormLabel>
-          <Input type="file" fontSize={fontSize} onChange={handleNicPhotoChange} />
+          <Input
+            type="file"
+            fontSize={fontSize}
+            onChange={handleNicPhotoChange}
+          />
           <img src={nicPhoto} />
-          
         </FormControl>
         <Button
           bgGradient="linear(to-r, green.400, teal.500)" // Applying the gradient
@@ -437,7 +433,6 @@ const FormComponent: React.FC<FormComponentProps> = ({
         <Image src={nicPhotoUrl} />
       </VStack>
     </Box>
-    
   );
 };
 
