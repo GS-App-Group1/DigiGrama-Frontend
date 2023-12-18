@@ -377,11 +377,6 @@ const FormComponent: React.FC<FormComponentProps> = ({
             fontSize={fontSize}
             onChange={handleNicPhotoChange}
           />
-          <Input
-            type="file"
-            fontSize={fontSize}
-            onChange={handleNicPhotoChange}
-          />
           <img src={nicPhoto} />
         </FormControl>
         <Button
@@ -411,7 +406,6 @@ const FormComponent: React.FC<FormComponentProps> = ({
         >
           {status === "pending" ? "Update" : "Apply"}
         </Button>
-        <div></div>
       </VStack>
       <DownloadedNicPhoto/>
     </Box>
