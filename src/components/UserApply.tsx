@@ -1,6 +1,7 @@
 import React, { useState, ChangeEvent } from "react";
 import {
   FormControl,
+  Image,
   FormLabel,
   Input,
   Button,
@@ -9,7 +10,7 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
-import { mainAPI } from "../data/api";
+import { mainAPI, nicImageAPI } from "../data/api";
 import axios from "axios";
 import { FaCheckCircle } from "react-icons/fa";
 // import { useEffect } from "react";
@@ -56,6 +57,8 @@ const FormComponent: React.FC<FormComponentProps> = ({
 
   const [nicPhoto, setNicPhoto] = useState<string>("");
   // const [res, setRes] = useState<boolean>(true);
+
+  const [nicPhotoUrl,setNicPhotoUrl]=useState('')
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const toast = useToast();
@@ -199,6 +202,56 @@ const FormComponent: React.FC<FormComponentProps> = ({
   //   }
   // };
 
+  const handleNicUpload =async () => {
+    try {
+      const config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url:nicImageAPI.urls.upload,
+        headers: { 
+          'accept': '*/*', 
+          'Content-Type': 'image/jpeg', 
+          'API-Key': nicImageAPI.key
+        },
+        data : nicPhoto
+      };
+      const response = await axios.request(config);
+      console.log(response);
+      
+    }catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleNicDownload = async () => {
+    try {
+      const config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: nicImageAPI.urls.download,
+        headers: {
+          'accept': '*/*',
+          'Content-Type': 'image/jpeg',
+          'API-Key': nicImageAPI.key
+        },
+        
+      };
+      const response = await axios.request(config);
+      console.log(response);
+      
+  
+      // Assuming the image URL is present in the response.data or you need to adjust accordingly
+      setNicPhotoUrl(response.data)
+  
+    } catch (error) {
+      console.log(error);
+      // Handle errors here, e.g., display an error message or log the error.
+    }
+  };
+  
+  
+  
+
   const handleApplyTest = async () => {
     setIsLoading(true);
 
@@ -274,7 +327,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
       });
     }
   };
-
+  handleNicDownload();
   return (
     <Box
       p={10}
@@ -352,6 +405,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
           </FormLabel>
           <Input type="file" fontSize={fontSize} onChange={handleNicPhotoChange} />
           <img src={nicPhoto} />
+          
         </FormControl>
         <Button
           bgGradient="linear(to-r, green.400, teal.500)" // Applying the gradient
@@ -368,7 +422,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
           paddingBottom={8}
           fontSize="3xl"
           _focus={{ outline: "none" }}
-          onClick={handleApplyTest}
+          onClick={handleNicUpload}
           isLoading={isLoading}
           loadingText="Submitting"
           isDisabled={
@@ -380,8 +434,10 @@ const FormComponent: React.FC<FormComponentProps> = ({
         >
           {status === "pending" ? "Update" : "Apply"}
         </Button>
+        <Image src={nicPhotoUrl} />
       </VStack>
     </Box>
+    
   );
 };
 
