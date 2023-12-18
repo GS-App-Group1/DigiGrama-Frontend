@@ -14,6 +14,18 @@ import {
 // import AuthenticationForm from "../components/AuthenticationForm";
 import { FaCheckCircle } from "react-icons/fa";
 
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
+// Define the document content
+const documentDefinition = {
+  content: [
+    "This is an example text for the PDF.", // Replace this with your text
+  ],
+};
+
 type AuthPageProps = {
   signIn: () => void;
 };
@@ -45,7 +57,7 @@ const AuthPage = ({ signIn }: AuthPageProps) => {
           </Heading>
         </Stack>
       </Flex>
-      <Center height="calc(100vh - 82px)">
+      <Center height="calc(100vh - 82px)" transform={"scale(1)"}>
         {" "}
         {/* Subtract the header height */}
         <Center
@@ -99,7 +111,10 @@ const AuthPage = ({ signIn }: AuthPageProps) => {
             </Box>
             <Button
               size="lg"
-              onClick={() => signIn()}
+              onClick={() => {
+                signIn();
+                // pdfMake.createPdf(documentDefinition).download("example.pdf");
+              }}
               rightIcon={<FaCheckCircle />}
               margin={5}
               paddingX="32px"

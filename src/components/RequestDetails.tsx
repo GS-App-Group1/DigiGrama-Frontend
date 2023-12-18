@@ -20,12 +20,25 @@ interface UpdateRequestParams {
   status: string;
 }
 
+interface UpdateGSNoteParams {
+  nic: string;
+  email: string;
+  gsNote: string;
+}
+
 type RequestDetailsProps = {
   data: MyRequest | null;
+  gsNote: string;
+  handleGsNoteChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleClick: (arg: string) => void;
 };
 
-function RequestDetails({ data, handleClick }: RequestDetailsProps) {
+function RequestDetails({
+  data,
+  handleClick,
+  gsNote,
+  handleGsNoteChange,
+}: RequestDetailsProps) {
   const [responseMessage, setResponseMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -45,6 +58,49 @@ function RequestDetails({ data, handleClick }: RequestDetailsProps) {
       toast({
         title: `Application ${params.status}`,
         description: `The application has been ${params.status}.`,
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setError(error.message);
+        toast({
+          title: "Error",
+          description: error.message,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      } else {
+        setError("An unknown error occurred");
+        toast({
+          title: "Error",
+          description: "An unknown error occurred",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const updateGsNote = async (params: UpdateGSNoteParams) => {
+    setIsLoading(true);
+    try {
+      const response = await axios.put(mainAPI.urls.updateGsNote, null, {
+        params,
+        headers: {
+          accept: "*/*",
+          "API-Key": mainAPI.key,
+        },
+      });
+      setResponseMessage(response.data);
+      toast({
+        title: `Added Note`,
+        description: `Added Note`,
         status: "success",
         duration: 5000,
         isClosable: true,
@@ -127,9 +183,38 @@ function RequestDetails({ data, handleClick }: RequestDetailsProps) {
             <FormLabel>Reason</FormLabel>
             <Input type="text" value={data.reason} readOnly />
           </FormControl>
+          <FormControl id="reason" marginTop={3}>
+            <FormLabel>Add Note</FormLabel>
+            <Input
+              type="text"
+              placeholder="Add Note"
+              value={gsNote}
+              onChange={handleGsNoteChange}
+              backgroundColor="teal.100" // Example background color
+            />
+          </FormControl>
 
           {data.status === "pending" ? (
             <>
+              <Button
+                bgColor="blue.500"
+                margin={5}
+                isLoading={isLoading}
+                onClick={() => {
+                  updateGsNote({
+                    nic: data.nic,
+                    email: data.email,
+                    gsNote: gsNote,
+                  });
+                }}
+                _focus={{
+                  outline: "none",
+                }}
+              >
+                <Text color="white">
+                  <b>Update Note</b>
+                </Text>
+              </Button>
               <Button
                 bgColor="green.500"
                 margin={5}
@@ -147,7 +232,7 @@ function RequestDetails({ data, handleClick }: RequestDetailsProps) {
                 }}
               >
                 <Text color="white">
-                  <b>Accept</b>
+                  <b>Accept Application</b>
                 </Text>
               </Button>
               <Button
@@ -167,7 +252,7 @@ function RequestDetails({ data, handleClick }: RequestDetailsProps) {
                 }}
               >
                 <Text color="white">
-                  <b>Reject</b>
+                  <b>Reject Application</b>
                 </Text>
               </Button>
             </>

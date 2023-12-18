@@ -168,6 +168,11 @@ const GramaHomePage = ({ signOut, username, nic }: GramaHomePageProps) => {
     pendingList[0]
   );
   const [error, setError] = useState<string | null>(null);
+  const [gsNote, setGsNote] = useState<string>("");
+
+  const handleGsNoteChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setGsNote(event.target.value);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -189,6 +194,10 @@ const GramaHomePage = ({ signOut, username, nic }: GramaHomePageProps) => {
         );
         setCurrentRequest(
           data.filter((request) => request.status === "pending")[0]
+        );
+        setGsNote(
+          data.filter((request) => request.status === "pending")[0]?.gsNote ||
+            ""
         );
 
         console.log(pendingList);
@@ -354,6 +363,8 @@ const GramaHomePage = ({ signOut, username, nic }: GramaHomePageProps) => {
           {/* <FormComponent /> */}
           <RequestDetails
             data={currentRequest}
+            gsNote={gsNote}
+            handleGsNoteChange={handleGsNoteChange}
             handleClick={(arg: string) => handleSwap(currentRequest, arg)}
           />
         </Box>
