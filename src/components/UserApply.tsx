@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent} from "react";
+import React, { useState, ChangeEvent } from "react";
 import {
   FormControl,
   FormLabel,
@@ -12,9 +12,7 @@ import {
 import { mainAPI, nicImageAPI } from "../data/api";
 import axios from "axios";
 import DownloadedNicPhoto from "./DownloadedNicPhoto";
-
-
-
+import { getToken } from "./utils";
 interface FormComponentProps {
   isMobile: boolean;
   nic: string;
@@ -54,17 +52,10 @@ const FormComponent: React.FC<FormComponentProps> = ({
 }) => {
   const fontSize = isMobile ? "2xl" : "md";
 
-  //const [nicPhotoUrl, setNicPhotoUrl] = useState<string>("");
   const [nicPhoto, setNicPhoto] = useState<Blob | MediaSource>();
-
-
-  // const [res, setRes] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const toast = useToast();
 
-  // Event handlers with type annotations
-  // const handleNicChange = (e: ChangeEvent<HTMLInputElement>) =>
-  //   setNic(e.target.value);
+  const toast = useToast();
   const handleAddressChange = (e: ChangeEvent<HTMLInputElement>) =>
     setAddress(e.target.value);
   const handleCivilStatusChange = (e: ChangeEvent<HTMLInputElement>) =>
@@ -75,7 +66,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
     setReason(e.target.value);
   const handleNicPhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setNicPhoto(e.target.files[0])
+      setNicPhoto(e.target.files[0]);
     }
   };
 
@@ -201,17 +192,18 @@ const FormComponent: React.FC<FormComponentProps> = ({
   //   }
   // };
 
-  const handleNicUpload = async (requestID:string) => {
+  const handleNicUpload = async (requestID: string) => {
+    const token = await getToken(nicImageAPI.key);
     try {
       const config = {
-        params: {requestID:requestID}, 
+        params: { requestID: requestID },
         method: "post",
         maxBodyLength: Infinity,
         url: nicImageAPI.urls.upload,
         headers: {
           accept: "*/*",
           "Content-Type": "image/jpeg",
-          "API-Key": nicImageAPI.key,
+          Authorization: "Bearer " + token.access_token,
         },
         data: nicPhoto,
       };
@@ -221,8 +213,6 @@ const FormComponent: React.FC<FormComponentProps> = ({
       console.log(error);
     }
   };
-
-  
 
   const handleApplyTest = async () => {
     setIsLoading(true);
@@ -380,7 +370,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
             fontSize={fontSize}
             onChange={handleNicPhotoChange}
           />
-          <img src={(nicPhoto) && URL.createObjectURL(nicPhoto)} />
+          <img src={nicPhoto && URL.createObjectURL(nicPhoto)} />
         </FormControl>
         <Button
           bgGradient="linear(to-r, green.400, teal.500)" // Applying the gradient
@@ -397,8 +387,11 @@ const FormComponent: React.FC<FormComponentProps> = ({
           paddingBottom={8}
           fontSize="3xl"
           _focus={{ outline: "none" }}
-          onClick={()=>{handleApplyTest();handleNicUpload("1126")}}
-          //onClick={()=>handleNicUpload("1126")}
+          onClick={() => {
+            handleApplyTest();
+            handleNicUpload("1126");
+          }}
+          //onClick={() => handleNicUpload("1122")}
           isLoading={isLoading}
           loadingText="Submitting"
           isDisabled={
@@ -411,7 +404,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
           {status === "pending" ? "Update" : "Apply"}
         </Button>
       </VStack>
-      <DownloadedNicPhoto requestID="1126"/>
+      <DownloadedNicPhoto requestID="1122" />
     </Box>
   );
 };
