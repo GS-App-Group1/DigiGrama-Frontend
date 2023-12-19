@@ -198,11 +198,11 @@ function RequestDetails({
             <Input type="text" value={identityFromNIC?.dob} readOnly />
           </FormControl>
           <FormControl id="dob" marginTop={3}>
-            <FormLabel>Date of Birth</FormLabel>
+            <FormLabel>Name</FormLabel>
             <Input type="text" value={identityFromNIC?.name} readOnly />
           </FormControl>
           <FormControl id="dob" marginTop={3}>
-            <FormLabel>Date of Birth</FormLabel>
+            <FormLabel>Phone Number</FormLabel>
             <Input type="text" value={identityFromNIC?.phoneNumber} readOnly />
           </FormControl>
           <FormControl id="Number of Crimes" marginTop={3}>
