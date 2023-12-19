@@ -407,7 +407,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
           {status === "pending" ? "Update" : "Apply"}
         </Button>
       </VStack>
-      <DownloadedNicPhoto/>
+      <DownloadedNicPhoto requestID="1122"/>
     </Box>
   );
 };
