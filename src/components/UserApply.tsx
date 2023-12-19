@@ -54,7 +54,10 @@ const FormComponent: React.FC<FormComponentProps> = ({
 }) => {
   const fontSize = isMobile ? "2xl" : "md";
 
-  const [nicPhoto, setNicPhoto] = useState<string>("");
+  //const [nicPhotoUrl, setNicPhotoUrl] = useState<string>("");
+  const [nicPhoto, setNicPhoto] = useState<Blob | MediaSource>();
+
+
   // const [res, setRes] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const toast = useToast();
@@ -72,8 +75,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
     setReason(e.target.value);
   const handleNicPhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setNicPhoto(URL.createObjectURL(e.target.files[0]));
-      console.log(nicPhoto);
+      setNicPhoto(e.target.files[0])
     }
   };
 
@@ -199,9 +201,10 @@ const FormComponent: React.FC<FormComponentProps> = ({
   //   }
   // };
 
-  const handleNicUpload = async () => {
+  const handleNicUpload = async (requestID:string) => {
     try {
       const config = {
+        params: {requestID:requestID}, 
         method: "post",
         maxBodyLength: Infinity,
         url: nicImageAPI.urls.upload,
@@ -377,7 +380,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
             fontSize={fontSize}
             onChange={handleNicPhotoChange}
           />
-          <img src={nicPhoto} />
+          <img src={(nicPhoto) && URL.createObjectURL(nicPhoto)} />
         </FormControl>
         <Button
           bgGradient="linear(to-r, green.400, teal.500)" // Applying the gradient
@@ -394,7 +397,8 @@ const FormComponent: React.FC<FormComponentProps> = ({
           paddingBottom={8}
           fontSize="3xl"
           _focus={{ outline: "none" }}
-          onClick={()=>{handleApplyTest();handleNicUpload()}}
+          onClick={()=>{handleApplyTest();handleNicUpload("1126")}}
+          //onClick={()=>handleNicUpload("1126")}
           isLoading={isLoading}
           loadingText="Submitting"
           isDisabled={
@@ -407,7 +411,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
           {status === "pending" ? "Update" : "Apply"}
         </Button>
       </VStack>
-      <DownloadedNicPhoto/>
+      <DownloadedNicPhoto requestID="1126"/>
     </Box>
   );
 };

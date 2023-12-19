@@ -29,6 +29,7 @@ import UserStatus from "../components/UserStatus";
 import { useEffect, useState } from "react";
 // import { useAuthContext } from "@asgardeo/auth-react";
 import axios from "axios";
+import { Helmet } from 'react-helmet';
 import { identityAPI, mainAPI } from "../data/api";
 
 type UserHomePageProps = {
@@ -443,6 +444,9 @@ const UserHomePage = ({ signOut, username, nic, email }: UserHomePageProps) => {
           </Box>
         </Flex>
       </Flex>
+      {isHelp && <Helmet>
+        <script src="https://www.socialintents.com/api/chat/socialintents.1.3.js#2c9fa6c38c37ef93018c47cb3c470d17" async></script>
+      </Helmet>}
     </Box>
   );
 };
