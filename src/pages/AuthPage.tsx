@@ -57,7 +57,7 @@ const AuthPage = ({ signIn }: AuthPageProps) => {
           </Heading>
         </Stack>
       </Flex>
-      <Center height="calc(100vh - 82px)" transform={"scale(1)"}>
+      <Center height="calc(100vh - 82px)" transform={"scale(0.8)"}>
         {" "}
         {/* Subtract the header height */}
         <Center

@@ -22,7 +22,7 @@ import RequestDetails from "../components/RequestDetails";
 import { useEffect, useState } from "react";
 import MyRequest from "../data/data";
 import axios from "axios";
-import { identityAPI, mainAPI } from "../data/api";
+import { addressAPI, identityAPI, mainAPI, policeAPI } from "../data/api";
 
 // Create an array of objects with the defined structure
 // export const requestsPending: MyRequest[] = [
@@ -158,6 +158,30 @@ type GramaHomePageProps = {
   nic: string;
 };
 
+interface dbAddress {
+  _id: string;
+  nic: string;
+  address: string;
+}
+
+interface crimes {
+  _id: string;
+  nic: string;
+  numberOfCrimes: number;
+  severity: string;
+}
+
+export interface identity {
+  _id: string;
+  nic: string;
+  name: string;
+  dob: string;
+  phoneNumber: string;
+  gsDivision: string;
+  isMarried: boolean;
+  isEmployed: boolean;
+}
+
 const GramaHomePage = ({ signOut, username, nic }: GramaHomePageProps) => {
   const [isLargerThan768] = useMediaQuery("(min-width: 1050px)");
 
@@ -169,6 +193,9 @@ const GramaHomePage = ({ signOut, username, nic }: GramaHomePageProps) => {
   );
   const [error, setError] = useState<string | null>(null);
   const [gsNote, setGsNote] = useState<string>("");
+  const [dbAddress, setDbAddress] = useState<string>("");
+  const [crimesCount, setCrimesCount] = useState<number>(0);
+  const [identity, setIdentity] = useState<identity | null>(null);
 
   const handleGsNoteChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setGsNote(event.target.value);
@@ -264,6 +291,109 @@ const GramaHomePage = ({ signOut, username, nic }: GramaHomePageProps) => {
     };
 
     fetchGS();
+  }, [nic]);
+
+  useEffect(() => {
+    const fetchAddress = async () => {
+      const API_KEY: string = addressAPI.key;
+      const url: string = addressAPI.urls.getAddress;
+
+      try {
+        const response = await axios.get<dbAddress[]>(url, {
+          headers: {
+            accept: "application/json",
+            "API-Key": API_KEY,
+          },
+          params: {
+            nic: nic,
+          },
+        });
+        console.log("addresssssssss", response.data);
+        setDbAddress(response.data[0].address || "Not Found");
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+    fetchAddress();
+  }, [nic]);
+
+  useEffect(() => {
+    const fetchCrimes = async () => {
+      const API_KEY: string = policeAPI.key;
+      const url: string = policeAPI.urls.getCrimes;
+
+      try {
+        const response = await axios.get<crimes[]>(url, {
+          headers: {
+            accept: "application/json",
+            "API-Key": API_KEY,
+          },
+          params: {
+            nic: nic,
+          },
+        });
+        console.log("crimes", response.data);
+        let c = 0;
+        if (response.data.length > 0) {
+          c = response.data[0].numberOfCrimes || 0;
+        }
+        setCrimesCount(c);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+    fetchCrimes();
+  }, [nic]);
+
+  useEffect(() => {
+    const fetchCrimes = async () => {
+      const API_KEY: string = policeAPI.key;
+      const url: string = policeAPI.urls.getCrimes;
+
+      try {
+        const response = await axios.get<crimes[]>(url, {
+          headers: {
+            accept: "application/json",
+            "API-Key": API_KEY,
+          },
+          params: {
+            nic: nic,
+          },
+        });
+        console.log("crimes", response.data);
+        let c = 0;
+        if (response.data.length > 0) {
+          c = response.data[0].numberOfCrimes || 0;
+        }
+        setCrimesCount(c);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+    fetchCrimes();
+  }, [nic]);
+
+  useEffect(() => {
+    const fetchIdentity = async () => {
+      const API_KEY: string = identityAPI.key;
+      const url: string = identityAPI.urls.getIdentity;
+
+      try {
+        const response = await axios.get<identity[]>(url, {
+          headers: {
+            accept: "application/json",
+            "API-Key": API_KEY,
+          },
+          params: {
+            nic: nic,
+          },
+        });
+        setIdentity(response.data[0]);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+    fetchIdentity();
   }, [nic]);
 
   // `${mainAPI.urls.getUserRequests}?gsDivision=${gs}`
@@ -367,6 +497,9 @@ const GramaHomePage = ({ signOut, username, nic }: GramaHomePageProps) => {
             {/* <FormComponent /> */}
             <RequestDetails
               data={currentRequest}
+              crimes={crimesCount}
+              dbAddress={dbAddress}
+              identityFromNIC={identity}
               gsNote={gsNote}
               handleGsNoteChange={handleGsNoteChange}
               handleClick={(arg: string) => handleSwap(currentRequest, arg)}
