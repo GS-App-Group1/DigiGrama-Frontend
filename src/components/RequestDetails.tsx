@@ -14,6 +14,7 @@ import MyRequest from "../data/data";
 import axios from "axios";
 import { useState } from "react";
 import { mainAPI } from "../data/api";
+import { identity } from "../pages/GramaHome";
 
 interface UpdateRequestParams {
   nic: string;
@@ -29,6 +30,9 @@ interface UpdateGSNoteParams {
 
 type RequestDetailsProps = {
   data: MyRequest | null;
+  dbAddress: string;
+  identityFromNIC: identity | null;
+  crimes: number;
   gsNote: string;
   handleGsNoteChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleClick: (arg: string) => void;
@@ -36,6 +40,9 @@ type RequestDetailsProps = {
 
 function RequestDetails({
   data,
+  dbAddress,
+  crimes,
+  identityFromNIC,
   handleClick,
   gsNote,
   handleGsNoteChange,
@@ -174,10 +181,6 @@ function RequestDetails({
             <FormLabel>Number</FormLabel>
             <Input type="text" value={data._id} readOnly />
           </FormControl>
-          <FormControl id="address" marginTop={3}>
-            <FormLabel>Address Entered</FormLabel>
-            <Input type="text" value={data.address} readOnly />
-          </FormControl>
           <FormControl id="civilStatus" marginTop={3}>
             <FormLabel>Civil Status</FormLabel>
             <Input type="text" value={data.civilStatus} readOnly />
@@ -189,6 +192,56 @@ function RequestDetails({
           <FormControl id="reason" marginTop={3}>
             <FormLabel>Reason</FormLabel>
             <Input type="text" value={data.reason} readOnly />
+          </FormControl>
+          <FormControl id="dob" marginTop={3}>
+            <FormLabel>Date of Birth</FormLabel>
+            <Input type="text" value={identityFromNIC?.dob} readOnly />
+          </FormControl>
+          <FormControl id="dob" marginTop={3}>
+            <FormLabel>Date of Birth</FormLabel>
+            <Input type="text" value={identityFromNIC?.name} readOnly />
+          </FormControl>
+          <FormControl id="dob" marginTop={3}>
+            <FormLabel>Date of Birth</FormLabel>
+            <Input type="text" value={identityFromNIC?.phoneNumber} readOnly />
+          </FormControl>
+          <FormControl id="Number of Crimes" marginTop={3}>
+            <FormLabel>Number of Crimes</FormLabel>
+            <Input type="text" value={crimes} readOnly />
+          </FormControl>
+          <FormControl id="Character" marginTop={3}>
+            <FormLabel>Character from Police check</FormLabel>
+            <Input
+              type="text"
+              value={
+                crimes == 0
+                  ? "Law-Abiding Citizen"
+                  : crimes < 3
+                  ? "Minor Offender"
+                  : "Repeat Offender"
+              }
+              readOnly
+            />
+          </FormControl>
+          <FormControl id="address" marginTop={3}>
+            <FormLabel>Address Entered</FormLabel>
+            <Input
+              type="text"
+              value={data.address}
+              borderColor="blue"
+              border="2px"
+              readOnly
+            />
+          </FormControl>
+          <FormControl id="address" marginTop={3}>
+            <FormLabel>Address In the records</FormLabel>
+            <Input
+              type="text"
+              value={dbAddress}
+              borderColor="blue"
+              border="2px"
+              readOnly
+            />
           </FormControl>
           <FormControl id="reason" marginTop={3}>
             <FormLabel>Add Note</FormLabel>
