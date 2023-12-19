@@ -1,7 +1,6 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent} from "react";
 import {
   FormControl,
-  Image,
   FormLabel,
   Input,
   Button,
@@ -12,9 +11,9 @@ import {
 } from "@chakra-ui/react";
 import { mainAPI, nicImageAPI } from "../data/api";
 import axios from "axios";
-import { FaCheckCircle } from "react-icons/fa";
-// import { useEffect } from "react";
-// import { getAddress } from "../data/api";
+import DownloadedNicPhoto from "./DownloadedNicPhoto";
+
+
 
 interface FormComponentProps {
   isMobile: boolean;
@@ -57,9 +56,6 @@ const FormComponent: React.FC<FormComponentProps> = ({
 
   const [nicPhoto, setNicPhoto] = useState<string>("");
   // const [res, setRes] = useState<boolean>(true);
-
-  const [nicPhotoUrl, setNicPhotoUrl] = useState("");
-
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const toast = useToast();
 
@@ -77,6 +73,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
   const handleNicPhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setNicPhoto(URL.createObjectURL(e.target.files[0]));
+      console.log(nicPhoto);
     }
   };
 
@@ -222,28 +219,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
     }
   };
 
-  const handleNicDownload = async () => {
-    try {
-      const config = {
-        method: "get",
-        maxBodyLength: Infinity,
-        url: nicImageAPI.urls.download,
-        headers: {
-          accept: "*/*",
-          "Content-Type": "image/jpeg",
-          "API-Key": nicImageAPI.key,
-        },
-      };
-      const response = await axios.request(config);
-      console.log(response);
-
-      // Assuming the image URL is present in the response.data or you need to adjust accordingly
-      setNicPhotoUrl(response.data);
-    } catch (error) {
-      console.log(error);
-      // Handle errors here, e.g., display an error message or log the error.
-    }
-  };
+  
 
   const handleApplyTest = async () => {
     setIsLoading(true);
@@ -320,7 +296,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
       });
     }
   };
-  handleNicDownload();
+
   return (
     <Box
       p={10}
@@ -418,7 +394,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
           paddingBottom={8}
           fontSize="3xl"
           _focus={{ outline: "none" }}
-          onClick={handleNicUpload}
+          onClick={()=>{handleApplyTest();handleNicUpload()}}
           isLoading={isLoading}
           loadingText="Submitting"
           isDisabled={
@@ -430,8 +406,8 @@ const FormComponent: React.FC<FormComponentProps> = ({
         >
           {status === "pending" ? "Update" : "Apply"}
         </Button>
-        <Image src={nicPhotoUrl} />
       </VStack>
+      <DownloadedNicPhoto/>
     </Box>
   );
 };
