@@ -28,10 +28,11 @@ type UserRequestResponse = UserRequest[];
 
 const fetchUserRequestForNIC = async (
   nic: string,
-  email: string
+  email: string,
+  token: string
 ): Promise<UserRequestResponse> => {
   const API_URL = mainAPI.urls.getRequestForNIC;
-  const API_KEY = mainAPI.key;
+  const API_KEY = token;
 
   try {
     const response = await axios.get<UserRequestResponse>(
@@ -39,7 +40,7 @@ const fetchUserRequestForNIC = async (
       {
         headers: {
           accept: "application/json",
-          "API-Key": API_KEY,
+          Authorization: `Bearer ${API_KEY}`,
         },
       }
     );
@@ -65,12 +66,14 @@ interface UserStatusProps {
   nic: string;
   email: string;
   statusdata: formData;
+  token: string;
   setstatusData: (data: formData) => void;
 }
 
 const UserStatus: React.FC<UserStatusProps> = ({
   isMobile,
   nic,
+  token,
   email,
   statusdata,
   setstatusData,
@@ -88,7 +91,7 @@ const UserStatus: React.FC<UserStatusProps> = ({
   // });
 
   useEffect(() => {
-    fetchUserRequestForNIC(nic, email)
+    fetchUserRequestForNIC(nic, email, token)
       .then((data) => {
         setUserRequests(data);
       })
@@ -165,7 +168,13 @@ const UserStatus: React.FC<UserStatusProps> = ({
   }
 
   return (
-    <Box p={10} shadow="xl" borderRadius="20" marginX={5}>
+    <Box
+      p={10}
+      shadow="xl"
+      borderRadius="20"
+      marginX={5}
+      bgGradient="linear(to-br, #ffffff, #78fff6)"
+    >
       <VStack spacing={5}>
         <h1>
           <b>Current Status</b>
@@ -249,6 +258,7 @@ const UserStatus: React.FC<UserStatusProps> = ({
         <Button
           px={16}
           py={6}
+          color="black"
           fontSize="3xl"
           bg={
             statusdata.status === "pending"
@@ -257,7 +267,6 @@ const UserStatus: React.FC<UserStatusProps> = ({
               ? "linear-gradient(90deg, rgba(102,187,106,1) 0%, rgba(129,199,132,1) 100%)" // Green gradient
               : "linear-gradient(90deg, rgba(229,115,115,1) 0%, rgba(239,154,154,1) 100%)" // Red gradient
           }
-          color="white" // Text color for better contrast
           _hover={{
             bg:
               statusdata.status === "pending"

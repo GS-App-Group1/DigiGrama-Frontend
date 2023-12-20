@@ -58,10 +58,11 @@ type UserRequestResponse = UserRequest[];
 
 const fetchUserRequestForNIC = async (
   nic: string,
-  email: string
+  email: string,
+  token: string
 ): Promise<UserRequestResponse> => {
   const API_URL = mainAPI.urls.getRequestForNIC;
-  const API_KEY = mainAPI.key;
+  const API_KEY = token;
 
   try {
     const response = await axios.get<UserRequestResponse>(
@@ -69,7 +70,7 @@ const fetchUserRequestForNIC = async (
       {
         headers: {
           accept: "application/json",
-          "API-Key": API_KEY,
+          Authorization: `Bearer ${API_KEY}`,
         },
       }
     );
@@ -135,7 +136,7 @@ const UserHomePage = ({
   const [userRequests, setUserRequests] = useState<UserRequestResponse>([]);
 
   useEffect(() => {
-    fetchUserRequestForNIC(nic, email)
+    fetchUserRequestForNIC(nic, email, token)
       .then((data) => {
         setUserRequests(data);
       })
@@ -405,6 +406,7 @@ const UserHomePage = ({
           >
             {isApply ? (
               <FormComponent
+                token={token}
                 isMobile={!isLargerThan768}
                 status={formdata.status}
                 nic={nic}
@@ -442,6 +444,7 @@ const UserHomePage = ({
             ) : (
               <UserStatus
                 isMobile={!isLargerThan768}
+                token={token}
                 nic={nic}
                 email={email}
                 statusdata={statusdata}

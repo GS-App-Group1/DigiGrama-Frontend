@@ -215,7 +215,7 @@ const GramaHomePage = ({
           {
             headers: {
               accept: "application/json",
-              "API-Key": mainAPI.key,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -283,7 +283,7 @@ const GramaHomePage = ({
         const response = await axios.get<string>(url, {
           headers: {
             accept: "application/json",
-            "API-Key": `Bearer ${API_KEY}`,
+            Authorization: `Bearer ${API_KEY}`,
           },
           params: {
             nic: nic,
@@ -301,14 +301,14 @@ const GramaHomePage = ({
 
   useEffect(() => {
     const fetchAddress = async () => {
-      const API_KEY: string = addressAPI.key;
+      const API_KEY: string = token;
       const url: string = addressAPI.urls.getAddress;
 
       try {
         const response = await axios.get<dbAddress[]>(url, {
           headers: {
             accept: "application/json",
-            "API-Key": API_KEY,
+            Authorization: `Bearer ${API_KEY}`,
           },
           params: {
             nic: nic,
@@ -325,14 +325,14 @@ const GramaHomePage = ({
 
   useEffect(() => {
     const fetchCrimes = async () => {
-      const API_KEY: string = policeAPI.key;
+      const API_KEY: string = token;
       const url: string = policeAPI.urls.getCrimes;
 
       try {
         const response = await axios.get<crimes[]>(url, {
           headers: {
             accept: "application/json",
-            "API-Key": API_KEY,
+            Authorization: `Bearer ${API_KEY}`,
           },
           params: {
             nic: nic,
@@ -353,14 +353,14 @@ const GramaHomePage = ({
 
   useEffect(() => {
     const fetchCrimes = async () => {
-      const API_KEY: string = policeAPI.key;
+      const API_KEY: string = token;
       const url: string = policeAPI.urls.getCrimes;
 
       try {
         const response = await axios.get<crimes[]>(url, {
           headers: {
             accept: "application/json",
-            "API-Key": API_KEY,
+            Authorization: `Bearer ${API_KEY}`,
           },
           params: {
             nic: nic,
@@ -388,7 +388,7 @@ const GramaHomePage = ({
         const response = await axios.get<identity[]>(url, {
           headers: {
             accept: "application/json",
-            "API-Key": `Bearer ${API_KEY}`,
+            Authorization: `Bearer ${API_KEY}`,
           },
           params: {
             nic: nic,
@@ -502,6 +502,7 @@ const GramaHomePage = ({
           >
             {/* <FormComponent /> */}
             <RequestDetails
+              token={token}
               data={currentRequest}
               crimes={crimesCount}
               dbAddress={dbAddress}

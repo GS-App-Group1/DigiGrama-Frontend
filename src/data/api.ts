@@ -1,6 +1,15 @@
 const IdentityURL =
   "https://cf3a4176-54c9-4547-bcd6-c6fe400ad0d8-dev.e1-us-east-azure.choreoapis.dev/hbld/identityapi-ztt/identityapi-b3c/v1";
 
+const addressURL =
+  "https://cf3a4176-54c9-4547-bcd6-c6fe400ad0d8-dev.e1-us-east-azure.choreoapis.dev/hbld/addressapi-kkw/addressapi-ac2/v1";
+
+const policeURL =
+  "https://cf3a4176-54c9-4547-bcd6-c6fe400ad0d8-dev.e1-us-east-azure.choreoapis.dev/hbld/policeapi/policeapi-e18/v1";
+
+const mainURL =
+  "https://cf3a4176-54c9-4547-bcd6-c6fe400ad0d8-dev.e1-us-east-azure.choreoapis.dev/hbld/mainservice-tcf/mainapi-bf2/v1";
+
 export const identityAPI = {
   urls: {
     getIdentity: `${IdentityURL}/getIdentityFromNIC/`,
@@ -10,18 +19,14 @@ export const identityAPI = {
 
 export const addressAPI = {
   urls: {
-    getAddress:
-      "https://cf3a4176-54c9-4547-bcd6-c6fe400ad0d8-dev.e1-us-east-azure.choreoapis.dev/cqxq/addressapi/addressapi-ac2/v1.1/getAddressByNIC/",
+    getAddress: `${addressURL}/getAddressByNIC/`,
   },
-  key: "eyJraWQiOiJnYXRld2F5X2NlcnRpZmljYXRlX2FsaWFzIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI2NDY3YTNhYi0xYzc1LTRiYjctYTdmYy00ZGIxOTgyYzIwM2ZAY2FyYm9uLnN1cGVyIiwiYXVkIjoiY2hvcmVvOmRlcGxveW1lbnQ6c2FuZGJveCIsImlzcyI6Imh0dHBzOlwvXC9zdHMuY2hvcmVvLmRldjo0NDNcL2FwaVwvYW1cL3B1Ymxpc2hlclwvdjJcL2FwaXNcL2ludGVybmFsLWtleSIsImtleXR5cGUiOiJTQU5EQk9YIiwic3Vic2NyaWJlZEFQSXMiOlt7InN1YnNjcmliZXJUZW5hbnREb21haW4iOm51bGwsIm5hbWUiOiJBZGRyZXNzQVBJIC0gQWRkcmVzc0FQSSIsImNvbnRleHQiOiJcL2NmM2E0MTc2LTU0YzktNDU0Ny1iY2Q2LWM2ZmU0MDBhZDBkOFwvY3F4cVwvYWRkcmVzc2FwaVwvYWRkcmVzc2FwaS1hYzJcL3YxLjEiLCJwdWJsaXNoZXIiOiJjaG9yZW9fcHJvZF9hcGltX2FkbWluIiwidmVyc2lvbiI6InYxLjEiLCJzdWJzY3JpcHRpb25UaWVyIjpudWxsfV0sImV4cCI6MTcwMjkxODQxNiwidG9rZW5fdHlwZSI6IkludGVybmFsS2V5IiwiaWF0IjoxNzAyOTE3ODE2LCJqdGkiOiJmM2IyNzYyMC1iYjVhLTQ5NGUtOTUyYy05ZGFlYTgwODcyMjIifQ.FStoyKmgebhaaBQZyw-cxVjeyWV3synoIgWsRdeAn4XsowsHcjZyURqSk2pzYOhdtLLcB7Ox0S7XI_gcVDbwr4oVjyujlZpq7i72ldDT-9QbuP8cFRbGg_8TmqEHCtwmwh11g2QYZ0IvRuQyhGm8INs1v39Z9BrSw0z6dMO4-pojEz8asieqG2vBZToyvcftfHHIjAcS5Hvprvzup9DACUPqu6R37YH3TiMigOMfcypjXmL9J_FhcCVVLlegFo9CUIsGjFzyXQdn_WgX9vlSrHq58qKX70-fl7dH9kLRUGKXkta_albcuPX49kfqP5rM97WoOJkp8Lw697lcsykOj2LOomueAd3iyaDDENOsyEL9nqHHcJjHjQKY5hMQdH_QH1aUjYkAMQtJk-V1qyZoXXCJc5Lr_OoODL665_Qxx-CP6UJjAnq_eCgK8MDwIl3VPH2knb1ngG1tduS_5m1t4Fmb7uCdVQ_OJ-E2wDZRGTloZhta_KooN9zliIitziy4D76EFmgnbdprqXUAb2Qzti34EW2hIbQdIRb5UWcXSsKsPa1aa1ZqfhRh-teFAuZ6AD90zH4Bw6xhRn2p55cQGRP71mU-9XlphlPYLBWYBVGi13RB-oSNJV2vL2s8r3deiqsSBokN4Qdou7jTW091H3b9tjkUAlmGAio2YSGjrQQ",
 };
 
 export const policeAPI = {
   urls: {
-    getCrimes:
-      "https://cf3a4176-54c9-4547-bcd6-c6fe400ad0d8-dev.e1-us-east-azure.choreoapis.dev/cqxq/policeapi/policeapi-e18/v1.0/getPoliceRecordFromNIC/",
+    getCrimes: `${policeURL}/getPoliceRecordFromNIC/`,
   },
-  key: "eyJraWQiOiJnYXRld2F5X2NlcnRpZmljYXRlX2FsaWFzIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI2NDY3YTNhYi0xYzc1LTRiYjctYTdmYy00ZGIxOTgyYzIwM2ZAY2FyYm9uLnN1cGVyIiwiYXVkIjoiY2hvcmVvOmRlcGxveW1lbnQ6c2FuZGJveCIsImlzcyI6Imh0dHBzOlwvXC9zdHMuY2hvcmVvLmRldjo0NDNcL2FwaVwvYW1cL3B1Ymxpc2hlclwvdjJcL2FwaXNcL2ludGVybmFsLWtleSIsImtleXR5cGUiOiJTQU5EQk9YIiwic3Vic2NyaWJlZEFQSXMiOlt7InN1YnNjcmliZXJUZW5hbnREb21haW4iOm51bGwsIm5hbWUiOiJQb2xpY2VBUEkgLSBQb2xpY2VBUEkiLCJjb250ZXh0IjoiXC9jZjNhNDE3Ni01NGM5LTQ1NDctYmNkNi1jNmZlNDAwYWQwZDhcL2NxeHFcL3BvbGljZWFwaVwvcG9saWNlYXBpLWUxOFwvdjEuMCIsInB1Ymxpc2hlciI6ImNob3Jlb19wcm9kX2FwaW1fYWRtaW4iLCJ2ZXJzaW9uIjoidjEuMCIsInN1YnNjcmlwdGlvblRpZXIiOm51bGx9XSwiZXhwIjoxNzAyOTE4NTAzLCJ0b2tlbl90eXBlIjoiSW50ZXJuYWxLZXkiLCJpYXQiOjE3MDI5MTc5MDMsImp0aSI6ImZkMjY4M2Q2LWY3NzktNGM5OS1hMGE1LTI0YzUyMzk1OTAzNiJ9.epXXlCkiJR6NIxRGiqFg-erU_d_tOmhaMsm4TCpwrMxx1aIn9-0DlPDYplH1eD41iJSMfUbNWgEY5geMga5aJZfXX_Vtp3CWLxiRN34_8eWxDEwpA-U3g_i-yzlqKsipigomr31tzd_48hI8484Tmnuin5E--tkBIsLS8Omj0oA9OwDK7MXSTiHTKiSIaFMKlWoMK_hvhAokUqULvSRB_GteT8Qha9Yrx-E2O92Ml4Uo0f0au3U3sr1gJu67YPWvaxhBTtQ5v1cLncg8Sb1ocz4xUOPcYidgPiWE5EIsjIW_HEjGSNDUMKz9ul14_N8ctxKIy-1j8uSi_yDLHaCVnrV9dXFJ2aswt7LdUnGoBtMBKGmYA8FA1ADTOQdW0udD90OkRmFFHZKyIbQ3XPnilOI1FS66Cpj65B1WwlzFlrPbDcx6tQp_ncAvfDfLd62JuJqCt2DXXh7HdM5JQBfcOeBHo-ljuGQBM4x0kfz3c4yVJ-3ry_xwXDr2N6laSkL7R1ivHhx1lUTgy6-J9QYOXbFZ7hdRnvYW-d2arbNuKmUcaf61suop_ZVmlSxskxIO-ZqtPtdDfVEWSAG10kDINjbMvqPcce6q2W7YzKa24gsH7SOBsN0Qyuk5_X9XLuFFa5w0UVF1G4wxofoOn99qxD5-5e0AEJO8bVMZ8Y3MJ6Y",
 };
 
 export const nicImageAPI = {
@@ -36,18 +41,11 @@ export const nicImageAPI = {
 
 export const mainAPI = {
   urls: {
-    updateStatus:
-      "https://cf3a4176-54c9-4547-bcd6-c6fe400ad0d8-dev.e1-us-east-azure.choreoapis.dev/cqxq/mainservice/mainapi-bf2/v1.0/updateRequestStatus",
-    getUserRequests:
-      "https://cf3a4176-54c9-4547-bcd6-c6fe400ad0d8-dev.e1-us-east-azure.choreoapis.dev/cqxq/mainservice/mainapi-bf2/v1.0/getUserRequests",
-    updateRequest:
-      "https://cf3a4176-54c9-4547-bcd6-c6fe400ad0d8-dev.e1-us-east-azure.choreoapis.dev/cqxq/mainservice/mainapi-bf2/v1.0/updateUserRequest",
-    postRequest:
-      "https://cf3a4176-54c9-4547-bcd6-c6fe400ad0d8-dev.e1-us-east-azure.choreoapis.dev/cqxq/mainservice/mainapi-bf2/v1.0/userRequest",
-    updateGsNote:
-      "https://cf3a4176-54c9-4547-bcd6-c6fe400ad0d8-dev.e1-us-east-azure.choreoapis.dev/cqxq/mainservice/mainapi-bf2/v1.0/updateGSRequest",
-    getRequestForNIC:
-      "https://cf3a4176-54c9-4547-bcd6-c6fe400ad0d8-dev.e1-us-east-azure.choreoapis.dev/cqxq/mainservice/mainapi-bf2/v1.0/getUserRequestForNIC",
+    updateStatus: `${mainURL}/updateRequestStatus`,
+    getUserRequests: `${mainURL}/getUserRequests`,
+    updateRequest: `${mainURL}/updateUserRequest`,
+    postRequest: `${mainURL}/userRequest`,
+    updateGsNote: `${mainURL}/updateGSRequest`,
+    getRequestForNIC: `${mainURL}/getUserRequestForNIC`,
   },
-  key: "eyJ4NXQiOiJZell6WTJNNVpXWTNZbVF4TTJZME16UTNOMk16WXpka05EWXlORE14TWpnd016RTNOamM1T1RSbE9UWTVaR1JsWkRJd01qVTBZakUzTURNeE9UQTBZZyIsImtpZCI6Ill6WXpZMk01WldZM1ltUXhNMlkwTXpRM04yTXpZemRrTkRZeU5ETXhNamd3TXpFM05qYzVPVFJsT1RZNVpHUmxaREl3TWpVMFlqRTNNRE14T1RBMFlnX1JTMjU2IiwidHlwIjoiYXQrand0IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI0YTM2MWI4Yi1lM2JiLTQ0ZDEtYmVhNC1kZmFjNDk0NGZmYzMiLCJhdXQiOiJBUFBMSUNBVElPTiIsImF1ZCI6WyJwRTVWbE1FOFZoakRuRlF0akk1SGkza0lINWdhIiwiY2hvcmVvOmRlcGxveW1lbnQ6c2FuZGJveCJdLCJuYmYiOjE3MDI5NjI0MDksImF6cCI6InBFNVZsTUU4VmhqRG5GUXRqSTVIaTNrSUg1Z2EiLCJvcmdfaWQiOiJjZjNhNDE3Ni01NGM5LTQ1NDctYmNkNi1jNmZlNDAwYWQwZDgiLCJpc3MiOiJodHRwczpcL1wvYXBpLmFzZ2FyZGVvLmlvXC90XC9pbnRlcm5zXC9vYXV0aDJcL3Rva2VuIiwiZXhwIjoxNzAyOTYzMzA5LCJvcmdfbmFtZSI6ImludGVybnMiLCJpYXQiOjE3MDI5NjI0MDksImp0aSI6IjlhYTNkOTgzLTgxMTItNGRhZS1iYjhhLTliZWQwN2NmOGY1MSIsImNsaWVudF9pZCI6InBFNVZsTUU4VmhqRG5GUXRqSTVIaTNrSUg1Z2EifQ.lCix9gGSsI5sPzPD5eXw86Lhq_LTBsSPD8Aqq4jZEXmBz5dALktFBusLI2rdNkFCOVxY1wQvd3BDPE6syDeAJhvWh2nF8Bb8dioXcBRxjBt-cOBas7IjbUPocALrkdsXWB8_LAdiUKdWxYq3T4om2tOgNmcW7zAFRbIXrdclaNDOZ20njYL0RC8dUP25NAHauJ_nahhNGudyqWu-rq5W5xomXTy3_FPE9kEx0Fgxp8zbRh9XWB9CsKUTVcYwCzCq6DZqJROKrKKsHktXRmTZ1IyZdEgUOzj26ye6IvORm5sDWgjg7oBRpaSyrBn1vye3AVfOgFfHuTSZ1bNYnXoA8Q",
 };

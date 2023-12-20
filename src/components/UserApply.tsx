@@ -14,6 +14,7 @@ import axios from "axios";
 import DownloadedNicPhoto from "./DownloadedNicPhoto";
 import { getToken } from "./utils";
 interface FormComponentProps {
+  token: string;
   isMobile: boolean;
   nic: string;
   gsDivision: string;
@@ -30,6 +31,7 @@ interface FormComponentProps {
 }
 
 const FormComponent: React.FC<FormComponentProps> = ({
+  token,
   isMobile,
   gsDivision,
   address,
@@ -243,7 +245,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
             headers: {
               accept: "*/*",
               "Content-Type": "application/json",
-              "API-Key": mainAPI.key, // Replace with your actual API key
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -253,7 +255,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
           headers: {
             accept: "*/*",
             "Content-Type": "application/json",
-            "API-Key": mainAPI.key, // Replace with your actual API key
+            Authorization: `Bearer ${token}`, // Replace with your actual API key
           },
         });
       }
@@ -270,7 +272,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
       });
 
       // Consider using a more React-friendly way to update the page state instead of reloading the page
-      // window.location.reload();
+      window.location.reload();
     } catch (error) {
       setIsLoading(false);
       console.error("Error making the request:", error);

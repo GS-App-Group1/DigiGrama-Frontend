@@ -30,6 +30,7 @@ interface UpdateGSNoteParams {
 
 type RequestDetailsProps = {
   data: MyRequest | null;
+  token: string;
   dbAddress: string;
   identityFromNIC: identity | null;
   crimes: number;
@@ -40,6 +41,7 @@ type RequestDetailsProps = {
 
 function RequestDetails({
   data,
+  token,
   dbAddress,
   crimes,
   identityFromNIC,
@@ -59,7 +61,7 @@ function RequestDetails({
         params,
         headers: {
           accept: "*/*",
-          "API-Key": mainAPI.key,
+          Authorization: `Bearer ${token}`,
         },
       });
       setResponseMessage(response.data);
@@ -102,7 +104,7 @@ function RequestDetails({
         params,
         headers: {
           accept: "*/*",
-          "API-Key": mainAPI.key,
+          Authorization: `Bearer ${token}`,
         },
       });
       setResponseMessage(response.data);
