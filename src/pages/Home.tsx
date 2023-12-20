@@ -53,11 +53,14 @@ const Home: React.FC = () => {
     signOut,
     getBasicUserInfo,
     getIDToken,
+    getAccessToken,
     getDecodedIDToken,
   } = useAuthContext();
 
   const [derivedAuthenticationState, setDerivedAuthenticationState] =
     useState<DerivedState>({} as DerivedState);
+
+  const [accessToken, setAccessToken] = useState<string>("");
 
   useEffect(() => {
     if (!state?.isAuthenticated) {
@@ -67,6 +70,7 @@ const Home: React.FC = () => {
     (async (): Promise<void> => {
       const basicUserInfo = await getBasicUserInfo();
       const idToken = await getIDToken();
+      const accessToken = await getAccessToken();
       const decodedIDToken = await getDecodedIDToken();
 
       const derivedState: DerivedState = {
@@ -77,10 +81,13 @@ const Home: React.FC = () => {
       };
 
       setDerivedAuthenticationState(derivedState);
+      setAccessToken(accessToken);
+      console.log("access", accessToken);
     })();
   }, [state.isAuthenticated, getBasicUserInfo, getIDToken, getDecodedIDToken]);
 
   console.log(derivedAuthenticationState);
+
   const payload = derivedAuthenticationState.authenticateResponse;
   let role = "";
   let username = "";
@@ -95,8 +102,8 @@ const Home: React.FC = () => {
     if (payload.username) {
       username = payload.username;
     }
-    if (payload.NIC) {
-      nic = payload.NIC;
+    if (payload.nic) {
+      nic = payload.nic;
     }
     if (payload.email) {
       email = payload.email;
@@ -120,6 +127,7 @@ const Home: React.FC = () => {
             element={
               role === "Admin" ? (
                 <GramaHomePage
+                  token={accessToken}
                   signOut={signOut}
                   username={username}
                   nic={nic}
@@ -132,6 +140,7 @@ const Home: React.FC = () => {
             element={
               role === "Users" ? (
                 <UserHomePage
+                  token={accessToken}
                   signOut={signOut}
                   username={username}
                   nic={nic}

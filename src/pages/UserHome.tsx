@@ -29,10 +29,11 @@ import UserStatus from "../components/UserStatus";
 import { useEffect, useState } from "react";
 // import { useAuthContext } from "@asgardeo/auth-react";
 import axios from "axios";
-import { Helmet } from 'react-helmet';
+import { Helmet } from "react-helmet";
 import { identityAPI, mainAPI } from "../data/api";
 
 type UserHomePageProps = {
+  token: string;
   signOut: () => void;
   username: string;
   nic: string;
@@ -89,7 +90,13 @@ type formData = {
   status: string;
 };
 
-const UserHomePage = ({ signOut, username, nic, email }: UserHomePageProps) => {
+const UserHomePage = ({
+  signOut,
+  username,
+  nic,
+  email,
+  token,
+}: UserHomePageProps) => {
   // const { getAccessToken } = useAuthContext();
 
   // useEffect(() => {
@@ -160,14 +167,14 @@ const UserHomePage = ({ signOut, username, nic, email }: UserHomePageProps) => {
 
   useEffect(() => {
     const fetchGS = async () => {
-      const API_KEY: string = identityAPI.key;
+      const API_KEY: string = token;
       const url: string = identityAPI.urls.getGS;
 
       try {
         const response = await axios.get<string>(url, {
           headers: {
             accept: "application/json",
-            "API-Key": API_KEY,
+            Authorization: `Bearer ${API_KEY}`,
           },
           params: {
             nic: nic,
@@ -444,9 +451,14 @@ const UserHomePage = ({ signOut, username, nic, email }: UserHomePageProps) => {
           </Box>
         </Flex>
       </Flex>
-      {isHelp && <Helmet>
-        <script src="https://www.socialintents.com/api/chat/socialintents.1.3.js#2c9fa6c38c37ef93018c47cb3c470d17" async></script>
-      </Helmet>}
+      {isHelp && (
+        <Helmet>
+          <script
+            src="https://www.socialintents.com/api/chat/socialintents.1.3.js#2c9fa6c38c37ef93018c47cb3c470d17"
+            async
+          ></script>
+        </Helmet>
+      )}
     </Box>
   );
 };

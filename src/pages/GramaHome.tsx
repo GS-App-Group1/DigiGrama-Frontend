@@ -153,6 +153,7 @@ import { addressAPI, identityAPI, mainAPI, policeAPI } from "../data/api";
 // ];
 
 type GramaHomePageProps = {
+  token: string;
   signOut: () => void;
   username: string;
   nic: string;
@@ -182,7 +183,12 @@ export interface identity {
   isEmployed: boolean;
 }
 
-const GramaHomePage = ({ signOut, username, nic }: GramaHomePageProps) => {
+const GramaHomePage = ({
+  signOut,
+  username,
+  nic,
+  token,
+}: GramaHomePageProps) => {
   const [isLargerThan768] = useMediaQuery("(min-width: 1050px)");
 
   const [gs, setGs] = useState("Sooriyagoda");
@@ -270,14 +276,14 @@ const GramaHomePage = ({ signOut, username, nic }: GramaHomePageProps) => {
 
   useEffect(() => {
     const fetchGS = async () => {
-      const API_KEY: string = identityAPI.key;
+      const API_KEY: string = token;
       const url: string = identityAPI.urls.getGS;
 
       try {
         const response = await axios.get<string>(url, {
           headers: {
             accept: "application/json",
-            "API-Key": API_KEY,
+            "API-Key": `Bearer ${API_KEY}`,
           },
           params: {
             nic: nic,
@@ -375,14 +381,14 @@ const GramaHomePage = ({ signOut, username, nic }: GramaHomePageProps) => {
 
   useEffect(() => {
     const fetchIdentity = async () => {
-      const API_KEY: string = identityAPI.key;
+      const API_KEY: string = token;
       const url: string = identityAPI.urls.getIdentity;
 
       try {
         const response = await axios.get<identity[]>(url, {
           headers: {
             accept: "application/json",
-            "API-Key": API_KEY,
+            "API-Key": `Bearer ${API_KEY}`,
           },
           params: {
             nic: nic,
