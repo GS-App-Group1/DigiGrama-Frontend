@@ -12,7 +12,7 @@ import {
 import { mainAPI, nicImageAPI } from "../data/api";
 import axios from "axios";
 import DownloadedNicPhoto from "./DownloadedNicPhoto";
-
+import { getToken } from "./utils";
 interface FormComponentProps {
   isMobile: boolean;
   nic: string;
@@ -46,10 +46,10 @@ const FormComponent: React.FC<FormComponentProps> = ({
 }) => {
   const fontSize = isMobile ? "2xl" : "md";
 
-  const [nicPhoto, setNicPhoto] = useState<string>("");
+  const [nicPhoto, setNicPhoto] = useState<Blob | MediaSource>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const toast = useToast();
 
+  const toast = useToast();
   const handleAddressChange = (e: ChangeEvent<HTMLInputElement>) =>
     setAddress(e.target.value);
   const handleCivilStatusChange = (e: ChangeEvent<HTMLInputElement>) =>
@@ -60,21 +60,144 @@ const FormComponent: React.FC<FormComponentProps> = ({
     setReason(e.target.value);
   const handleNicPhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setNicPhoto(URL.createObjectURL(e.target.files[0]));
-      console.log(nicPhoto);
+      setNicPhoto(e.target.files[0]);
     }
   };
 
-  const handleNicUpload = async () => {
+  // useEffect(() => {
+  //   const fetchAddress = async () => {
+  //     const API_KEY: string = getAddress.key;
+  //     const url: string = getAddress.url;
+
+  //     try {
+  //       const response = await axios.get<AddressResponseItem[]>(url, {
+  //         headers: {
+  //           accept: "application/json",
+  //           "API-Key": API_KEY,
+  //         },
+  //         params: {
+  //           nic: nic,
+  //         },
+  //       });
+  //       if (address === "") setAddress(response.data[0].address || "Not Found");
+
+  //     } catch (error) {
+  //       console.error("Error fetching data: ", error);
+  //     }
+  //   };
+
+  //   fetchAddress();
+  // }, [address]);
+
+  // const handleApply = async () => {
+  //   try {
+  //     const response = await axios.post(
+  //       postRequest.url,
+  //       {
+  //         _id: "987123", // Replace with actual data if needed
+  //         address: address,
+  //         civilStatus: civilStatus,
+  //         gsDivision: gsDivision, // Replace with actual data if needed
+  //         gsNote: "", // Replace with actual data if needed
+  //         nic: nic,
+  //         presentOccupation: occupation,
+  //         reason: reason,
+  //         requestTime: new Date().toISOString(), // Replace with actual data if needed
+  //         status: "pending", // Replace with actual data if needed
+  //       },
+  //       {
+  //         headers: {
+  //           accept: "*/*",
+  //           "Content-Type": "application/json",
+  //           "API-Key": postRequest.key, // Replace with your actual API key
+  //         },
+  //       }
+  //     );
+
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.error("Error making the request:", error);
+  //   }
+  // };
+
+  // const handleApplyTest = async () => {
+  //   setIsLoading(true);
+  //   try {
+  //     // Your API call logic here
+  //     // After the API call
+  //     // add a timer of 2 seconds to simulate the loading state
+  //     // Remove this timer when you add the actual API call
+  //     // setTimeout(() => {
+  //     //   setIsLoading(false);
+  //     //   setRes(true);
+  //     //   toast({
+  //     //     title: "Application Successful",
+  //     //     description: "Your application has been submitted successfully.",
+  //     //     status: "success",
+  //     //     duration: 5000,
+  //     //     isClosable: true,
+  //     //   });
+  //     // }, 2000);
+  //     await axios.post(
+  //       mainAPI.urls.postRequest,
+  //       {
+  //         _id: new Date().toISOString(), // Replace with actual data if needed
+  //         address: address,
+  //         civilStatus: civilStatus,
+  //         gsDivision: gsDivision, // Replace with actual data if needed
+  //         gsNote: "", // Replace with actual data if needed
+  //         nic: nic,
+  //         presentOccupation: occupation,
+  //         reason: reason,
+  //         requestTime: new Date().toISOString(), // Replace with actual data if needed
+  //         status: "pending", // Replace with actual data if needed
+  //         email: email,
+  //       },
+  //       {
+  //         headers: {
+  //           accept: "*/*",
+  //           "Content-Type": "application/json",
+  //           "API-Key": mainAPI.key, // Replace with your actual API key
+  //         },
+  //       }
+  //     );
+  //     setIsLoading(false);
+  //     toast({
+  //       title: "Application Successful",
+  //       description: `Your application has been ${
+  //         status === "pending" ? "updated" : "submitted"
+  //       } successfully.`,
+  //       status: "success",
+  //       duration: 3000,
+  //       isClosable: true,
+  //     });
+  //     // reload the page
+  //     // window.location.reload();
+  //   } catch (error) {
+  //     setIsLoading(false);
+  //     console.error("Error making the request:", error);
+  //     toast({
+  //       title: "Application Failed",
+  //       description: "There was an error submitting your application.",
+  //       status: "error",
+  //       duration: 2000,
+  //       isClosable: true,
+  //     });
+  //   }
+  // };
+
+  const handleNicUpload = async (requestID: string) => {
+    const token = await getToken(nicImageAPI.key);
     try {
       const config = {
+        params: { requestID: requestID },
         method: "post",
         maxBodyLength: Infinity,
         url: nicImageAPI.urls.upload,
         headers: {
           accept: "*/*",
           "Content-Type": "image/jpeg",
-          "API-Key": nicImageAPI.key,
+          Authorization: "Bearer " + token.access_token,
         },
         data: nicPhoto,
       };
@@ -241,7 +364,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
             fontSize={fontSize}
             onChange={handleNicPhotoChange}
           />
-          <img src={nicPhoto} />
+          <img src={nicPhoto && URL.createObjectURL(nicPhoto)} />
         </FormControl>
         <Button
           bgGradient="linear(to-r, green.400, teal.500)" // Applying the gradient
@@ -260,8 +383,9 @@ const FormComponent: React.FC<FormComponentProps> = ({
           _focus={{ outline: "none" }}
           onClick={() => {
             handleApplyTest();
-            handleNicUpload();
+            handleNicUpload("1126");
           }}
+          //onClick={() => handleNicUpload("1122")}
           isLoading={isLoading}
           loadingText="Submitting"
           isDisabled={
@@ -274,7 +398,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
           {status === "pending" ? "Update" : "Apply"}
         </Button>
       </VStack>
-      {/* <DownloadedNicPhoto/> */}
+      <DownloadedNicPhoto requestID="1122" />
     </Box>
   );
 };
