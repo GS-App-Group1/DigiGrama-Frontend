@@ -191,7 +191,7 @@ const GramaHomePage = ({
 }: GramaHomePageProps) => {
   const [isLargerThan768] = useMediaQuery("(min-width: 1050px)");
 
-  const [gs, setGs] = useState("Sooriyagoda");
+  const [gs, setGs] = useState("");
   const [pendingList, setPendingList] = useState<MyRequest[]>([]);
   const [completedList, setCompletedList] = useState<MyRequest[]>([]);
   const [currentRequest, setCurrentRequest] = useState<MyRequest | null>(
