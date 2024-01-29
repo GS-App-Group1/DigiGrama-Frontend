@@ -9,7 +9,18 @@ const config = {
   signOutRedirectURL: "http://localhost:5173",
   clientID: "WfmlPryaoGNriYT8fQdSTPgMtkAa",
   baseUrl: "https://api.asgardeo.io/t/interns",
-  scope: ["openid", "profile", "app_roles", "groups", "phone", "email"],
+  scope: [
+    "openid",
+    "profile",
+    "app_roles",
+    "groups",
+    "phone",
+    "email",
+    "urn:interns:policeapipoliceapi:Admin",
+    "urn:interns:mainservicetcfmainapi:User",
+    "urn:interns:mainservicetcfmainapi:Admin",
+    "urn:interns:identityapizttidentityapi:Admin",
+  ],
 };
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
