@@ -22,7 +22,6 @@ import {
   FaHandsHelping,
   FaSearch,
   FaCertificate,
-  FaCheckCircle,
 } from "react-icons/fa";
 import FormComponent from "../components/UserApply";
 import UserStatus from "../components/UserStatus";
@@ -148,6 +147,7 @@ const UserHomePage = ({
   useEffect(() => {
     if (userRequests.length > 0) {
       console.log(userRequests);
+      console.log(isStatus);
       // Find the first request with a status of "pending"
       const pendingRequest = userRequests.find(
         (request) => request.status === "pending"
@@ -406,6 +406,7 @@ const UserHomePage = ({
           >
             {isApply ? (
               <FormComponent
+                requestID={userRequests[0]?._id || ""}
                 token={token}
                 isMobile={!isLargerThan768}
                 status={formdata.status}

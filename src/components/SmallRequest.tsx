@@ -9,12 +9,7 @@ interface RequestProps {
   isSelected: boolean;
 }
 
-const Request: React.FC<RequestProps> = ({
-  handleClick,
-  data,
-  isSelected,
-  obj_id,
-}) => {
+const Request: React.FC<RequestProps> = ({ handleClick, data, isSelected }) => {
   console.log(data);
   return (
     <Box

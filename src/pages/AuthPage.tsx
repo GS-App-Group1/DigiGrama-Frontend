@@ -6,7 +6,6 @@ import {
   Image,
   VStack,
   Stack,
-  useMediaQuery,
   Center,
   Button,
   useColorModeValue,
@@ -20,20 +19,20 @@ import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 // Define the document content
-const documentDefinition = {
-  content: [
-    "This is an example text for the PDF.", // Replace this with your text
-  ],
-};
+// const documentDefinition = {
+//   content: [
+//     "This is an example text for the PDF.", // Replace this with your text
+//   ],
+// };
 
 type AuthPageProps = {
   signIn: () => void;
 };
 
 const AuthPage = ({ signIn }: AuthPageProps) => {
-  const [isLargerThan768] = useMediaQuery("(min-width: 1050px)");
-  const scale = isLargerThan768 ? "scale(0.9)" : "scale(1.5)";
-  const rightMargin = isLargerThan768 ? "7%" : "0%";
+  // const [isLargerThan768] = useMediaQuery("(min-width: 1050px)");
+  // const scale = isLargerThan768 ? "scale(0.9)" : "scale(1.5)";
+  // const rightMargin = isLargerThan768 ? "7%" : "0%";
 
   return (
     <Box bgGradient="linear(to-tl, #189972, #ffffff)">

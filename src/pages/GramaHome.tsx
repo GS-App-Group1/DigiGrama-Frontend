@@ -205,6 +205,7 @@ const GramaHomePage = ({
 
   const handleGsNoteChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setGsNote(event.target.value);
+    console.log(error);
   };
 
   useEffect(() => {

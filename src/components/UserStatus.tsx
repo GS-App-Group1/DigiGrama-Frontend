@@ -10,6 +10,13 @@ import {
 import axios from "axios";
 import { mainAPI } from "../data/api";
 
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
+// Define the document content
+
 interface UserRequest {
   _id: string;
   nic: string;
@@ -260,6 +267,39 @@ const UserStatus: React.FC<UserStatusProps> = ({
           py={6}
           color="black"
           fontSize="3xl"
+          onClick={() => {
+            if (statusdata.status === "accepted") {
+              const documentDefinition = {
+                content: [
+                  "Grama Sevaka Certificate", // Replace this with your text
+                  " ", // Add some vertical spacing
+                  " ",
+                  `ID: ${userRequests[0]._id}`,
+                  " ",
+                  `NIC: ${userRequests[0].nic}`,
+                  " ",
+                  `Address: ${userRequests[0].address}`,
+                  " ",
+                  `Civil Status: ${userRequests[0].civilStatus}`,
+                  " ",
+                  `Present Occupation: ${userRequests[0].presentOccupation}`,
+                  " ",
+                  `Reason: ${userRequests[0].reason}`,
+                  " ",
+                  `Grama Sevaka Note: ${userRequests[0].gsNote}`,
+                  " ",
+                  `Grama Sevaka Division: ${userRequests[0].gsDivision}`,
+                  " ",
+                  `Request Time: ${userRequests[0].requestTime}`,
+                  " ",
+                  `Status: ${userRequests[0].status}`,
+                ],
+              };
+              pdfMake
+                .createPdf(documentDefinition)
+                .download(`${userRequests[0].nic}.pdf`);
+            }
+          }}
           bg={
             statusdata.status === "pending"
               ? "linear-gradient(90deg, rgba(255,224,102,1) 0%, rgba(255,229,128,1) 100%)" // Yellow gradient
@@ -288,6 +328,7 @@ const UserStatus: React.FC<UserStatusProps> = ({
           }}
         >
           {statusdata.status.toUpperCase()}
+          {statusdata.status === "accepted" && ": Download certificate"}
         </Button>
       </VStack>
     </Box>

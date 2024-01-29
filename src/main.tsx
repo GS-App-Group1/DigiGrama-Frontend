@@ -4,9 +4,11 @@ import App from "./App.tsx";
 import "./index.css";
 import { AuthProvider } from "@asgardeo/auth-react";
 
+const baseURL = "http://localhost:5173";
+
 const config = {
-  signInRedirectURL: "http://localhost:5173/redirect",
-  signOutRedirectURL: "http://localhost:5173",
+  signInRedirectURL: `${baseURL}/redirect`,
+  signOutRedirectURL: baseURL,
   clientID: "WfmlPryaoGNriYT8fQdSTPgMtkAa",
   baseUrl: "https://api.asgardeo.io/t/interns",
   scope: [

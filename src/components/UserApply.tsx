@@ -12,8 +12,9 @@ import {
 import { mainAPI, nicImageAPI } from "../data/api";
 import axios from "axios";
 import DownloadedNicPhoto from "./DownloadedNicPhoto";
-import { getToken } from "./utils";
+// import { getToken } from "./utils";
 interface FormComponentProps {
+  requestID: string;
   token: string;
   isMobile: boolean;
   nic: string;
@@ -31,6 +32,7 @@ interface FormComponentProps {
 }
 
 const FormComponent: React.FC<FormComponentProps> = ({
+  requestID,
   token,
   isMobile,
   gsDivision,
@@ -189,7 +191,6 @@ const FormComponent: React.FC<FormComponentProps> = ({
   // };
 
   const handleNicUpload = async (requestID: string) => {
-    const token = await getToken(nicImageAPI.key);
     try {
       const config = {
         params: { requestID: requestID },
@@ -199,12 +200,12 @@ const FormComponent: React.FC<FormComponentProps> = ({
         headers: {
           accept: "*/*",
           "Content-Type": "image/jpeg",
-          Authorization: "Bearer " + token.access_token,
+          Authorization: "Bearer " + token,
         },
         data: nicPhoto,
       };
       const response = await axios.request(config);
-      console.log(response);
+      console.log("upload response" + response);
     } catch (error) {
       console.log(error);
     }
@@ -272,7 +273,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
       });
 
       // Consider using a more React-friendly way to update the page state instead of reloading the page
-      window.location.reload();
+      // window.location.reload();
     } catch (error) {
       setIsLoading(false);
       console.error("Error making the request:", error);
@@ -384,8 +385,8 @@ const FormComponent: React.FC<FormComponentProps> = ({
           fontSize="3xl"
           _focus={{ outline: "none" }}
           onClick={() => {
+            handleNicUpload(requestID);
             handleApplyTest();
-            handleNicUpload("1126");
           }}
           //onClick={() => handleNicUpload("1122")}
           isLoading={isLoading}
@@ -400,7 +401,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
           {status === "pending" ? "Update" : "Apply"}
         </Button>
       </VStack>
-      <DownloadedNicPhoto requestID="1122" />
+      {requestID && <DownloadedNicPhoto requestID={requestID} token={token} />}
     </Box>
   );
 };

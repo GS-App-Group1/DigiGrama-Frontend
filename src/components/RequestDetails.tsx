@@ -50,7 +50,7 @@ function RequestDetails({
   handleGsNoteChange,
 }: RequestDetailsProps) {
   const [responseMessage, setResponseMessage] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [error_, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const toast = useToast();
 
@@ -74,6 +74,7 @@ function RequestDetails({
       });
     } catch (error) {
       if (axios.isAxiosError(error)) {
+        console.log(responseMessage, error_);
         setError(error.message);
         toast({
           title: "Error",

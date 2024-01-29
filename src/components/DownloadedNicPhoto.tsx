@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { nicImageAPI } from "../data/api";
-import { getToken } from "./utils";
+// import { getToken } from "./utils";
 
-const token = await getToken(nicImageAPI.key);
+// const token = await getToken(nicImageAPI.key);
 
-const DownloadedNicPhoto = (props: { requestID: string }) => {
+const DownloadedNicPhoto = (props: { requestID: string; token: string }) => {
   const [downloadedNicPhoto, setDownloadedNicPhoto] = useState("");
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const DownloadedNicPhoto = (props: { requestID: string }) => {
     const options = {
       headers: {
         accept: "image/jpeg",
-        Authorization: "Bearer " + token.access_token,
+        Authorization: "Bearer " + props.token,
       },
     };
 
@@ -22,6 +22,7 @@ const DownloadedNicPhoto = (props: { requestID: string }) => {
       .then((res) => res.blob())
       .then((blob) => {
         setDownloadedNicPhoto(URL.createObjectURL(blob));
+        console.log("downloaded photo: " + downloadedNicPhoto.slice(5));
       });
   }, []);
   return <img src={downloadedNicPhoto} />;
