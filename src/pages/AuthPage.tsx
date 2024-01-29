@@ -13,10 +13,10 @@ import {
 // import AuthenticationForm from "../components/AuthenticationForm";
 import { FaCheckCircle } from "react-icons/fa";
 
-import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
+// import pdfMake from "pdfmake/build/pdfmake";
+// import pdfFonts from "pdfmake/build/vfs_fonts";
 
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+// pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 // Define the document content
 // const documentDefinition = {
