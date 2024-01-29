@@ -222,7 +222,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
     try {
       const requestBody = {
         // hash id
-        _id: hashString(new Date().toISOString()),
+        _id: new Date().toISOString(),
         address: address,
         civilStatus: civilStatus,
         gsDivision: gsDivision, // Replace with actual data if needed
