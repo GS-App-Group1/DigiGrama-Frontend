@@ -235,6 +235,8 @@ const FormComponent: React.FC<FormComponentProps> = ({
         email: email,
       };
 
+      console.log(requestBody);
+
       if (status === "pending") {
         // PUT request for updating user request
         await axios.put(
