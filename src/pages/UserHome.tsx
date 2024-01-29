@@ -30,6 +30,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Helmet } from "react-helmet";
 import { identityAPI, mainAPI } from "../data/api";
+import iconImage from "../assets/baseIcon.png";
 
 type UserHomePageProps = {
   token: string;
@@ -221,11 +222,7 @@ const UserHomePage = ({
           borderColor={useColorModeValue("gray.200", "gray.900")}
         >
           <Stack direction={"row"} spacing={1} justify="center">
-            <Image
-              src="src/assets/baseIcon.png"
-              alt="DigiGrama Logo"
-              htmlWidth="50px"
-            />
+            <Image src={iconImage} alt="DigiGrama Logo" htmlWidth="50px" />
             <Heading as="h1" size="lg" marginTop={1.5}>
               DigiGrama
             </Heading>

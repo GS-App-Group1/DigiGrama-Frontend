@@ -23,6 +23,7 @@ import { useEffect, useState } from "react";
 import MyRequest from "../data/data";
 import axios from "axios";
 import { addressAPI, identityAPI, mainAPI, policeAPI } from "../data/api";
+import iconImage from "../assets/baseIcon.png";
 
 // Create an array of objects with the defined structure
 // export const requestsPending: MyRequest[] = [
@@ -418,11 +419,7 @@ const GramaHomePage = ({
           borderColor={useColorModeValue("gray.200", "gray.900")}
         >
           <Stack direction={"row"} spacing={1} justify="center">
-            <Image
-              src="src/assets/baseIcon.png"
-              alt="DigiGrama Logo"
-              htmlWidth="50px"
-            />
+            <Image src={iconImage} alt="DigiGrama Logo" htmlWidth="50px" />
             <Heading as="h1" size="lg" marginTop={1.5}>
               DigiGrama
             </Heading>

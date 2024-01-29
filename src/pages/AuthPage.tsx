@@ -13,6 +13,7 @@ import {
 // import AuthenticationForm from "../components/AuthenticationForm";
 import { FaCheckCircle } from "react-icons/fa";
 import mainImage from "../assets/authImage.png";
+import iconImage from "../assets/baseIcon.png";
 
 // import pdfMake from "pdfmake/build/pdfmake";
 // import pdfFonts from "pdfmake/build/vfs_fonts";
@@ -48,7 +49,7 @@ const AuthPage = ({ signIn }: AuthPageProps) => {
       >
         <Stack direction={"row"} spacing={1} justify="center">
           <Image
-            src="src/assets/baseIcon.png" // Replace with the path to your logo image
+            src={iconImage} // Replace with the path to your logo image
             alt="DigiGrama Logo"
             htmlWidth="50px" // Adjust size as needed
           />
