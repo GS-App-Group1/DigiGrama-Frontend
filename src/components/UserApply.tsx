@@ -12,7 +12,7 @@ import {
 import { mainAPI, nicImageAPI } from "../data/api";
 import axios from "axios";
 import DownloadedNicPhoto from "./DownloadedNicPhoto";
-import * as crypto from "crypto";
+// import * as crypto from "crypto";
 // import { getToken } from "./utils";
 interface FormComponentProps {
   requestID: string;
@@ -212,9 +212,9 @@ const FormComponent: React.FC<FormComponentProps> = ({
     }
   };
 
-  function hashString(str: string): string {
-    return crypto.createHash("sha256").update(str).digest("hex");
-  }
+  // function hashString(str: string): string {
+  //   return crypto.createHash("sha256").update(str).digest("hex");
+  // }
 
   const handleApplyTest = async () => {
     setIsLoading(true);
@@ -234,8 +234,6 @@ const FormComponent: React.FC<FormComponentProps> = ({
         status: "pending", // Replace with actual data if needed
         email: email,
       };
-
-      console.log(requestBody);
 
       if (status === "pending") {
         // PUT request for updating user request
