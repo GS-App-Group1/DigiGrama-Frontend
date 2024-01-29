@@ -10,10 +10,14 @@ import {
 import axios from "axios";
 import { mainAPI } from "../data/api";
 
-import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+// import pdfMake from "pdfmake/build/pdfmake";
+// import pdfFonts from "pdfmake/build/vfs_fonts";
+
+// pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 // Define the document content
 
@@ -268,7 +272,10 @@ const UserStatus: React.FC<UserStatusProps> = ({
           color="black"
           fontSize="3xl"
           onClick={() => {
-            if (statusdata.status === "accepted") {
+            if (statusdata.status === "pending") {
+              console.log(
+                "Pendingaiodhwaidawidhawodhawidhawodihawodiuawbdahwd"
+              );
               const documentDefinition = {
                 content: [
                   "Grama Sevaka Certificate", // Replace this with your text
