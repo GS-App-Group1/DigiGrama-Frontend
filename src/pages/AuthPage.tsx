@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 // import AuthenticationForm from "../components/AuthenticationForm";
 import { FaCheckCircle } from "react-icons/fa";
+import mainImage from "../assets/authImage.png";
 
 // import pdfMake from "pdfmake/build/pdfmake";
 // import pdfFonts from "pdfmake/build/vfs_fonts";
@@ -47,7 +48,7 @@ const AuthPage = ({ signIn }: AuthPageProps) => {
       >
         <Stack direction={"row"} spacing={1} justify="center">
           <Image
-            src="src/assets/crop-1567050825830.png" // Replace with the path to your logo image
+            src="src/assets/baseIcon.png" // Replace with the path to your logo image
             alt="DigiGrama Logo"
             htmlWidth="50px" // Adjust size as needed
           />
@@ -97,7 +98,7 @@ const AuthPage = ({ signIn }: AuthPageProps) => {
               margin={20}
             >
               <Image
-                src="src/assets/interview.png"
+                src={mainImage}
                 alt="Authentication"
                 objectFit="cover"
                 width="100%"

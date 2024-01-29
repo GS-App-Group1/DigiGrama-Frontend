@@ -222,7 +222,7 @@ const UserHomePage = ({
         >
           <Stack direction={"row"} spacing={1} justify="center">
             <Image
-              src="src/assets/crop-1567050825830.png"
+              src="src/assets/baseIcon.png"
               alt="DigiGrama Logo"
               htmlWidth="50px"
             />
