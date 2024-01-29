@@ -4,7 +4,9 @@ import App from "./App.tsx";
 import "./index.css";
 import { AuthProvider } from "@asgardeo/auth-react";
 
-const baseURL = "http://localhost:5173";
+// const baseURL = "http://localhost:5173";
+const baseURL =
+  "https://c4168445-583b-4236-8e13-8a5174e19daa.e1-us-east-azure.choreoapps.dev";
 
 const config = {
   signInRedirectURL: `${baseURL}/redirect`,
