@@ -11,7 +11,7 @@ const baseURL =
 const config = {
   signInRedirectURL: `${baseURL}/redirect`,
   signOutRedirectURL: baseURL,
-  clientID: "4wygss8FAZVLEY3S2MZhM1QDfB8a",
+  clientID: "3zISm33IVril_g6jhfRrTUQfJJYa",
   baseUrl: "https://api.asgardeo.io/t/interns",
   scope: [
     "openid",
@@ -20,12 +20,12 @@ const config = {
     "phone",
     "email",
     "roles",
-    // "urn:interns:policeapipoliceapi:Admin",
+    "urn:interns:policeapipoliceapi:Admin",
     "urn:interns:mainservicetcfmainapi:User",
     "urn:interns:mainservicetcfmainapi:Admin",
     "urn:interns:identityapizttidentityapi:Admin",
-    // "urn:interns:nicimageapinzrnicimagesap:Admin",
-    // "urn:interns:nicimageapinzrnicimagesap:User",
+    "urn:interns:nicimageapinzrnicimagesap:Admin",
+    "urn:interns:nicimageapinzrnicimagesap:User",
   ],
 };
 
