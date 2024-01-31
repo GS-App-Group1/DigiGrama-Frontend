@@ -89,6 +89,7 @@ const Home: React.FC = () => {
   console.log(derivedAuthenticationState);
 
   const payload = derivedAuthenticationState.authenticateResponse;
+  console.log(payload);
   let role = "";
   let username = "";
   let nic = "";
