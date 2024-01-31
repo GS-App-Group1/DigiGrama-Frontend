@@ -19,6 +19,7 @@ const config = {
     "groups",
     "phone",
     "email",
+    "roles",
     "urn:interns:policeapipoliceapi:Admin",
     "urn:interns:mainservicetcfmainapi:User",
     "urn:interns:mainservicetcfmainapi:Admin",
