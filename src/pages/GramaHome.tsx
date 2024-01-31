@@ -246,6 +246,7 @@ const GramaHomePage = ({
             },
           }
         );
+        console.log(response);
         const data = response.data;
         // console.log(data.filter((request) => request.status === "pending"));
         setPendingList(data.filter((request) => request.status === "pending"));
@@ -259,7 +260,7 @@ const GramaHomePage = ({
           data.filter((request) => request.status === "pending")[0]?.gsNote ||
             ""
         );
-        console.log(data);
+
         // console.log(pendingList);
         // console.log(completedList);
       } catch (error) {
