@@ -210,6 +210,31 @@ const GramaHomePage = ({
   };
 
   useEffect(() => {
+    const fetchGS = async () => {
+      const API_KEY: string = token;
+      const url: string = identityAPI.urls.getGS;
+
+      try {
+        const response = await axios.get<string>(url, {
+          headers: {
+            accept: "application/json",
+            Authorization: `Bearer ${API_KEY}`,
+          },
+          params: {
+            nic: nic,
+          },
+        });
+        console.log(response.data);
+        setGs(response.data || "Not Found");
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+
+    fetchGS();
+  }, [nic]);
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get<MyRequest[]>(
@@ -275,31 +300,6 @@ const GramaHomePage = ({
       }
     }
   };
-
-  useEffect(() => {
-    const fetchGS = async () => {
-      const API_KEY: string = token;
-      const url: string = identityAPI.urls.getGS;
-
-      try {
-        const response = await axios.get<string>(url, {
-          headers: {
-            accept: "application/json",
-            Authorization: `Bearer ${API_KEY}`,
-          },
-          params: {
-            nic: nic,
-          },
-        });
-        console.log(response.data);
-        setGs(response.data || "Not Found");
-      } catch (error) {
-        console.error("Error fetching data: ", error);
-      }
-    };
-
-    fetchGS();
-  }, [nic]);
 
   useEffect(() => {
     const fetchAddress = async () => {
