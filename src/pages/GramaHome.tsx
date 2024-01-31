@@ -313,7 +313,7 @@ const GramaHomePage = ({
             Authorization: `Bearer ${API_KEY}`,
           },
           params: {
-            nic: nic,
+            nic: identity?.nic,
           },
         });
         console.log("addresssssssss", response.data);
@@ -323,7 +323,7 @@ const GramaHomePage = ({
       }
     };
     fetchAddress();
-  }, [nic]);
+  }, [identity?.nic]);
 
   useEffect(() => {
     const fetchCrimes = async () => {
@@ -337,7 +337,7 @@ const GramaHomePage = ({
             Authorization: `Bearer ${API_KEY}`,
           },
           params: {
-            nic: nic,
+            nic: identity?.nic,
           },
         });
         console.log("crimes", response.data);
@@ -351,35 +351,35 @@ const GramaHomePage = ({
       }
     };
     fetchCrimes();
-  }, [nic]);
+  }, [identity?.nic]);
 
-  useEffect(() => {
-    const fetchCrimes = async () => {
-      const API_KEY: string = token;
-      const url: string = policeAPI.urls.getCrimes;
+  // useEffect(() => {
+  //   const fetchCrimes = async () => {
+  //     const API_KEY: string = token;
+  //     const url: string = policeAPI.urls.getCrimes;
 
-      try {
-        const response = await axios.get<crimes[]>(url, {
-          headers: {
-            accept: "application/json",
-            Authorization: `Bearer ${API_KEY}`,
-          },
-          params: {
-            nic: nic,
-          },
-        });
-        console.log("crimes", response.data);
-        let c = 0;
-        if (response.data.length > 0) {
-          c = response.data[0].numberOfCrimes || 0;
-        }
-        setCrimesCount(c);
-      } catch (error) {
-        console.error("Error fetching data: ", error);
-      }
-    };
-    fetchCrimes();
-  }, [nic]);
+  //     try {
+  //       const response = await axios.get<crimes[]>(url, {
+  //         headers: {
+  //           accept: "application/json",
+  //           Authorization: `Bearer ${API_KEY}`,
+  //         },
+  //         params: {
+  //           nic: nic,
+  //         },
+  //       });
+  //       console.log("crimes", response.data);
+  //       let c = 0;
+  //       if (response.data.length > 0) {
+  //         c = response.data[0].numberOfCrimes || 0;
+  //       }
+  //       setCrimesCount(c);
+  //     } catch (error) {
+  //       console.error("Error fetching data: ", error);
+  //     }
+  //   };
+  //   fetchCrimes();
+  // }, [nic]);
 
   useEffect(() => {
     const fetchIdentity = async () => {
@@ -393,7 +393,7 @@ const GramaHomePage = ({
             Authorization: `Bearer ${API_KEY}`,
           },
           params: {
-            nic: nic,
+            nic: identity?.nic,
           },
         });
         setIdentity(response.data[0]);
@@ -402,7 +402,7 @@ const GramaHomePage = ({
       }
     };
     fetchIdentity();
-  }, [nic]);
+  }, [identity?.nic]);
 
   // `${mainAPI.urls.getUserRequests}?gsDivision=${gs}`
 
