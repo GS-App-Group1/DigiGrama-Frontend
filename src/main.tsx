@@ -23,7 +23,7 @@ const config = {
     // "urn:interns:policeapipoliceapi:Admin",
     "urn:interns:mainservicetcfmainapi:User",
     "urn:interns:mainservicetcfmainapi:Admin",
-    // "urn:interns:identityapizttidentityapi:Admin",
+    "urn:interns:identityapizttidentityapi:Admin",
     // "urn:interns:nicimageapinzrnicimagesap:Admin",
     // "urn:interns:nicimageapinzrnicimagesap:User",
   ],
