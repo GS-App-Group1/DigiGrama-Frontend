@@ -222,7 +222,7 @@ const GramaHomePage = ({
           }
         );
         const data = response.data;
-        console.log(data.filter((request) => request.status === "pending"));
+        // console.log(data.filter((request) => request.status === "pending"));
         setPendingList(data.filter((request) => request.status === "pending"));
         setCompletedList(
           data.filter((request) => request.status !== "pending")
@@ -234,9 +234,9 @@ const GramaHomePage = ({
           data.filter((request) => request.status === "pending")[0]?.gsNote ||
             ""
         );
-
-        console.log(pendingList);
-        console.log(completedList);
+        console.log(data);
+        // console.log(pendingList);
+        // console.log(completedList);
       } catch (error) {
         if (axios.isAxiosError(error)) {
           setError(error.message);
