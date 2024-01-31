@@ -272,7 +272,7 @@ const GramaHomePage = ({
     };
 
     fetchData();
-  }, [gs]);
+  }, [nic]);
 
   // const [pendingList, setPendingList] = useState<MyRequest[]>(requestsPending);
   // const [completedList, setCompletedList] =
