@@ -6,17 +6,16 @@ import { AuthProvider } from "@asgardeo/auth-react";
 
 // const baseURL = "http://localhost:5173";
 const baseURL =
-  "https://c4168445-583b-4236-8e13-8a5174e19daa.e1-us-east-azure.choreoapps.dev";
+  "https://7520375f-93f2-49ce-af11-f09cc7d08dcb.e1-us-east-azure.choreoapps.dev";
 
 const config = {
   signInRedirectURL: `${baseURL}/redirect`,
   signOutRedirectURL: baseURL,
-  clientID: "WfmlPryaoGNriYT8fQdSTPgMtkAa",
+  clientID: "3zISm33IVril_g6jhfRrTUQfJJYa",
   baseUrl: "https://api.asgardeo.io/t/interns",
   scope: [
     "openid",
     "profile",
-    "app_roles",
     "groups",
     "phone",
     "email",
