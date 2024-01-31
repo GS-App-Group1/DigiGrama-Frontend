@@ -272,8 +272,12 @@ const GramaHomePage = ({
       }
     };
 
-    fetchData();
-  }, [nic]);
+    if (gs !== "") {
+      fetchData();
+    }
+
+    // fetchData();
+  }, [gs, nic]);
 
   // const [pendingList, setPendingList] = useState<MyRequest[]>(requestsPending);
   // const [completedList, setCompletedList] =
