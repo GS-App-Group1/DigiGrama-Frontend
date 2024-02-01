@@ -328,7 +328,7 @@ const GramaHomePage = ({
       }
     };
     fetchAddress();
-  }, [identity?.nic]);
+  }, [gs, nic]);
 
   useEffect(() => {
     const fetchCrimes = async () => {
@@ -356,7 +356,7 @@ const GramaHomePage = ({
       }
     };
     fetchCrimes();
-  }, [identity?.nic]);
+  }, [gs, nic]);
 
   // useEffect(() => {
   //   const fetchCrimes = async () => {
@@ -407,7 +407,7 @@ const GramaHomePage = ({
       }
     };
     fetchIdentity();
-  }, [identity?.nic]);
+  }, [gs, nic]);
 
   // `${mainAPI.urls.getUserRequests}?gsDivision=${gs}`
 
