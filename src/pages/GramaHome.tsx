@@ -318,7 +318,7 @@ const GramaHomePage = ({
             Authorization: `Bearer ${API_KEY}`,
           },
           params: {
-            nic: identity?.nic,
+            nic: currentRequest?.nic,
           },
         });
         console.log("addresssssssss", response.data);
@@ -328,7 +328,7 @@ const GramaHomePage = ({
       }
     };
     fetchAddress();
-  }, [pendingList, completedList]);
+  }, [setCurrentRequest]);
 
   useEffect(() => {
     const fetchCrimes = async () => {
@@ -342,7 +342,7 @@ const GramaHomePage = ({
             Authorization: `Bearer ${API_KEY}`,
           },
           params: {
-            nic: identity?.nic,
+            nic: currentRequest?.nic,
           },
         });
         console.log("crimes", response.data);
@@ -356,7 +356,7 @@ const GramaHomePage = ({
       }
     };
     fetchCrimes();
-  }, [pendingList, completedList]);
+  }, [setCurrentRequest]);
 
   // useEffect(() => {
   //   const fetchCrimes = async () => {
@@ -398,7 +398,7 @@ const GramaHomePage = ({
             Authorization: `Bearer ${API_KEY}`,
           },
           params: {
-            nic: identity?.nic,
+            nic: currentRequest?.nic,
           },
         });
         setIdentity(response.data[0]);
@@ -407,7 +407,7 @@ const GramaHomePage = ({
       }
     };
     fetchIdentity();
-  }, [pendingList, completedList]);
+  }, [setCurrentRequest]);
 
   // `${mainAPI.urls.getUserRequests}?gsDivision=${gs}`
 
