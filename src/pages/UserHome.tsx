@@ -31,6 +31,7 @@ import axios from "axios";
 import { Helmet } from "react-helmet";
 import { identityAPI, mainAPI } from "../data/api";
 import iconImage from "../assets/baseIcon.png";
+import { nicImageAPI } from "../data/api";
 
 type UserHomePageProps = {
   token: string;
@@ -134,6 +135,40 @@ const UserHomePage = ({
   });
 
   const [userRequests, setUserRequests] = useState<UserRequestResponse>([]);
+
+  const [downloadedNicPhoto, setDownloadedNicPhoto] = useState("");
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const url = new URL(nicImageAPI.urls.download);
+        const params = { requestID: userRequests[0]?._id };
+        url.search = new URLSearchParams(params).toString();
+
+        const options = {
+          headers: {
+            accept: "image/jpeg",
+            Authorization: "Bearer " + token,
+          },
+        };
+
+        const response = await fetch(url, options);
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+
+        const blob = await response.blob();
+        setDownloadedNicPhoto(URL.createObjectURL(blob));
+      } catch (err) {
+        console.error("Failed to fetch image:", err);
+        setError("Failed to download image. Please try again later.");
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     fetchUserRequestForNIC(nic, email, token)
@@ -407,6 +442,7 @@ const UserHomePage = ({
                 token={token}
                 isMobile={!isLargerThan768}
                 status={formdata.status}
+                downloadedNicPhoto={downloadedNicPhoto}
                 nic={nic}
                 email={email}
                 gsDivision={gs}

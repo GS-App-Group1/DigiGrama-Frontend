@@ -30,46 +30,51 @@
 
 // export default DownloadedNicPhoto;
 
-import { useEffect, useState } from "react";
-import { nicImageAPI } from "../data/api";
+// import { useEffect, useState } from "react";
+// import { nicImageAPI } from "../data/api";
+interface DownloadedNicPhotoProps {
+  downloadedNicPhoto: string;
+}
 
-const DownloadedNicPhoto = (props: { requestID: string; token: string }) => {
-  const [downloadedNicPhoto, setDownloadedNicPhoto] = useState("");
-  const [error, setError] = useState(""); // State to store any error message
+const DownloadedNicPhoto = ({
+  downloadedNicPhoto,
+}: DownloadedNicPhotoProps) => {
+  // const [downloadedNicPhoto, setDownloadedNicPhoto] = useState("");
+  // const [error, setError] = useState(""); // State to store any error message
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const url = new URL(nicImageAPI.urls.download);
-        const params = { requestID: props.requestID };
-        url.search = new URLSearchParams(params).toString();
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const url = new URL(nicImageAPI.urls.download);
+  //       const params = { requestID: props.requestID };
+  //       url.search = new URLSearchParams(params).toString();
 
-        const options = {
-          headers: {
-            accept: "image/jpeg",
-            Authorization: "Bearer " + props.token,
-          },
-        };
+  //       const options = {
+  //         headers: {
+  //           accept: "image/jpeg",
+  //           Authorization: "Bearer " + props.token,
+  //         },
+  //       };
 
-        const response = await fetch(url, options);
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status} ${response.statusText}`);
-        }
+  //       const response = await fetch(url, options);
+  //       if (!response.ok) {
+  //         throw new Error(`Error: ${response.status} ${response.statusText}`);
+  //       }
 
-        const blob = await response.blob();
-        setDownloadedNicPhoto(URL.createObjectURL(blob));
-      } catch (err) {
-        console.error("Failed to fetch image:", err);
-        setError("Failed to download image. Please try again later.");
-      }
-    };
+  //       const blob = await response.blob();
+  //       setDownloadedNicPhoto(URL.createObjectURL(blob));
+  //     } catch (err) {
+  //       console.error("Failed to fetch image:", err);
+  //       setError("Failed to download image. Please try again later.");
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
-  if (error) {
-    return <div>Error: {error}</div>; // Display error message if there's an error
-  }
+  // if (error) {
+  //   return <div>Error: {error}</div>; // Display error message if there's an error
+  // }
 
   return <img src={downloadedNicPhoto} alt="Downloaded NIC Photo" />;
 };

@@ -28,6 +28,7 @@ interface FormComponentProps {
   reason: string;
   status: string;
   email: string;
+  downloadedNicPhoto: string;
   setAddress: (arg: string) => void;
   setOccupation: (arg: string) => void;
   setCivilStatus: (arg: string) => void;
@@ -47,6 +48,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
   setOccupation,
   civilStatus,
   setCivilStatus,
+  downloadedNicPhoto,
   reason,
   setReason,
   status,
@@ -410,7 +412,9 @@ const FormComponent: React.FC<FormComponentProps> = ({
           {status === "pending" ? "Update" : "Apply"}
         </Button>
       </VStack>
-      {requestID && <DownloadedNicPhoto requestID={requestID} token={token} />}
+      {requestID && (
+        <DownloadedNicPhoto downloadedNicPhoto={downloadedNicPhoto} />
+      )}
     </Box>
   );
 };
