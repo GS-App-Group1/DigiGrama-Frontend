@@ -204,11 +204,12 @@ const FormComponent: React.FC<FormComponentProps> = ({
         url: nicImageAPI.urls.upload,
         headers: {
           accept: "*/*",
-          "Content-Type": "image/jpeg",
+          "Content-Type": "image/jpg",
           Authorization: "Bearer " + token,
         },
         data: nicPhoto,
       };
+      console.log("image name", requestID);
       const response = await axios.request(config);
       console.log("upload response" + response);
     } catch (error) {
