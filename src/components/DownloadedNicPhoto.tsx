@@ -65,7 +65,7 @@ const DownloadedNicPhoto = (props: { requestID: string; token: string }) => {
     };
 
     fetchData();
-  }, [props.requestID, props.token]);
+  }, []);
 
   if (error) {
     return <div>Error: {error}</div>; // Display error message if there's an error
