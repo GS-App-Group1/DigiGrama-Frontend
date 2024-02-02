@@ -168,7 +168,7 @@ const UserHomePage = ({
     };
 
     fetchData();
-  }, []);
+  }, [userRequests]);
 
   useEffect(() => {
     fetchUserRequestForNIC(nic, email, token)
