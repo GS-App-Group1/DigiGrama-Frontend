@@ -284,7 +284,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
       });
 
       // Consider using a more React-friendly way to update the page state instead of reloading the page
-      // window.location.reload();
+      window.location.reload();
     } catch (error) {
       setIsLoading(false);
       console.error("Error making the request:", error);
