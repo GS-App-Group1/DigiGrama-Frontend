@@ -208,7 +208,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
       const response = await axios.request(config);
       console.log("upload response" + response);
     } catch (error) {
-      console.log(error);
+      console.log(error, "photooooo");
     }
   };
 
