@@ -12,6 +12,17 @@ import {
 import { mainAPI, nicImageAPI } from "../data/api";
 import axios from "axios";
 import DownloadedNicPhoto from "./DownloadedNicPhoto";
+
+import * as crypto from "crypto";
+
+function hashString(input: string, hashLength?: number): string {
+  // Create a SHA-256 hash from the input string
+  const hash = crypto.createHash("sha256").update(input).digest("hex");
+
+  // If a specific hash length is required, truncate the hash to that length
+  return hashLength ? hash.substring(0, hashLength) : hash;
+}
+
 // import * as crypto from "crypto";
 // import { getToken } from "./utils";
 interface FormComponentProps {
@@ -222,7 +233,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
     try {
       const requestBody = {
         // hash id
-        _id: new Date().toISOString(),
+        _id: hashString(new Date().toISOString(), 16),
         address: address,
         civilStatus: civilStatus,
         gsDivision: gsDivision, // Replace with actual data if needed
