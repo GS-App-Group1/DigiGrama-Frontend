@@ -157,7 +157,7 @@ const UserHomePage = ({
         if (!response.ok) {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
-
+        console.log(response);
         const blob = await response.blob();
         setDownloadedNicPhoto(URL.createObjectURL(blob));
       } catch (err) {
