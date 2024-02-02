@@ -148,7 +148,7 @@ const UserHomePage = ({
 
         const options = {
           headers: {
-            accept: "image/jpeg",
+            accept: "image/jpg",
             Authorization: "Bearer " + token,
           },
         };
@@ -157,13 +157,13 @@ const UserHomePage = ({
         if (!response.ok) {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
-        console.log(response);
+        console.log("download Id ", userRequests[0]?._id);
         const blob = await response.blob();
         setDownloadedNicPhoto(URL.createObjectURL(blob));
       } catch (err) {
         console.error("Failed to fetch image:", err);
         setError("Failed to download image. Please try again later.");
-        console.log(error);
+        console.log(error, userRequests[0]?._id);
       }
     };
 
