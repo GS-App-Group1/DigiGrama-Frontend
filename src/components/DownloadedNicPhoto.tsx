@@ -24,7 +24,7 @@ const DownloadedNicPhoto = (props: { requestID: string; token: string }) => {
         setDownloadedNicPhoto(URL.createObjectURL(blob));
         console.log("downloaded photo: " + downloadedNicPhoto.slice(5));
       });
-  }, []);
+  }, [props.requestID]);
   return <img src={downloadedNicPhoto} />;
 };
 
