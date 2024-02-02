@@ -148,7 +148,7 @@ const UserHomePage = ({
 
         const options = {
           headers: {
-            accept: "image/jpg",
+            accept: "image/jpeg",
             Authorization: "Bearer " + token,
           },
         };

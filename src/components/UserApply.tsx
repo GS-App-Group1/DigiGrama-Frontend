@@ -204,7 +204,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
         url: nicImageAPI.urls.upload,
         headers: {
           accept: "*/*",
-          "Content-Type": "image/jpg",
+          "Content-Type": "image/jpeg",
           Authorization: "Bearer " + token,
         },
         data: nicPhoto,
