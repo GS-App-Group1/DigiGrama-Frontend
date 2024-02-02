@@ -229,11 +229,12 @@ const FormComponent: React.FC<FormComponentProps> = ({
 
   const handleApplyTest = async () => {
     setIsLoading(true);
-
+    const reqId = hashString(new Date().toISOString(), 10);
+    console.log("reqId", reqId);
     try {
       const requestBody = {
         // hash id
-        _id: hashString(new Date().toISOString(), 16),
+        _id: reqId,
         address: address,
         civilStatus: civilStatus,
         gsDivision: gsDivision, // Replace with actual data if needed
