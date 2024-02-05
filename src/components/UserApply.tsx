@@ -249,7 +249,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
         // PUT request for updating user request
         await axios.put(
           `${mainAPI.urls.updateRequest}?nic=${nic}&email=${encodeURIComponent(
-            email.replace(/@/g, "_")
+            email
           )}&address=${encodeURIComponent(
             address
           )}&civil_status=${encodeURIComponent(

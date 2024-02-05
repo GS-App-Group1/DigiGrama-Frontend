@@ -289,7 +289,7 @@ function RequestDetails({
                   handleClick("accepted");
                   updateRequestStatus({
                     nic: data.nic,
-                    email: data.email.replace(/@/g, "_"),
+                    email: data.email,
                     status: "accepted",
                   });
                 }}
@@ -309,7 +309,7 @@ function RequestDetails({
                   handleClick("rejected");
                   updateRequestStatus({
                     nic: data.nic,
-                    email: data.email.replace(/@/g, "_"),
+                    email: data.email,
                     status: "rejected",
                   });
                 }}
