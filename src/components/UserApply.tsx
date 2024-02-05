@@ -67,6 +67,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
     setOccupation(e.target.value);
   const handleReasonChange = (e: ChangeEvent<HTMLInputElement>) =>
     setReason(e.target.value);
+  const [isapplied, setIsapplied] = useState<boolean>(false);
   // const handleNicPhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
   //   if (e.target.files) {
   //     setNicPhoto(e.target.files[0]);
@@ -278,6 +279,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
       }
 
       setIsLoading(false);
+      setIsapplied(true);
       toast({
         title: `${status === "pending" ? "Update" : "Application"} Successful`,
         description: `Your application has been ${
@@ -414,7 +416,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
             civilStatus === ""
           }
         >
-          {status === "pending" ? "Update" : "Apply"}
+          {status === "pending" || isapplied ? "Update" : "Apply"}
         </Button>
       </VStack>
       {/* {requestID && (
