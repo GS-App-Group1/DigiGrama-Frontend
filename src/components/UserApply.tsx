@@ -278,7 +278,6 @@ const FormComponent: React.FC<FormComponentProps> = ({
       }
 
       setIsLoading(false);
-
       toast({
         title: `${status === "pending" ? "Update" : "Application"} Successful`,
         description: `Your application has been ${
