@@ -65,7 +65,7 @@ function RequestDetails({
         },
       });
       setResponseMessage(response.data);
-      console.log("responseeeeeeeeeeeeee   ", responseMessage);
+      console.log("responseeeeeeeeeeeeee   ", responseMessage, params);
       toast({
         title: `Application ${params.status}`,
         description: `The application has been ${params.status}.`,
