@@ -456,7 +456,9 @@ const GramaHomePage = ({
                 boxShadow="xl"
               >
                 <PopoverArrow />
-                <PopoverHeader>{username}</PopoverHeader>
+                <PopoverHeader>
+                  <b>{username}</b>
+                </PopoverHeader>
                 <PopoverBody>
                   {/* Add your user details here */}
                   <Text>

@@ -226,6 +226,10 @@ const FormComponent: React.FC<FormComponentProps> = ({
     const reqId = uuidv4();
     console.log("reqId", reqId);
     try {
+      const localISOTime = ((offset) => {
+        const d = new Date(new Date().getTime() + offset * 60000);
+        return d.toISOString();
+      })(-new Date().getTimezoneOffset());
       const requestBody = {
         // hash id
         _id: reqId,
@@ -236,7 +240,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
         nic: nic,
         presentOccupation: occupation,
         reason: reason,
-        requestTime: new Date().toISOString(), // Replace with actual data if needed
+        requestTime: localISOTime, // Replace with actual data if needed
         status: "pending", // Replace with actual data if needed
         email: email,
       };

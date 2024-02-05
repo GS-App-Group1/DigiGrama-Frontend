@@ -263,7 +263,7 @@ const UserStatus: React.FC<UserStatusProps> = ({
               fontSize={fontSize}
               isReadOnly
             />
-            <Input type="file" />
+            {/* <Input type="file" /> */}
           </FormControl>
         )}
         <Button
