@@ -121,6 +121,9 @@ const UserStatus: React.FC<UserStatusProps> = ({
       });
 
       console.log(latestRequest);
+      if (latestRequest.status === "accepted") {
+        window.location.reload();
+      }
       setstatusData({
         address: latestRequest.address,
         occupation: latestRequest.presentOccupation,
