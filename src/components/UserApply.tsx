@@ -250,7 +250,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
         email: email,
       };
 
-      if (status === "pending") {
+      if (isapplied || status === "pending") {
         // PUT request for updating user request
         await axios.put(
           `${mainAPI.urls.updateRequest}?nic=${nic}&email=${encodeURIComponent(
@@ -285,11 +285,13 @@ const FormComponent: React.FC<FormComponentProps> = ({
       setIsLoading(false);
 
       toast({
-        title: `${status === "pending" ? "Update" : "Application"} Successful`,
+        title: `${
+          isapplied || status === "pending" ? "Update" : "Application"
+        } Successful`,
         description: `Your application has been ${
-          status === "pending" ? "updated" : "submitted"
+          isapplied || status === "pending" ? "updated" : "submitted"
         } successfully.`,
-        status: status === "pending" ? "info" : "success",
+        status: isapplied || status === "pending" ? "info" : "success",
         duration: 3000,
         isClosable: true,
       });
