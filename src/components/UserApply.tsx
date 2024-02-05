@@ -288,7 +288,6 @@ const FormComponent: React.FC<FormComponentProps> = ({
         isClosable: true,
       });
 
-      // Consider using a more React-friendly way to update the page state instead of reloading the page
       window.location.reload();
     } catch (error) {
       setIsLoading(false);
