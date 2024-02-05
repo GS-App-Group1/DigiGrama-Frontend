@@ -50,7 +50,7 @@ function RequestDetails({
   handleGsNoteChange,
 }: RequestDetailsProps) {
   const [responseMessage, setResponseMessage] = useState<string | null>(null);
-  const [error_, setError] = useState<string | null>(null);
+  // const [error_, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const toast = useToast();
 
@@ -75,8 +75,8 @@ function RequestDetails({
       });
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.log(responseMessage, error_);
-        setError(error.message);
+        console.log(error);
+        // setError(error.message);
         toast({
           title: "Error",
           description: error.message,
@@ -85,7 +85,7 @@ function RequestDetails({
           isClosable: true,
         });
       } else {
-        setError("An unknown error occurred");
+        // setError("An unknown error occurred");
         toast({
           title: "Error",
           description: "An unknown error occurred",
@@ -119,7 +119,8 @@ function RequestDetails({
       });
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        setError(error.message);
+        // setError(error.message);
+        console.log(error);
         toast({
           title: "Error",
           description: error.message,
@@ -128,7 +129,7 @@ function RequestDetails({
           isClosable: true,
         });
       } else {
-        setError("An unknown error occurred");
+        // setError("An unknown error occurred");
         toast({
           title: "Error",
           description: "An unknown error occurred",
