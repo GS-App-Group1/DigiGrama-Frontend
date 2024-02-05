@@ -138,7 +138,6 @@ const UserHomePage = ({
 
   const [downloadedNicPhoto, setDownloadedNicPhoto] = useState("");
   const [error, setError] = useState("");
-  const [isapplied, setIsapplied] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -447,8 +446,6 @@ const UserHomePage = ({
                 nic={nic}
                 email={email}
                 gsDivision={gs}
-                isapplied={isapplied}
-                setIsapplied={setIsapplied}
                 address={formdata.address}
                 setAddress={(address) => {
                   setFormData({

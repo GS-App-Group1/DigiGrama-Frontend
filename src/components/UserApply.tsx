@@ -29,8 +29,6 @@ interface FormComponentProps {
   status: string;
   email: string;
   downloadedNicPhoto: string;
-  isapplied: boolean;
-  setIsapplied: (arg: boolean) => void;
   setAddress: (arg: string) => void;
   setOccupation: (arg: string) => void;
   setCivilStatus: (arg: string) => void;
@@ -49,8 +47,6 @@ const FormComponent: React.FC<FormComponentProps> = ({
   occupation,
   setOccupation,
   civilStatus,
-  isapplied,
-  setIsapplied,
   setCivilStatus,
   // downloadedNicPhoto,
   reason,
@@ -227,7 +223,6 @@ const FormComponent: React.FC<FormComponentProps> = ({
 
   const handleApplyTest = async () => {
     setIsLoading(true);
-    setIsapplied(true);
     const reqId = uuidv4();
     console.log("reqId", reqId);
     try {
@@ -250,7 +245,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
         email: email,
       };
 
-      if (isapplied || status === "pending") {
+      if (status === "pending") {
         // PUT request for updating user request
         await axios.put(
           `${mainAPI.urls.updateRequest}?nic=${nic}&email=${encodeURIComponent(
@@ -285,13 +280,11 @@ const FormComponent: React.FC<FormComponentProps> = ({
       setIsLoading(false);
 
       toast({
-        title: `${
-          isapplied || status === "pending" ? "Update" : "Application"
-        } Successful`,
+        title: `${status === "pending" ? "Update" : "Application"} Successful`,
         description: `Your application has been ${
-          isapplied || status === "pending" ? "updated" : "submitted"
+          status === "pending" ? "updated" : "submitted"
         } successfully.`,
-        status: isapplied || status === "pending" ? "info" : "success",
+        status: status === "pending" ? "info" : "success",
         duration: 3000,
         isClosable: true,
       });
@@ -422,7 +415,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
             civilStatus === ""
           }
         >
-          {isapplied || status === "pending" ? "Update" : "Apply"}
+          {status === "pending" ? "Update" : "Apply"}
         </Button>
       </VStack>
       {/* {requestID && (
