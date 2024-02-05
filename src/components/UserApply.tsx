@@ -29,6 +29,8 @@ interface FormComponentProps {
   status: string;
   email: string;
   downloadedNicPhoto: string;
+  isapplied: boolean;
+  setIsapplied: (arg: boolean) => void;
   setAddress: (arg: string) => void;
   setOccupation: (arg: string) => void;
   setCivilStatus: (arg: string) => void;
@@ -47,6 +49,8 @@ const FormComponent: React.FC<FormComponentProps> = ({
   occupation,
   setOccupation,
   civilStatus,
+  isapplied,
+  setIsapplied,
   setCivilStatus,
   // downloadedNicPhoto,
   reason,
@@ -67,7 +71,6 @@ const FormComponent: React.FC<FormComponentProps> = ({
     setOccupation(e.target.value);
   const handleReasonChange = (e: ChangeEvent<HTMLInputElement>) =>
     setReason(e.target.value);
-  const [isapplied, setIsapplied] = useState<boolean>(false);
   // const handleNicPhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
   //   if (e.target.files) {
   //     setNicPhoto(e.target.files[0]);
