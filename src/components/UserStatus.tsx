@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   FormControl,
   FormLabel,
@@ -7,8 +7,8 @@ import {
   VStack,
   Box,
 } from "@chakra-ui/react";
-import axios from "axios";
-import { mainAPI } from "../data/api";
+// import axios from "axios";
+// import { mainAPI } from "../data/api";
 
 // import * as pdfMake from "pdfmake/build/pdfmake";
 // import * as pdfFonts from "pdfmake/build/vfs_fonts";
@@ -21,47 +21,47 @@ import { mainAPI } from "../data/api";
 
 // Define the document content
 
-interface UserRequest {
-  _id: string;
-  nic: string;
-  address: string;
-  civilStatus: string;
-  presentOccupation: string;
-  reason: string;
-  gsNote: string;
-  gsDivision: string;
-  requestTime: string;
-  status: string;
-}
+// interface UserRequest {
+//   _id: string;
+//   nic: string;
+//   address: string;
+//   civilStatus: string;
+//   presentOccupation: string;
+//   reason: string;
+//   gsNote: string;
+//   gsDivision: string;
+//   requestTime: string;
+//   status: string;
+// }
 
 // If your response is an array of these objects:
-type UserRequestResponse = UserRequest[];
+// type UserRequestResponse = UserRequest[];
 
-const fetchUserRequestForNIC = async (
-  nic: string,
-  email: string,
-  token: string
-): Promise<UserRequestResponse> => {
-  const API_URL = mainAPI.urls.getRequestForNIC;
-  const API_KEY = token;
+// const fetchUserRequestForNIC = async (
+//   nic: string,
+//   email: string,
+//   token: string
+// ): Promise<UserRequestResponse> => {
+//   const API_URL = mainAPI.urls.getRequestForNIC;
+//   const API_KEY = token;
 
-  try {
-    const response = await axios.get<UserRequestResponse>(
-      `${API_URL}?nic=${nic}&email=${email}`, // Added email as a query parameter
-      {
-        headers: {
-          accept: "application/json",
-          Authorization: `Bearer ${API_KEY}`,
-        },
-      }
-    );
+//   try {
+//     const response = await axios.get<UserRequestResponse>(
+//       `${API_URL}?nic=${nic}&email=${email}`, // Added email as a query parameter
+//       {
+//         headers: {
+//           accept: "application/json",
+//           Authorization: `Bearer ${API_KEY}`,
+//         },
+//       }
+//     );
 
-    return response.data; // This will be an array of UserRequest objects
-  } catch (error) {
-    console.error("Error fetching user request data:", error);
-    throw error; // Rethrow the error for handling in calling code
-  }
-};
+//     return response.data; // This will be an array of UserRequest objects
+//   } catch (error) {
+//     console.error("Error fetching user request data:", error);
+//     throw error; // Rethrow the error for handling in calling code
+//   }
+// };
 
 type formData = {
   address: string;
@@ -75,23 +75,23 @@ type formData = {
 interface UserStatusProps {
   isMobile: boolean;
   nic: string;
-  email: string;
+  // email: string;
   statusdata: formData;
-  token: string;
-  setstatusData: (data: formData) => void;
+  // token: string;
+  // setstatusData: (data: formData) => void;
 }
 
 const UserStatus: React.FC<UserStatusProps> = ({
   isMobile,
   nic,
-  token,
-  email,
+  // token,
+  // email,
   statusdata,
-  setstatusData,
+  // setstatusData,
 }) => {
   const fontSize = isMobile ? "2xl" : "md";
 
-  const [userRequests, setUserRequests] = useState<UserRequestResponse>([]);
+  // const [userRequests, setUserRequests] = useState<UserRequestResponse>([]);
   // const [statusdata, setstatusData] = useState<formData>({
   //   address: "",
   //   occupation: "",
@@ -101,35 +101,35 @@ const UserStatus: React.FC<UserStatusProps> = ({
   //   status: "",
   // });
 
-  useEffect(() => {
-    fetchUserRequestForNIC(nic, email, token)
-      .then((data) => {
-        setUserRequests(data);
-      })
-      .catch((error) => {
-        console.error("Failed to fetch user requests:", error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetchUserRequestForNIC(nic, email, token)
+  //     .then((data) => {
+  //       setUserRequests(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Failed to fetch user requests:", error);
+  //     });
+  // }, []);
 
-  useEffect(() => {
-    if (userRequests.length > 0) {
-      // Find the request with the latest timestamp
-      const latestRequest = userRequests.reduce((latest, current) => {
-        return new Date(latest.requestTime) > new Date(current.requestTime)
-          ? latest
-          : current;
-      });
+  // useEffect(() => {
+  //   if (userRequests.length > 0) {
+  //     // Find the request with the latest timestamp
+  //     const latestRequest = userRequests.reduce((latest, current) => {
+  //       return new Date(latest.requestTime) > new Date(current.requestTime)
+  //         ? latest
+  //         : current;
+  //     });
 
-      setstatusData({
-        address: latestRequest.address,
-        occupation: latestRequest.presentOccupation,
-        civilStatus: latestRequest.civilStatus,
-        reason: latestRequest.reason,
-        gsNote: latestRequest.gsNote,
-        status: latestRequest.status,
-      });
-    }
-  }, [userRequests]); // Dependency array to ensure this runs only when userRequests changes
+  //     setstatusData({
+  //       address: latestRequest.address,
+  //       occupation: latestRequest.presentOccupation,
+  //       civilStatus: latestRequest.civilStatus,
+  //       reason: latestRequest.reason,
+  //       gsNote: latestRequest.gsNote,
+  //       status: latestRequest.status,
+  //     });
+  //   }
+  // }, [userRequests]); // Dependency array to ensure this runs only when userRequests changes
 
   if (statusdata.status === "") {
     return (

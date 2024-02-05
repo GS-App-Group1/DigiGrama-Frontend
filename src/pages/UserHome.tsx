@@ -140,6 +140,36 @@ const UserHomePage = ({
   const [error, setError] = useState("");
 
   useEffect(() => {
+    fetchUserRequestForNIC(nic, email, token)
+      .then((data) => {
+        setUserRequests(data);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch user requests:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (userRequests.length > 0) {
+      // Find the request with the latest timestamp
+      const latestRequest = userRequests.reduce((latest, current) => {
+        return new Date(latest.requestTime) > new Date(current.requestTime)
+          ? latest
+          : current;
+      });
+
+      setstatusData({
+        address: latestRequest.address,
+        occupation: latestRequest.presentOccupation,
+        civilStatus: latestRequest.civilStatus,
+        reason: latestRequest.reason,
+        gsNote: latestRequest.gsNote,
+        status: latestRequest.status,
+      });
+    }
+  }, [userRequests]); // Dependency array to ensure this runs only when userRequests changes
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const url = new URL(nicImageAPI.urls.download);
@@ -478,11 +508,11 @@ const UserHomePage = ({
             ) : (
               <UserStatus
                 isMobile={!isLargerThan768}
-                token={token}
+                // token={token}
                 nic={nic}
-                email={email}
+                // email={email}
                 statusdata={statusdata}
-                setstatusData={setstatusData}
+                // setstatusData={setstatusData}
               />
             )}
           </Box>
