@@ -249,16 +249,21 @@ const GramaHomePage = ({
         console.log(response);
         const data = response.data;
         // console.log(data.filter((request) => request.status === "pending"));
-        setPendingList(data.filter((request) => request.status === "pending"));
+        setPendingList(
+          data.filter((request) => request.status.toLowerCase() === "pending")
+        );
         setCompletedList(
-          data.filter((request) => request.status !== "pending")
+          data.filter((request) => request.status.toLowerCase() !== "pending")
         );
         setCurrentRequest(
-          data.filter((request) => request.status === "pending")[0]
+          data.filter(
+            (request) => request.status.toLowerCase() === "pending"
+          )[0]
         );
         setGsNote(
-          data.filter((request) => request.status === "pending")[0]?.gsNote ||
-            ""
+          data.filter(
+            (request) => request.status.toLowerCase() === "pending"
+          )[0]?.gsNote || ""
         );
 
         // console.log(pendingList);
