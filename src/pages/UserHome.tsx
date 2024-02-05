@@ -436,7 +436,8 @@ const UserHomePage = ({
             transform="scale(0.95)"
             _hover={{ transform: "scale(0.95)" }}
           >
-            {isApply ? (
+            {isApply &&
+            (statusdata.status === "pending" || statusdata.status === "") ? (
               <FormComponent
                 requestID={userRequests[0]?._id || ""}
                 token={token}
