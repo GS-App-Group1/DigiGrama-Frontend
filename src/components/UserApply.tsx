@@ -227,6 +227,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
 
   const handleApplyTest = async () => {
     setIsLoading(true);
+    setIsapplied(true);
     const reqId = uuidv4();
     console.log("reqId", reqId);
     try {
@@ -282,7 +283,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
       }
 
       setIsLoading(false);
-      setIsapplied(true);
+
       toast({
         title: `${status === "pending" ? "Update" : "Application"} Successful`,
         description: `Your application has been ${
