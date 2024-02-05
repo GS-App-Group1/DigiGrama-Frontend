@@ -260,7 +260,7 @@ function RequestDetails({
             />
           </FormControl>
 
-          {data.status === "pending" ? (
+          {data.status.toLowerCase() === "pending" ? (
             <HStack>
               <Button
                 bgColor="blue.500"
