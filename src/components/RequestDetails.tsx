@@ -159,7 +159,7 @@ function RequestDetails({
           {/* ... Form controls and other fields ... */}
           <FormControl id="status" marginTop={3}>
             <FormLabel>Status</FormLabel>
-            <Input type="text" value={data.status} readOnly />
+            <Input type="text" value={data.status.toLowerCase()} readOnly />
           </FormControl>
           <FormControl id="nic" marginTop={3}>
             <FormLabel>NIC</FormLabel>
