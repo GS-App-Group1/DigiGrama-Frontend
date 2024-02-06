@@ -8,6 +8,7 @@ import {
   Box,
   Text,
   useToast,
+  Select,
 } from "@chakra-ui/react";
 import { mainAPI } from "../data/api";
 import axios from "axios";
@@ -61,7 +62,11 @@ const FormComponent: React.FC<FormComponentProps> = ({
   const toast = useToast();
   const handleAddressChange = (e: ChangeEvent<HTMLInputElement>) =>
     setAddress(e.target.value);
-  const handleCivilStatusChange = (e: ChangeEvent<HTMLInputElement>) =>
+  // const handleCivilStatusChange = (e: ChangeEvent<HTMLInputElement>) =>
+  //   setCivilStatus(e.target.value);
+
+  // Update the function parameter type to ChangeEvent<HTMLSelectElement>
+  const handleCivilStatusChange = (e: ChangeEvent<HTMLSelectElement>) =>
     setCivilStatus(e.target.value);
   const handleOccupationChange = (e: ChangeEvent<HTMLInputElement>) =>
     setOccupation(e.target.value);
@@ -338,7 +343,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
           />
         </FormControl>
         <FormControl id="civilStatus">
-          <FormLabel fontSize={fontSize}>
+          {/* <FormLabel fontSize={fontSize}>
             <b>Civil Status</b>
           </FormLabel>
           <Input
@@ -347,7 +352,20 @@ const FormComponent: React.FC<FormComponentProps> = ({
             fontSize={fontSize}
             value={civilStatus}
             onChange={handleCivilStatusChange}
-          />
+          /> */}
+          <FormLabel fontSize={fontSize}>
+            <b>Civil Status</b>
+          </FormLabel>
+          <Select
+            placeholder="Select your civil status"
+            fontSize={fontSize}
+            value={civilStatus}
+            onChange={handleCivilStatusChange}
+          >
+            <option value="married">Married</option>
+            <option value="unmarried">Unmarried</option>
+            <option value="divorced">Divorced</option>
+          </Select>
         </FormControl>
         <FormControl id="occupation">
           <FormLabel fontSize={fontSize}>
