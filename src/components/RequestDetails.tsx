@@ -101,6 +101,33 @@ function RequestDetails({
     }
   };
 
+  const sendSMS = async (toMobile: string, text: string) => {
+    const url = `https://cf3a4176-54c9-4547-bcd6-c6fe400ad0d8-prod.e1-us-east-azure.choreoapis.dev/hbld/smsapi/sms-api-7af/v1/notify?toMobile=${encodeURIComponent(
+      toMobile
+    )}&text=${encodeURIComponent(text)}`;
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          Accept: "*/*",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("SMS sent successfully:", data);
+      return data;
+    } catch (error) {
+      console.error("Error sending SMS:", error);
+      throw error;
+    }
+  };
+
   const updateGsNote = async (params: UpdateGSNoteParams) => {
     setIsLoading(true);
     try {
@@ -296,6 +323,7 @@ function RequestDetails({
                     email: data.email,
                     status: "accepted",
                   });
+                  sendSMS("+94783771983", "Your application has been accepted");
                 }}
                 _focus={{
                   outline: "none",
@@ -316,6 +344,7 @@ function RequestDetails({
                     email: data.email,
                     status: "rejected",
                   });
+                  sendSMS("+94783771983", "Your application has been rejected");
                 }}
                 _focus={{
                   outline: "none",

@@ -24,6 +24,7 @@ const config = {
     "urn:interns:mainservicetcfmainapi:User",
     "urn:interns:mainservicetcfmainapi:Admin",
     "urn:interns:identityapizttidentityapi:Admin",
+    "urn:interns:smsapi:Admin",
     // "urn:interns:nicimageapinzrnicimagesap:Admin",
     // "urn:interns:nicimageapinzrnicimagesap:User",
   ],
