@@ -35,6 +35,7 @@ type RequestDetailsProps = {
   identityFromNIC: identity | null;
   crimes: number;
   gsNote: string;
+  setGsNote: (arg: string) => void;
   handleGsNoteChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleClick: (arg: string) => void;
 };
@@ -47,6 +48,7 @@ function RequestDetails({
   identityFromNIC,
   handleClick,
   gsNote,
+  setGsNote,
   handleGsNoteChange,
 }: RequestDetailsProps) {
   const [responseMessage, setResponseMessage] = useState<string | null>(null);
@@ -268,6 +270,7 @@ function RequestDetails({
                 margin={5}
                 isLoading={isLoading}
                 onClick={() => {
+                  setGsNote("");
                   updateGsNote({
                     nic: data.nic,
                     email: data.email,
@@ -279,7 +282,7 @@ function RequestDetails({
                 }}
               >
                 <Text color="white">
-                  <b>Update Note</b>
+                  <b>Add Note</b>
                 </Text>
               </Button>
               <Button

@@ -516,6 +516,7 @@ const GramaHomePage = ({
               data={currentRequest}
               crimes={crimesCount}
               dbAddress={dbAddress}
+              setGsNote={setGsNote}
               identityFromNIC={identity}
               gsNote={gsNote}
               handleGsNoteChange={handleGsNoteChange}
